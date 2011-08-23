@@ -1,0 +1,14 @@
+--- linux-2.6.32/net/bridge/br_stp_if.c.org	2010-01-15 09:38:09.000000000 +0100
++++ linux-2.6.32/net/bridge/br_stp_if.c	2010-01-15 09:38:57.000000000 +0100
+@@ -219,10 +219,7 @@ void br_stp_recalculate_bridge_id(struct
+ 		return;
+ 
+ 	list_for_each_entry(p, &br->port_list, list) {
+-		if (addr == br_mac_zero ||
+-		    memcmp(p->dev->dev_addr, addr, ETH_ALEN) < 0)
+-			addr = p->dev->dev_addr;
+-
++	        addr = p->dev->dev_addr;
+ 	}
+ 
+ 	if (compare_ether_addr(br->bridge_id.addr, addr))

@@ -1,0 +1,94 @@
+KERNEL SOURCE:
+==============
+
+We use the OpenVZ Kernel sources, available from:
+
+http://download.openvz.org/kernel/branches/rhel6-2.6.32/
+
+
+Additional/Updated Modules:
+---------------------------
+
+- we use bootsplash to display the boot logo.
+
+- include latest AoE driver (http://support.coraid.com/support/linux)
+
+- include latest ixgbe driver from intel/sourceforge
+
+- include latest igb driver from intel/sourceforge
+
+- include latest e1000e driver from intel/sourceforge
+
+- include update for ARECA RAID cards
+
+  * ftp://ftp.areca.com.tw/RaidCards/AP_Drivers/Linux/DRIVER/SourceCode/arcmsr.1.20.0X.15-110330.zip
+
+FIRMWARE:
+=========
+
+We create our own firmware package, which includes the firmware for
+all proxmox-ve kernels. So far this include
+
+pve-kernel-2.6.18
+pve-kernel-2.6.24
+pve-kernel-2.6.32
+pve-kernel-2.6.35
+
+We use 'find-firmware.pl' to extract lists of required firmeware
+files.  The script 'assemble-firmware.pl' is used to read those lists
+and copy the files from various source directory into a target
+directory.
+
+We do not include firmeware for some wireless HW when there is a
+separate debian package for that, for example:
+
+zd1211-firmware
+atmel-firmware
+bluez-firmware 
+
+
+PATCHES:
+--------
+
+ bootsplash-3.1.9-2.6.31-rh.patch: bootsplash patch
+
+ bridge-patch.diff: Avoid bridge problems with changing MAC
+  see also: http://forum.openvz.org/index.php?t=msg&th=5291
+
+  Behaviour after 2.6.27 has changed slighly - after setting mac address
+  of bridge device, then address won't change. So we could omit
+  that patch, requiring to set hwaddress in /etc/network/interfaces.
+
+ SCSI-aacraid-Add-PMC-Sierra-SRC-based-controller.patch: aacraid update
+
+
+Additional information
+----------------------
+
+We use the default configuration provided by openvz, and apply
+the following modification:
+
+see config-2.6.32.diff
+
+- enable bootsplash 
+	CONFIG_FB_VESA=y 
+	CONFIG_FRAMEBUFFER_CONSOLE=Y 
+	CONFIG_BOOTSPLASH=y
+
+- disable CONFIG_DEBUG_INFO
+
+- disable CONFIG_PRINTK_TIME
+
+- enable common CONFIG_BLK_DEV_XXX to avoid hardware detection
+  problems (udev, undate-initramfs hav serious problems without that)
+
+  	 CONFIG_BLK_DEV_SD=y
+  	 CONFIG_BLK_DEV_SR=y
+  	 CONFIG_BLK_DEV_DM=y
+
+
+Testing final kernel with kvm
+-----------------------------
+
+kvm -kernel data/boot/vmlinuz-2.6.32-6-pve -initrd initrd.img-2.6.32-6-pve -append "vga=791 video=vesafb:ywrap,mtrr splash=silent" /dev/zero
+

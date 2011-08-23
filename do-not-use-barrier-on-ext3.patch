@@ -1,0 +1,11 @@
+--- linux-2.6-2.6.32/fs/ext3/super.c.org	2011-06-24 13:51:47.000000000 +0200
++++ linux-2.6-2.6.32/fs/ext3/super.c	2011-06-24 13:52:01.000000000 +0200
+@@ -1698,8 +1698,6 @@
+ 	else
+ 		set_opt(sbi->s_mount_opt, ERRORS_RO);
+ 
+-	set_opt(sbi->s_mount_opt, BARRIER);
+-
+ 	sbi->s_resuid = le16_to_cpu(es->s_def_resuid);
+ 	sbi->s_resgid = le16_to_cpu(es->s_def_resgid);
+ 

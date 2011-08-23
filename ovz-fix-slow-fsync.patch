@@ -1,0 +1,42 @@
+cfq: allow cross group sync noidle preemption
+
+From: Konstantin Khlebnikov <khlebnikov@openvz.org>
+
+http://bugzilla.openvz.org/show_bug.cgi?id=1913
+
+Signed-off-by: Konstantin Khlebnikov <khlebnikov@openvz.org>
+---
+ block/cfq-iosched.c |   14 +++++++-------
+ 1 files changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/block/cfq-iosched.c b/block/cfq-iosched.c
+index b4cf30b..9d80168 100644
+--- a/block/cfq-iosched.c
++++ b/block/cfq-iosched.c
+@@ -3273,19 +3273,19 @@ cfq_should_preempt(struct cfq_data *cfqd, struct cfq_queue *new_cfqq,
+ 	if (rq_is_sync(rq) && !cfq_cfqq_sync(cfqq))
+ 		return true;
+ 
+-	if (new_cfqq->cfqg != cfqq->cfqg)
+-		return false;
+-
+-	if (cfq_slice_used(cfqq))
+-		return true;
+-
+ 	/* Allow preemption only if we are idling on sync-noidle tree */
+ 	if (cfqd->serving_type == SYNC_NOIDLE_WORKLOAD &&
+ 	    cfqq_type(new_cfqq) == SYNC_NOIDLE_WORKLOAD &&
+-	    new_cfqq->service_tree->count == 2 &&
++	    new_cfqq->service_tree->count == 1 + (new_cfqq->cfqg == cfqq->cfqg) &&
+ 	    RB_EMPTY_ROOT(&cfqq->sort_list))
+ 		return true;
+ 
++	if (new_cfqq->cfqg != cfqq->cfqg)
++		return false;
++
++	if (cfq_slice_used(cfqq))
++		return true;
++
+ 	/*
+ 	 * So both queues are sync. Let the new request get disk time if
+ 	 * it's a metadata request and the current queue is doing regular IO.

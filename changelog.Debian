@@ -1,0 +1,319 @@
+pve-kernel-2.6.32 (2.6.32-41) unstable; urgency=low
+
+  * update to vzkernel-2.6.32-042stab029.1.src.rpm
+
+ -- Proxmox Support Team <support@proxmox.com>  Tue, 09 Aug 2011 08:33:39 +0200
+
+pve-kernel-2.6.32 (2.6.32-40) unstable; urgency=low
+
+  * update to vzkernel-2.6.32-042stab025.1.src.rpm
+
+ -- Proxmox Support Team <support@proxmox.com>  Thu, 04 Aug 2011 12:15:27 +0200
+
+pve-kernel-2.6.32 (2.6.32-39) unstable; urgency=low
+
+  * update to vzkernel-2.6.32-042stab024.1.src.rpm
+  
+  * update e1000e to 1.4.4
+
+ -- Proxmox Support Team <support@proxmox.com>  Wed, 03 Aug 2011 08:08:10 +0200
+
+pve-kernel-2.6.32 (2.6.32-38) unstable; urgency=low
+
+  * update to vzkernel-2.6.32-042stab021.1.src.rpm
+
+  * enable CONFIG_DRM_RADEON_KMS and CONFIG_DRM_I915_KMS again, seems X11
+    needs that.
+  
+  * remove ovz-fix-slow-fsync.patch (already in upstream)
+
+ -- Proxmox Support Team <support@proxmox.com>  Tue, 19 Jul 2011 10:30:28 +0200
+
+pve-kernel-2.6.32 (2.6.32-37) unstable; urgency=low
+
+  * copied from trunk, make it work on squeeze
+
+ -- Proxmox Support Team <support@proxmox.com>  Fri, 24 Jun 2011 12:49:10 +0200
+
+pve-kernel-2.6.32 (2.6.32-36) unstable; urgency=low
+
+  * use kernel from OpenVZ project as base
+  
+  * update AOE drover to aoe6-77.tar.gz  
+
+  * remove bnx2 custom driver - use driver provided by kernel
+  
+  * include ovz-fix-slow-fsync.patch
+  
+  * removed SCST support
+    
+ -- Proxmox Support Team <support@proxmox.com>  Fri, 24 Jun 2011 08:01:39 +0200
+
+pve-kernel-2.6.32 (2.6.32-35) unstable; urgency=low
+
+  * fix register corruption in pvclock_scale_delta
+
+ -- Proxmox Support Team <support@proxmox.com>  Wed, 22 Jun 2011 10:55:29 +0200
+
+pve-kernel-2.6.32 (2.6.32-34) unstable; urgency=low
+
+  * update to debian squeeze kernel 2.6.32-35
+  
+  * update ARECA RAID driver
+  
+  * enable HP Smart Array SCSI driver SCSI_HPSA=m
+  
+  * enable PMC-Sierra SPC 8001 SAS/SATA SCSI_PM8001=m
+  
+  * enbale Brocade 1010/1020 10Gb Ethernet BNA=m
+  
+  * add Brocade firmware
+  
+  * update bnx2 drivers
+  
+  * update e1000e driver to 1.3.17
+  
+  * update igb to 3.0.22
+  
+  * update ixgbe to 3.3.9
+  
+  * fix applydebpatches.pl: include ${rev}squeeze1 series patches
+ 
+ -- Proxmox Support Team <support@proxmox.com>  Fri, 17 Jun 2011 07:39:07 +0200
+
+pve-kernel-2.6.32 (2.6.32-33) unstable; urgency=low
+
+  *  update to debian squeeze kernel 2.6.32-34
+
+ -- Proxmox Support Team <support@proxmox.com>  Mon, 09 May 2011 12:40:43 +0200
+
+pve-kernel-2.6.32 (2.6.32-32) unstable; urgency=low
+
+  * update to debian squeeze kernel 2.6.32-32
+
+ -- Proxmox Support Team <support@proxmox.com>  Tue, 29 Mar 2011 08:47:03 +0200
+
+pve-kernel-2.6.32 (2.6.32-31) unstable; urgency=low
+
+  * update to debian squeeze kernel 2.6.32-31
+  
+  * remove patch use-init-task-credential.patch (fixed in upstream)
+  
+  * enable CONFIG_SENSORS_K10TEMP=m
+
+ -- Proxmox Support Team <support@proxmox.com>  Tue, 08 Mar 2011 06:18:31 +0100
+
+pve-kernel-2.6.32 (2.6.32-30) unstable; urgency=low
+
+  * update to debian squeeze kernel 2.6.32-29
+
+ -- Proxmox Support Team <support@proxmox.com>  Wed, 15 Dec 2010 13:43:52 +0100
+
+pve-kernel-2.6.32 (2.6.32-29) unstable; urgency=low
+
+  * udpate e1000e driver to 1.2.20
+
+ -- Proxmox Support Team <support@proxmox.com>  Fri, 03 Dec 2010 06:15:13 +0100
+
+pve-kernel-2.6.32 (2.6.32-28) unstable; urgency=low
+
+  * upgarde to debian squeeze kernel 2.6.32-28 (openvz 2.6.32-dzhanibekov) 
+  
+  * update igb driver to version 2.4.8
+  
+  * update ixgbe driver to version 3.0.14
+
+ -- Proxmox Support Team <support@proxmox.com>  Fri, 26 Nov 2010 05:31:10 +0100
+
+pve-kernel-2.6.32 (2.6.32-27) unstable; urgency=low
+
+  * add fix for http://bugzilla.openvz.org/show_bug.cgi?id=1634
+
+ -- Proxmox Support Team <support@proxmox.com>  Mon, 15 Nov 2010 07:09:03 +0100
+
+pve-kernel-2.6.32 (2.6.32-26) unstable; urgency=low
+
+  * upgarde to debian squeeze kernel 2.6.32-27
+
+ -- Proxmox Support Team <support@proxmox.com>  Thu, 04 Nov 2010 08:46:45 +0100
+
+pve-kernel-2.6.32 (2.6.32-25) unstable; urgency=low
+
+  * upgarde to debian squeeze kernel 2.6.32-26
+  
+  * update config (original debian config now includes ISDN4LINUX)
+
+  * enable CONFIG_NF_CONNTRACK_IPV6
+
+  * install latest igb driver (igb-2.3.4.tar.gz)
+
+ -- Proxmox Support Team <support@proxmox.com>  Thu, 21 Oct 2010 08:51:01 +0200
+
+pve-kernel-2.6.32 (2.6.32-24) unstable; urgency=low
+
+  * include fix for OpenVZ bug #1603
+
+ -- Proxmox Support Team <support@proxmox.com>  Fri, 15 Oct 2010 09:30:30 +0200
+
+pve-kernel-2.6.32 (2.6.32-23) unstable; urgency=low
+
+  * ixgbe driver update (3.0.12)
+
+ -- Proxmox Support Team <support@proxmox.com>  Tue, 12 Oct 2010 08:11:35 +0200
+
+pve-kernel-2.6.32 (2.6.32-22) unstable; urgency=low
+
+  * upgarde to debian squeeze kernel 2.6.32-24 (OpenVZ 2.6.32-dyomin)
+
+  * strip debug info
+
+  * remove default initrd image (no longer needed)
+
+ -- Proxmox Support Team <support@proxmox.com>  Fri, 08 Oct 2010 09:27:20 +0200
+
+pve-kernel-2.6.32 (2.6.32-21) unstable; urgency=low
+
+  * do not set CONFIG_DMAR_DEFAULT_ON
+
+ -- Proxmox Support Team <support@proxmox.com>  Thu, 07 Oct 2010 10:43:55 +0200
+
+pve-kernel-2.6.32 (2.6.32-20) unstable; urgency=low
+
+  * enable CAPIDRV module
+
+ -- Proxmox Support Team <support@proxmox.com>  Tue, 05 Oct 2010 09:28:24 +0200
+
+pve-kernel-2.6.32 (2.6.32-19) unstable; urgency=low
+
+  * include latest broadcom bnx2, bnx2x drivers
+
+ -- Proxmox Support Team <support@proxmox.com>  Mon, 20 Sep 2010 10:56:45 +0200
+
+pve-kernel-2.6.32 (2.6.32-18) unstable; urgency=low
+
+  * fix previous fix: see http://sota.gen.nz/compat1/ and
+    http://sota.gen.nz/compat2/ (security-fix2.patch)
+
+ -- Proxmox Support Team <support@proxmox.com>  Fri, 17 Sep 2010 17:29:28 +0200
+
+pve-kernel-2.6.32 (2.6.32-17) unstable; urgency=low
+
+  * fix CVE-2010-3081 kernel (security-fix1.patch)
+  
+ -- Proxmox Support Team <support@proxmox.com>  Fri, 17 Sep 2010 15:42:14 +0200
+
+pve-kernel-2.6.32 (2.6.32-16) unstable; urgency=low
+
+  * include latest ixgbe driver
+
+ -- Proxmox Support Team <support@proxmox.com>  Fri, 17 Sep 2010 13:58:44 +0200
+
+pve-kernel-2.6.32 (2.6.32-15) unstable; urgency=low
+
+  * update to debian kernel 2.6.32-22
+
+ -- Proxmox Support Team <support@proxmox.com>  Wed, 15 Sep 2010 11:55:18 +0200
+
+pve-kernel-2.6.32 (2.6.32-14) unstable; urgency=low
+
+  * fix dependency for pve-headers (depend on pve-kernel)
+  
+  * enable common block devices (do not compile them as modules to avoid
+    problems with udev and update-initramfs)
+
+ -- Proxmox Support Team <support@proxmox.com>  Tue, 07 Sep 2010 08:12:15 +0200
+
+pve-kernel-2.6.32 (2.6.32-13) unstable; urgency=low
+
+  * carefully include a needed firmware files
+
+ -- Proxmox Support Team <support@proxmox.com>  Fri, 03 Sep 2010 12:26:59 +0200
+
+pve-kernel-2.6.32 (2.6.32-12) unstable; urgency=low
+
+  * change scheduler back to cfg - apply OpenVZ fix
+
+ -- Proxmox Support Team <support@proxmox.com>  Wed, 01 Sep 2010 16:30:23 +0200
+
+pve-kernel-2.6.32 (2.6.32-11) unstable; urgency=low
+
+  * upgarde to debian squeeze kernel 2.6.32-21
+  
+  * change scheduler to 'deadline' (avoid OpenVZ bug)
+  
+  * disable KSM (seems OpenVZ will not support KSM)
+
+ -- Proxmox Support Team <support@proxmox.com>  Mon, 30 Aug 2010 10:37:31 +0200
+
+pve-kernel-2.6.32 (2.6.32-10) unstable; urgency=low
+
+  * upgarde to debian squeeze kernel 2.6.32-19
+
+ -- Proxmox Support Team <support@proxmox.com>  Fri, 06 Aug 2010 12:50:26 +0200
+
+pve-kernel-2.6.32 (2.6.32-9) unstable; urgency=low
+
+  * upgarde to debian squeeze kernel with openvz support (2.6.32-18)
+  
+  * removed DRBD code, because a backport was already included by debian.
+  
+  * add qlogic firmware to default initrd image 
+  
+  * create a firmware package using data from
+    git://git.kernel.org/pub/scm/linux/kernel/git/dwmw2/linux-firmware.git
+
+ -- Proxmox Support Team <support@proxmox.com>  Tue, 03 Aug 2010 13:14:22 +0200
+
+pve-kernel-2.6.32 (2.6.32-8) unstable; urgency=low
+
+  * Support DMA Remapping Devices (CONFIG_DMAR=y, CONFIG_DMAR_DEFAULT_ON=y)
+
+  * Also enable CONFIG_HAVE_INTEL_TXT and CONFIG_INTEL_TXT (required by
+  DMAR options)	
+  
+ -- Proxmox Support Team <support@proxmox.com>  Tue, 25 May 2010 12:34:31 +0200
+
+pve-kernel-2.6.32 (2.6.32-7) unstable; urgency=low
+
+  * update to Ubuntu-2.6.32-21.31
+
+ -- Proxmox Support Team <support@proxmox.com>  Thu, 15 Apr 2010 09:24:41 +0200
+
+pve-kernel-2.6.32 (2.6.32-6) unstable; urgency=low
+
+  * set CONFIG_DLM_DEBUG=y
+
+ -- Proxmox Support Team <support@proxmox.com>  Mon, 08 Feb 2010 13:17:42 +0100
+
+pve-kernel-2.6.32 (2.6.32-5) unstable; urgency=low
+
+  * fix header package - include all arch/x86 files 
+
+ -- Proxmox Support Team <support@proxmox.com>  Tue, 02 Feb 2010 10:53:51 +0100
+
+pve-kernel-2.6.32 (2.6.32-4) unstable; urgency=low
+
+  * avoid bridge problems with: bridge-patch.diff
+  
+  * enable CONFIG_USER_NS=y for lxc
+
+ -- Proxmox Support Team <support@proxmox.com>  Fri, 15 Jan 2010 09:44:13 +0100
+
+pve-kernel-2.6.32 (2.6.32-3) unstable; urgency=low
+
+  * CONFIG_PCI_STUB=y
+
+ -- Proxmox Support Team <support@proxmox.com>  Thu, 07 Jan 2010 12:48:47 +0100
+
+pve-kernel-2.6.32 (2.6.32-2) unstable; urgency=low
+
+  * add busybox dependency (required by initramfs-tools)
+
+ -- Proxmox Support Team <support@proxmox.com>  Wed, 23 Dec 2009 08:55:37 +0100
+
+pve-kernel-2.6.32 (2.6.32-1) stable; urgency=low
+
+  * initial release
+
+ -- Proxmox Support Team <support@proxmox.com>  Fri, 11 Dec 2009 13:20:29 +0100
+

@@ -1,0 +1,11 @@
+Package: pve-firmware
+Version: @VERSION@
+Section: misc
+Priority: optional
+Architecture: all
+Suggests: linux-image
+Conflicts: firmware-linux-free, firmware-linux-nonfree 
+Maintainer: Proxmox Support Team <support@proxmox.com>
+Description: Binary firmware code for the pve-kernel
+ This package contains the binary firmware for various modules used in
+ the pve-kernel.
