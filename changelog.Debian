@@ -1,3 +1,9 @@
+pve-kernel-2.6.32 (2.6.32-43) unstable; urgency=low
+
+  * backport patches for dlm
+
+ -- Proxmox Support Team <support@proxmox.com>  Thu, 25 Aug 2011 10:35:05 +0200
+
 pve-kernel-2.6.32 (2.6.32-42) unstable; urgency=low
 
   * update to vzkernel-2.6.32-042stab033.1.src.rpm

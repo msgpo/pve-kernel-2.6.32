@@ -1,7 +1,7 @@
 RELEASE=2.0
 
 KERNEL_VER=2.6.32
-PKGREL=42
+PKGREL=43
 # also include firmware of previous versrion into 
 # the fw package:  fwlist-2.6.32-PREV-pve
 KREL=6
@@ -102,10 +102,10 @@ data: .compile_mark ${KERNEL_CFG} arcmsr.ko aoe.ko e1000e.ko igb.ko ixgbe.ko
 	install -m 644 e1000e.ko tmp/lib/modules/${KVNAME}/kernel/drivers/net/e1000e/
 	# install latest ibg driver
 	install -m 644 igb.ko tmp/lib/modules/${KVNAME}/kernel/drivers/net/igb/
-	# install bnx2 and tg3 drivers
+	# install bnx2 drivers
 	#install -m 644 bnx2.ko tmp/lib/modules/${KVNAME}/kernel/drivers/net/
-	#install -m 644 bnx2x.ko tmp/lib/modules/${KVNAME}/kernel/drivers/net/
 	#install -m 644 cnic.ko tmp/lib/modules/${KVNAME}/kernel/drivers/net/
+	#install -m 644 bnx2x.ko tmp/lib/modules/${KVNAME}/kernel/drivers/net/bnx2x/
 	# install areca driver
 	install -m 644 arcmsr.ko tmp/lib/modules/${KVNAME}/kernel/drivers/scsi/arcmsr/
 	# remove firmware
@@ -124,7 +124,7 @@ data: .compile_mark ${KERNEL_CFG} arcmsr.ko aoe.ko e1000e.ko igb.ko ixgbe.ko
 
 ${KERNEL_CFG}: ${KERNEL_CFG_ORG} config-${KERNEL_VER}.diff
 	cp ${KERNEL_CFG_ORG} ${KERNEL_CFG}.new
-	patch ${KERNEL_CFG}.new config-${KERNEL_VER}.diff
+	patch --no-backup ${KERNEL_CFG}.new config-${KERNEL_VER}.diff
 	mv ${KERNEL_CFG}.new ${KERNEL_CFG}
 
 ${KERNEL_SRC}/README: ${KERNEL_SRC}.org/README
@@ -136,6 +136,16 @@ ${KERNEL_SRC}/README: ${KERNEL_SRC}.org/README
 	cd ${KERNEL_SRC}; patch -p1 <../SCSI-aacraid-Add-PMC-Sierra-SRC-based-controller.patch
 	cd ${KERNEL_SRC}; patch -p1 <../fix-register-corruption-in-pvclock-scale-delta.patch
 	cd ${KERNEL_SRC}; patch -p1 <../bridge-patch.diff
+	# backport dlm fixes form linux 3.y (those are include in RHEL 6.2)
+	cd ${KERNEL_SRC}; patch -p1 <../dlm-Make-DLM-depend-on-CONFIGFS_FS.patch	
+	cd ${KERNEL_SRC}; patch -p1 <../dlm-increase-default-hash-table-sizes.patch
+	cd ${KERNEL_SRC}; patch -p1 <../dlm-Use-cmwq-for-send-and-receive-workqueues.patch
+	cd ${KERNEL_SRC}; patch -p1 <../dlm-sanitize-work_start-in-lowcomms.c.patch
+	cd ${KERNEL_SRC}; patch -p1 <../dlm-use-single-thread-workqueues.patch
+	cd ${KERNEL_SRC}; patch -p1 <../dlm-Remove-superfluous-call-to-recalc_sigpending.patch
+	cd ${KERNEL_SRC}; patch -p1 <../dlm-delayed-reply-message-warning.patch
+	cd ${KERNEL_SRC}; patch -p1 <../dlm-remove-shared-message-stub-for-recovery.patch
+	cd ${KERNEL_SRC}; patch -p1 <../dlm-make-plock-operation-killable.patch
 	#cd ${KERNEL_SRC}; patch -p1 <../ovz-fix-slow-fsync.patch
 	sed -i ${KERNEL_SRC}/Makefile -e 's/^EXTRAVERSION.*$$/EXTRAVERSION=${EXTRAVERSION}/'
 	touch $@
@@ -276,5 +286,7 @@ distclean: clean
 .PHONY: clean
 clean:
 	rm -rf *~ .compile_mark ${KERNEL_CFG} ${KERNEL_SRC} tmp data proxmox-ve/data *.deb ${AOEDIR} aoe.ko ${headers_tmp} fwdata fwlist.tmp *.ko ${IXGBEDIR} ${E1000EDIR} e1000e.ko ${IGBDIR} igb.ko fwlist-${KVNAME} ${ARECADIR} arcmsr.ko
+
+
 
 

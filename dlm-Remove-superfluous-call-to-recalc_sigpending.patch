@@ -1,0 +1,29 @@
+From 4bcad6c1ef53a9a0224f4654ceb3b9030d0769ec Mon Sep 17 00:00:00 2001
+From: Matt Fleming <matt.fleming@linux.intel.com>
+Date: Thu, 24 Mar 2011 13:56:47 +0000
+Subject: [PATCH 1/1] dlm: Remove superfluous call to recalc_sigpending()
+
+recalc_sigpending() is called within sigprocmask(), so there is no
+need call it again after sigprocmask() has returned.
+
+Signed-off-by: Matt Fleming <matt.fleming@linux.intel.com>
+Signed-off-by: David Teigland <teigland@redhat.com>
+---
+ fs/dlm/user.c |    1 -
+ 1 files changed, 0 insertions(+), 1 deletions(-)
+
+diff --git a/fs/dlm/user.c b/fs/dlm/user.c
+index d5ab3fe..e96bf3e 100644
+--- a/fs/dlm/user.c
++++ b/fs/dlm/user.c
+@@ -611,7 +611,6 @@ static ssize_t device_write(struct file *file, const char __user *buf,
+ 
+  out_sig:
+ 	sigprocmask(SIG_SETMASK, &tmpsig, NULL);
+-	recalc_sigpending();
+  out_free:
+ 	kfree(kbuf);
+ 	return error;
+-- 
+1.7.2.5
+

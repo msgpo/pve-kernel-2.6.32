@@ -1,0 +1,34 @@
+From e3853a90e218bcb2e48d3f403d0962bf54444f5f Mon Sep 17 00:00:00 2001
+From: David Teigland <teigland@redhat.com>
+Date: Thu, 10 Mar 2011 13:07:17 -0600
+Subject: [PATCH 1/1] dlm: increase default hash table sizes
+
+Make all three hash tables a consistent size of 1024
+rather than 1024, 512, 256.  All three tables, for
+resources, locks, and lock dir entries, will generally
+be filled to the same order of magnitude.
+
+Signed-off-by: David Teigland <teigland@redhat.com>
+---
+ fs/dlm/config.c |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/fs/dlm/config.c b/fs/dlm/config.c
+index b54bca0..0d329ff 100644
+--- a/fs/dlm/config.c
++++ b/fs/dlm/config.c
+@@ -977,9 +977,9 @@ int dlm_our_addr(struct sockaddr_storage *addr, int num)
+ /* Config file defaults */
+ #define DEFAULT_TCP_PORT       21064
+ #define DEFAULT_BUFFER_SIZE     4096
+-#define DEFAULT_RSBTBL_SIZE      256
++#define DEFAULT_RSBTBL_SIZE     1024
+ #define DEFAULT_LKBTBL_SIZE     1024
+-#define DEFAULT_DIRTBL_SIZE      512
++#define DEFAULT_DIRTBL_SIZE     1024
+ #define DEFAULT_RECOVER_TIMER      5
+ #define DEFAULT_TOSS_SECS         10
+ #define DEFAULT_SCAN_SECS          5
+-- 
+1.7.2.5
+
