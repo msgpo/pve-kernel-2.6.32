@@ -1,3 +1,9 @@
+pve-kernel-2.6.32 (2.6.32-44) unstable; urgency=low
+
+  * include latest bnx2 drivers
+
+ -- Proxmox Support Team <support@proxmox.com>  Thu, 25 Aug 2011 14:51:06 +0200
+
 pve-kernel-2.6.32 (2.6.32-43) unstable; urgency=low
 
   * backport patches for dlm
