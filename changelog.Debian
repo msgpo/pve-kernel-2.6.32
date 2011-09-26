@@ -6,6 +6,8 @@ pve-kernel-2.6.32 (2.6.32-46) unstable; urgency=low
 
   * update ixgbe driver to 3.5.14
   
+  * update to vzkernel-2.6.32-042stab037.1.src.rpm
+  
  -- Proxmox Support Team <support@proxmox.com>  Mon, 26 Sep 2011 08:48:39 +0200
 
 pve-kernel-2.6.32 (2.6.32-45) unstable; urgency=low
