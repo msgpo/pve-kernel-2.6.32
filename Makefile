@@ -137,7 +137,11 @@ ${KERNEL_SRC}/README: ${KERNEL_SRC}.org/README
 	cd ${KERNEL_SRC}; patch -p1 <../dlm-delayed-reply-message-warning.patch
 	cd ${KERNEL_SRC}; patch -p1 <../dlm-remove-shared-message-stub-for-recovery.patch
 	cd ${KERNEL_SRC}; patch -p1 <../dlm-make-plock-operation-killable.patch
-	#cd ${KERNEL_SRC}; patch -p1 <../ovz-fix-slow-fsync.patch
+	# update ata_generic to support intel IDE-R
+	cd ${KERNEL_SRC}; patch -p1 <../ahci-ata_generic-let-ata_generic-handle-new-MBP-w-MCP89.patch
+	cd ${KERNEL_SRC}; patch -p1 <../ata_generic-implement-ATA_GEN_-flags-and-force-enable-DMA-on-MBP-7,1.patch
+	cd ${KERNEL_SRC}; patch -p1 <../ata_generic-drop-hard-coded-DMA-force-logic-for-CENATEK.patch
+	cd ${KERNEL_SRC}; patch -p1 <../ata-Intel-IDE-R-support.patch
 	sed -i ${KERNEL_SRC}/Makefile -e 's/^EXTRAVERSION.*$$/EXTRAVERSION=${EXTRAVERSION}/'
 	touch $@
 
