@@ -13,7 +13,9 @@ pve-kernel-2.6.32 (2.6.32-46) unstable; urgency=low
 
   * remove fix-register-corruption-in-pvclock-scale-delta.patch (now in
     upstream)
- 
+
+  * use bnx2 from upstream
+  
  -- Proxmox Support Team <support@proxmox.com>  Mon, 26 Sep 2011 08:48:39 +0200
 
 pve-kernel-2.6.32 (2.6.32-45) unstable; urgency=low

@@ -23,14 +23,6 @@ Additional/Updated Modules:
 
   * ftp://ftp.areca.com.tw/RaidCards/AP_Drivers/Linux/DRIVER/SourceCode/arcmsr.1.20.0X.15-110330.zip
 
-- include latest broadcom bnx2 drivers
-        
-  * original file linux-6.2.23.zip contains
-    netxtreme2-6.2.23.tar.gz (added to repository)
-
-  NOTE: we do not install the bnx2x driver, because it does not compile
-  with recent kernels
-
 FIRMWARE:
 =========
 

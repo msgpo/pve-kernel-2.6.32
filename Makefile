@@ -40,9 +40,6 @@ IGBSRC=${IGBDIR}.tar.gz
 IXGBEDIR=ixgbe-3.5.14
 IXGBESRC=${IXGBEDIR}.tar.gz
 
-BNX2DIR=netxtreme2-6.2.23
-BNX2SRC=${BNX2DIR}.tar.gz
-
 ARECADIR=arcmsr.1.20.0X.15-110330
 ARECASRC=${ARECADIR}.zip
 
@@ -87,7 +84,7 @@ fwlist-${KVNAME}: data
 	./find-firmware.pl data/lib/modules/${KVNAME} >fwlist.tmp
 	mv fwlist.tmp $@
 
-data: .compile_mark ${KERNEL_CFG} arcmsr.ko aoe.ko e1000e.ko igb.ko ixgbe.ko bnx2.ko cnic.ko
+data: .compile_mark ${KERNEL_CFG} arcmsr.ko aoe.ko e1000e.ko igb.ko ixgbe.ko
 	rm -rf data tmp; mkdir -p tmp/lib/modules/${KVNAME}
 	mkdir tmp/boot
 	install -m 644 ${KERNEL_CFG} tmp/boot/config-${KVNAME}
@@ -102,10 +99,6 @@ data: .compile_mark ${KERNEL_CFG} arcmsr.ko aoe.ko e1000e.ko igb.ko ixgbe.ko bnx
 	install -m 644 e1000e.ko tmp/lib/modules/${KVNAME}/kernel/drivers/net/e1000e/
 	# install latest ibg driver
 	install -m 644 igb.ko tmp/lib/modules/${KVNAME}/kernel/drivers/net/igb/
-	# install bnx2 drivers
-	install -m 644 bnx2.ko tmp/lib/modules/${KVNAME}/kernel/drivers/net/
-	install -m 644 cnic.ko tmp/lib/modules/${KVNAME}/kernel/drivers/net/
-	#install -m 644 bnx2x.ko tmp/lib/modules/${KVNAME}/kernel/drivers/net/bnx2x/
 	# install areca driver
 	install -m 644 arcmsr.ko tmp/lib/modules/${KVNAME}/kernel/drivers/scsi/arcmsr/
 	# remove firmware
@@ -193,14 +186,6 @@ ixgbe.ko ixgbe: ${IXGBESRC}
 	cd ${IXGBEDIR}/src; make CFLAGS_EXTRA="-DIXGBE_NO_LRO" BUILD_KERNEL=${KVNAME}
 	cp ${IXGBEDIR}/src/ixgbe.ko ixgbe.ko
 
-bnx2.ko cnic.ko: ${BNX2SRC}
-	rm -rf ${BNX2DIR}
-	tar xf ${BNX2SRC}
-	mkdir -p /lib/modules/${KVNAME}
-	ln -sf ${TOP}/${KERNEL_SRC} /lib/modules/${KVNAME}/build
-	cd ${BNX2DIR}; make -C bnx2/src KVER=${KVNAME}
-	cp `find ${BNX2DIR} -name bnx2.ko -o -name cnic.ko` .
-
 arcmsr.ko: ${ARECASRC}
 	rm -rf ${ARECADIR}
 	unzip ${ARECASRC}
@@ -283,7 +268,7 @@ distclean: clean
 
 .PHONY: clean
 clean:
-	rm -rf *~ .compile_mark ${KERNEL_CFG} ${KERNEL_SRC} tmp data proxmox-ve/data *.deb ${AOEDIR} aoe.ko ${headers_tmp} fwdata fwlist.tmp *.ko ${IXGBEDIR} ${E1000EDIR} e1000e.ko ${IGBDIR} igb.ko fwlist-${KVNAME} ${ARECADIR} arcmsr.ko ${BNX2DIR} bnx2.ko cnic.ko
+	rm -rf *~ .compile_mark ${KERNEL_CFG} ${KERNEL_SRC} tmp data proxmox-ve/data *.deb ${AOEDIR} aoe.ko ${headers_tmp} fwdata fwlist.tmp *.ko ${IXGBEDIR} ${E1000EDIR} e1000e.ko ${IGBDIR} igb.ko fwlist-${KVNAME} ${ARECADIR} arcmsr.ko
 
 
 
