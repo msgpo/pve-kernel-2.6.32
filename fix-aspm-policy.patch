@@ -1,0 +1,11 @@
+--- linux-2.6-2.6.32/drivers/pci/pcie/aspm.c.org	2011-09-09 06:51:53.000000000 +0200
++++ linux-2.6-2.6.32/drivers/pci/pcie/aspm.c	2011-09-09 06:52:09.000000000 +0200
+@@ -75,7 +75,7 @@
+ #define POLICY_DEFAULT 0	/* BIOS default setting */
+ #define POLICY_PERFORMANCE 1	/* high performance */
+ #define POLICY_POWERSAVE 2	/* high power saving */
+-static int aspm_policy = POLICY_POWERSAVE;
++static int aspm_policy = POLICY_DEFAULT;
+ static const char *policy_str[] = {
+ 	[POLICY_DEFAULT] = "default",
+ 	[POLICY_PERFORMANCE] = "performance",

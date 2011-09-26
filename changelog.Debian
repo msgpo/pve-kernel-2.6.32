@@ -18,6 +18,8 @@ pve-kernel-2.6.32 (2.6.32-46) unstable; urgency=low
   
   * update ata_generic to support intel IDE-R
 
+  * use BIOS default settings for ASPM (fix-aspm-policy.patch)
+
  -- Proxmox Support Team <support@proxmox.com>  Mon, 26 Sep 2011 08:48:39 +0200
 
 pve-kernel-2.6.32 (2.6.32-45) unstable; urgency=low
