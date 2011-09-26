@@ -8,6 +8,9 @@ pve-kernel-2.6.32 (2.6.32-46) unstable; urgency=low
   
   * update to vzkernel-2.6.32-042stab037.1.src.rpm
   
+  * remove SCSI-aacraid-Add-PMC-Sierra-SRC-based-controller.patch
+    (now included in upstream)
+
  -- Proxmox Support Team <support@proxmox.com>  Mon, 26 Sep 2011 08:48:39 +0200
 
 pve-kernel-2.6.32 (2.6.32-45) unstable; urgency=low
