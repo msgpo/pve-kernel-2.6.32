@@ -133,7 +133,6 @@ ${KERNEL_SRC}/README: ${KERNEL_SRC}.org/README
 	cd ${KERNEL_SRC}; patch -p1 <../bootsplash-3.1.9-2.6.31-rh.patch
 	cd ${KERNEL_SRC}; patch -p1 <../${RHKERSRCDIR}/patch-042stab037
 	cd ${KERNEL_SRC}; patch -p1 <../do-not-use-barrier-on-ext3.patch
-	cd ${KERNEL_SRC}; patch -p1 <../fix-register-corruption-in-pvclock-scale-delta.patch
 	cd ${KERNEL_SRC}; patch -p1 <../bridge-patch.diff
 	# backport dlm fixes form linux 3.y (those are include in RHEL 6.2)
 	cd ${KERNEL_SRC}; patch -p1 <../dlm-Make-DLM-depend-on-CONFIGFS_FS.patch	
