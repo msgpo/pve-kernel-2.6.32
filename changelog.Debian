@@ -21,6 +21,8 @@ pve-kernel-2.6.32 (2.6.32-46) unstable; urgency=low
   * use BIOS default settings for ASPM (fix-aspm-policy.patch)
   
   * enable GDTH driver
+  
+  * include ISCSITARGET driver 
 
  -- Proxmox Support Team <support@proxmox.com>  Mon, 26 Sep 2011 08:48:39 +0200
 

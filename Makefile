@@ -43,6 +43,9 @@ IXGBESRC=${IXGBEDIR}.tar.gz
 ARECADIR=arcmsr.1.20.0X.15-110330
 ARECASRC=${ARECADIR}.zip
 
+ISCSITARGETDIR=iscsitarget-1.4.20.2
+ISCSITARGETSRC=${ISCSITARGETDIR}.tar.gz
+
 DST_DEB=${PACKAGE}_${KERNEL_VER}-${PKGREL}_${ARCH}.deb
 HDR_DEB=${HDRPACKAGE}_${KERNEL_VER}-${PKGREL}_${ARCH}.deb
 PVEPKG=proxmox-ve-${KERNEL_VER}
@@ -84,7 +87,7 @@ fwlist-${KVNAME}: data
 	./find-firmware.pl data/lib/modules/${KVNAME} >fwlist.tmp
 	mv fwlist.tmp $@
 
-data: .compile_mark ${KERNEL_CFG} arcmsr.ko aoe.ko e1000e.ko igb.ko ixgbe.ko
+data: .compile_mark ${KERNEL_CFG} arcmsr.ko aoe.ko e1000e.ko igb.ko ixgbe.ko iscsi_trgt.ko
 	rm -rf data tmp; mkdir -p tmp/lib/modules/${KVNAME}
 	mkdir tmp/boot
 	install -m 644 ${KERNEL_CFG} tmp/boot/config-${KVNAME}
@@ -101,6 +104,8 @@ data: .compile_mark ${KERNEL_CFG} arcmsr.ko aoe.ko e1000e.ko igb.ko ixgbe.ko
 	install -m 644 igb.ko tmp/lib/modules/${KVNAME}/kernel/drivers/net/igb/
 	# install areca driver
 	install -m 644 arcmsr.ko tmp/lib/modules/${KVNAME}/kernel/drivers/scsi/arcmsr/
+	# install iscsitarget module
+	install -m 644 -D iscsi_trgt.ko tmp/lib/modules/${KVNAME}/kernel/drivers/scsi/iscsi_trgt.ko
 	# remove firmware
 	rm -rf tmp/lib/firmware
 	# strip debug info
@@ -199,6 +204,13 @@ arcmsr.ko: ${ARECASRC}
 	cd ${ARECADIR}; make -C ${TOP}/${KERNEL_SRC} CONFIG_SCSI_ARCMSR=m SUBDIRS=${TOP}/${ARECADIR} modules
 	cp ${ARECADIR}/arcmsr.ko arcmsr.ko
 
+iscsi_trgt.ko: ${ISCSITARGETSRC}
+	rm -rf ${ISCSITARGETDIR}
+	tar xf ${ISCSITARGETSRC}
+	mkdir -p /lib/modules/${KVNAME}
+	ln -sf ${TOP}/${KERNEL_SRC} /lib/modules/${KVNAME}/build
+	cd ${ISCSITARGETDIR}; make KVER=${KVNAME}
+	cp ${ISCSITARGETDIR}/kernel/iscsi_trgt.ko iscsi_trgt.ko
 
 headers_tmp := $(CURDIR)/tmp-headers
 headers_dir := $(headers_tmp)/usr/src/linux-headers-${KVNAME}
@@ -273,7 +285,7 @@ distclean: clean
 
 .PHONY: clean
 clean:
-	rm -rf *~ .compile_mark ${KERNEL_CFG} ${KERNEL_SRC} tmp data proxmox-ve/data *.deb ${AOEDIR} aoe.ko ${headers_tmp} fwdata fwlist.tmp *.ko ${IXGBEDIR} ${E1000EDIR} e1000e.ko ${IGBDIR} igb.ko fwlist-${KVNAME} ${ARECADIR} arcmsr.ko
+	rm -rf *~ .compile_mark ${KERNEL_CFG} ${KERNEL_SRC} tmp data proxmox-ve/data *.deb ${AOEDIR} aoe.ko ${headers_tmp} fwdata fwlist.tmp *.ko ${IXGBEDIR} ${E1000EDIR} e1000e.ko ${IGBDIR} igb.ko fwlist-${KVNAME} ${ARECADIR} arcmsr.ko  iscsi_trgt.ko ${ISCSITARGETDIR}
 
 
 
