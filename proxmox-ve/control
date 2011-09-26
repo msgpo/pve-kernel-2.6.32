@@ -6,7 +6,7 @@ Priority: optional
 Provides: proxmox-virtual-environment
 Conflicts: proxmox-ve, pve-kernel, proxmox-virtual-environment
 Replaces: proxmox-ve, pve-kernel, proxmox-virtual-environment
-Depends: libc6 (>= 2.7-18), pve-kernel-@KVNAME@, pve-firmware, pve-manager, qemu-server, pve-qemu-kvm, openssh-client, openssh-server, apt, vncterm
+Depends: libc6 (>= 2.7-18), pve-kernel-@KVNAME@, pve-firmware, pve-manager, qemu-server, pve-qemu-kvm, openssh-client, openssh-server, apt, vncterm, vzctl (>= 3.0.29)
 Maintainer: Proxmox Support Team <support@proxmox.com>
 Description: The Proxmox Virtual Environment
  The Proxmox Virtual Environment is an easy to use Open Source
