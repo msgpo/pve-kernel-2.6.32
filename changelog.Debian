@@ -1,3 +1,13 @@
+pve-kernel-2.6.32 (2.6.32-46) unstable; urgency=low
+
+  * update e1000e driver to 1.6.2
+  
+  * update igb driver to 3.2.9 
+
+  * update ixgbe driver to 3.5.14
+  
+ -- Proxmox Support Team <support@proxmox.com>  Mon, 26 Sep 2011 08:48:39 +0200
+
 pve-kernel-2.6.32 (2.6.32-45) unstable; urgency=low
 
   * update to vzkernel-2.6.32-042stab035.1.src.rpm

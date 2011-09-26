@@ -1,7 +1,7 @@
 RELEASE=2.0
 
 KERNEL_VER=2.6.32
-PKGREL=45
+PKGREL=46
 # also include firmware of previous versrion into 
 # the fw package:  fwlist-2.6.32-PREV-pve
 KREL=6
@@ -31,13 +31,13 @@ FW_DEB=pve-firmware_${FW_VER}-${FW_REL}_all.deb
 AOEDIR=aoe6-77
 AOESRC=${AOEDIR}.tar.gz
 
-E1000EDIR=e1000e-1.5.1
+E1000EDIR=e1000e-1.6.2
 E1000ESRC=${E1000EDIR}.tar.gz
 
-IGBDIR=igb-3.0.22
+IGBDIR=igb-3.2.9
 IGBSRC=${IGBDIR}.tar.gz
 
-IXGBEDIR=ixgbe-3.3.9
+IXGBEDIR=ixgbe-3.5.14
 IXGBESRC=${IXGBEDIR}.tar.gz
 
 BNX2DIR=netxtreme2-6.2.23
