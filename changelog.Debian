@@ -1,3 +1,9 @@
+pve-kernel-2.6.32 (2.6.32-47) unstable; urgency=low
+
+  * update to vzkernel-2.6.32-042stab039.2.src.rpm
+
+ -- Proxmox Support Team <support@proxmox.com>  Mon, 10 Oct 2011 07:11:29 +0200
+
 pve-kernel-2.6.32 (2.6.32-46) unstable; urgency=low
 
   * update e1000e driver to 1.6.2
