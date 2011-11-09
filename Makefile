@@ -1,13 +1,13 @@
 RELEASE=2.0
 
 KERNEL_VER=2.6.32
-PKGREL=47
+PKGREL=51
 # also include firmware of previous versrion into 
 # the fw package:  fwlist-2.6.32-PREV-pve
 KREL=6
 
 RHKVER=131.17.1.el6
-OVZVER=042stab039.2
+OVZVER=042stab040.1
 
 KERNELSRCRPM=vzkernel-${KERNEL_VER}-${OVZVER}.src.rpm
 
@@ -31,13 +31,13 @@ FW_DEB=pve-firmware_${FW_VER}-${FW_REL}_all.deb
 AOEDIR=aoe6-77
 AOESRC=${AOEDIR}.tar.gz
 
-E1000EDIR=e1000e-1.6.2
+E1000EDIR=e1000e-1.6.3
 E1000ESRC=${E1000EDIR}.tar.gz
 
-IGBDIR=igb-3.2.9
+IGBDIR=igb-3.2.10
 IGBSRC=${IGBDIR}.tar.gz
 
-IXGBEDIR=ixgbe-3.5.14
+IXGBEDIR=ixgbe-3.6.7
 IXGBESRC=${IXGBEDIR}.tar.gz
 
 ARECADIR=arcmsr.1.20.0X.15-110330
@@ -129,7 +129,7 @@ ${KERNEL_SRC}/README: ${KERNEL_SRC}.org/README
 	rm -rf ${KERNEL_SRC}
 	cp -a ${KERNEL_SRC}.org ${KERNEL_SRC}
 	cd ${KERNEL_SRC}; patch -p1 <../bootsplash-3.1.9-2.6.31-rh.patch
-	cd ${KERNEL_SRC}; patch -p1 <../${RHKERSRCDIR}/patch-042stab039
+	cd ${KERNEL_SRC}; patch -p1 <../${RHKERSRCDIR}/patch-042stab040
 	cd ${KERNEL_SRC}; patch -p1 <../do-not-use-barrier-on-ext3.patch
 	cd ${KERNEL_SRC}; patch -p1 <../bridge-patch.diff
 	# backport dlm fixes form linux 3.y (those are include in RHEL 6.2)
