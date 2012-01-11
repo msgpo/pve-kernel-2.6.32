@@ -1,3 +1,23 @@
+pve-kernel-2.6.32 (2.6.32-56) unstable; urgency=low
+
+  * update to vzkernel-2.6.32-042stab046.1.src.rpm
+  
+  * update e1000e to 1.9.5
+  
+  * update igb to 3.3.6
+  
+  * update ixgbe to 3.7.17
+  
+  * remove dlm backport patches (now in upsteam)
+
+  * remove intel IDE-R support patches (now in upstream)
+  
+  * enable usbip module
+  
+  * use ARECA RAID card driver from upstream kernel
+  
+ -- Proxmox Support Team <support@proxmox.com>  Tue, 10 Jan 2012 09:04:45 +0100
+
 pve-kernel-2.6.32 (2.6.32-55) unstable; urgency=low
 
   * update to vzkernel-2.6.32-042stab045.1.src.rpm

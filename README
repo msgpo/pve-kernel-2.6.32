@@ -19,10 +19,6 @@ Additional/Updated Modules:
 
 - include latest e1000e driver from intel/sourceforge
 
-- include update for ARECA RAID cards
-
-  * ftp://ftp.areca.com.tw/RaidCards/AP_Drivers/Linux/DRIVER/SourceCode/arcmsr.1.20.0X.15-110330.zip
-
 FIRMWARE:
 =========
 
@@ -59,8 +55,6 @@ PATCHES:
   of bridge device, then address won't change. So we could omit
   that patch, requiring to set hwaddress in /etc/network/interfaces.
 
- SCSI-aacraid-Add-PMC-Sierra-SRC-based-controller.patch: aacraid update
-
 
 Additional information
 ----------------------
@@ -85,6 +79,16 @@ see config-2.6.32.diff
   	 CONFIG_BLK_DEV_SD=y
   	 CONFIG_BLK_DEV_SR=y
   	 CONFIG_BLK_DEV_DM=y
+
+- disable CONFIG_RT_GROUP_SCHED to avoid corosync startup errors
+
+- disable module signatures (CONFIG_MODULE_SIG, CONFIG_CRYPTO_SIGNATURE)
+ 
+- enable usbip (this is also enable on debian kernels)
+ 
+  	 CONFIG_USB_IP_COMMON=m
+	 CONFIG_USB_IP_VHCI_HCD=m
+	 CONFIG_USB_IP_HOST=m
 
 
 Testing final kernel with kvm

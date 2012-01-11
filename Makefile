@@ -1,13 +1,13 @@
 RELEASE=2.0
 
 KERNEL_VER=2.6.32
-PKGREL=55
+PKGREL=56
 # also include firmware of previous versrion into 
 # the fw package:  fwlist-2.6.32-PREV-pve
-KREL=6
+KREL=7
 
-RHKVER=131.21.1.el6
-OVZVER=042stab045.1
+RHKVER=220.el6
+OVZVER=042stab046.1
 
 KERNELSRCRPM=vzkernel-${KERNEL_VER}-${OVZVER}.src.rpm
 
@@ -25,23 +25,23 @@ KERNEL_CFG=config-${KERNEL_VER}
 KERNEL_CFG_ORG=config-${KERNEL_VER}-${OVZVER}.x86_64
 
 FW_VER=1.0
-FW_REL=14
+FW_REL=15
 FW_DEB=pve-firmware_${FW_VER}-${FW_REL}_all.deb
 
 AOEDIR=aoe6-77
 AOESRC=${AOEDIR}.tar.gz
 
-E1000EDIR=e1000e-1.6.3
+E1000EDIR=e1000e-1.9.5
 E1000ESRC=${E1000EDIR}.tar.gz
 
-IGBDIR=igb-3.2.10
+IGBDIR=igb-3.3.6
 IGBSRC=${IGBDIR}.tar.gz
 
-IXGBEDIR=ixgbe-3.6.7
+IXGBEDIR=ixgbe-3.7.17
 IXGBESRC=${IXGBEDIR}.tar.gz
 
-ARECADIR=arcmsr.1.20.0X.15-110330
-ARECASRC=${ARECADIR}.zip
+#ARECADIR=arcmsr.1.20.0X.15-110330
+#ARECASRC=${ARECADIR}.zip
 
 ISCSITARGETDIR=iscsitarget-1.4.20.2
 ISCSITARGETSRC=${ISCSITARGETDIR}.tar.gz
@@ -87,7 +87,7 @@ fwlist-${KVNAME}: data
 	./find-firmware.pl data/lib/modules/${KVNAME} >fwlist.tmp
 	mv fwlist.tmp $@
 
-data: .compile_mark ${KERNEL_CFG} arcmsr.ko aoe.ko e1000e.ko igb.ko ixgbe.ko iscsi_trgt.ko
+data: .compile_mark ${KERNEL_CFG} aoe.ko e1000e.ko igb.ko ixgbe.ko iscsi_trgt.ko
 	rm -rf data tmp; mkdir -p tmp/lib/modules/${KVNAME}
 	mkdir tmp/boot
 	install -m 644 ${KERNEL_CFG} tmp/boot/config-${KVNAME}
@@ -103,7 +103,7 @@ data: .compile_mark ${KERNEL_CFG} arcmsr.ko aoe.ko e1000e.ko igb.ko ixgbe.ko isc
 	# install latest ibg driver
 	install -m 644 igb.ko tmp/lib/modules/${KVNAME}/kernel/drivers/net/igb/
 	# install areca driver
-	install -m 644 arcmsr.ko tmp/lib/modules/${KVNAME}/kernel/drivers/scsi/arcmsr/
+	#install -m 644 arcmsr.ko tmp/lib/modules/${KVNAME}/kernel/drivers/scsi/arcmsr/
 	# install iscsitarget module
 	install -m 644 -D iscsi_trgt.ko tmp/lib/modules/${KVNAME}/kernel/drivers/scsi/iscsi_trgt.ko
 	# remove firmware
@@ -129,25 +129,12 @@ ${KERNEL_SRC}/README: ${KERNEL_SRC}.org/README
 	rm -rf ${KERNEL_SRC}
 	cp -a ${KERNEL_SRC}.org ${KERNEL_SRC}
 	cd ${KERNEL_SRC}; patch -p1 <../bootsplash-3.1.9-2.6.31-rh.patch
-	cd ${KERNEL_SRC}; patch -p1 <../${RHKERSRCDIR}/patch-042stab045
+	cd ${KERNEL_SRC}; patch -p1 <../${RHKERSRCDIR}/patch-042stab046
 	cd ${KERNEL_SRC}; patch -p1 <../do-not-use-barrier-on-ext3.patch
 	cd ${KERNEL_SRC}; patch -p1 <../bridge-patch.diff
-	# backport dlm fixes form linux 3.y (those are include in RHEL 6.2)
-	cd ${KERNEL_SRC}; patch -p1 <../dlm-Make-DLM-depend-on-CONFIGFS_FS.patch	
-	cd ${KERNEL_SRC}; patch -p1 <../dlm-increase-default-hash-table-sizes.patch
-	cd ${KERNEL_SRC}; patch -p1 <../dlm-Use-cmwq-for-send-and-receive-workqueues.patch
-	cd ${KERNEL_SRC}; patch -p1 <../dlm-sanitize-work_start-in-lowcomms.c.patch
-	cd ${KERNEL_SRC}; patch -p1 <../dlm-use-single-thread-workqueues.patch
-	cd ${KERNEL_SRC}; patch -p1 <../dlm-Remove-superfluous-call-to-recalc_sigpending.patch
-	cd ${KERNEL_SRC}; patch -p1 <../dlm-delayed-reply-message-warning.patch
-	cd ${KERNEL_SRC}; patch -p1 <../dlm-remove-shared-message-stub-for-recovery.patch
-	cd ${KERNEL_SRC}; patch -p1 <../dlm-make-plock-operation-killable.patch
 	cd ${KERNEL_SRC}; patch -p1 <../fix-aspm-policy.patch
-	# update ata_generic to support intel IDE-R
-	cd ${KERNEL_SRC}; patch -p1 <../ahci-ata_generic-let-ata_generic-handle-new-MBP-w-MCP89.patch
-	cd ${KERNEL_SRC}; patch -p1 <../ata_generic-implement-ATA_GEN_-flags-and-force-enable-DMA-on-MBP-7,1.patch
-	cd ${KERNEL_SRC}; patch -p1 <../ata_generic-drop-hard-coded-DMA-force-logic-for-CENATEK.patch
-	cd ${KERNEL_SRC}; patch -p1 <../ata-Intel-IDE-R-support.patch
+	# hack: avoid crash on 'ping -R' - openvz bug # 2133
+	cd ${KERNEL_SRC}; patch -p1 <../ipv4-ip_options_compile-resilient-to-NULL-skb-route.patch
 	sed -i ${KERNEL_SRC}/Makefile -e 's/^EXTRAVERSION.*$$/EXTRAVERSION=${EXTRAVERSION}/'
 	touch $@
 
@@ -196,13 +183,13 @@ ixgbe.ko ixgbe: ${IXGBESRC}
 	cd ${IXGBEDIR}/src; make CFLAGS_EXTRA="-DIXGBE_NO_LRO" BUILD_KERNEL=${KVNAME}
 	cp ${IXGBEDIR}/src/ixgbe.ko ixgbe.ko
 
-arcmsr.ko: ${ARECASRC}
-	rm -rf ${ARECADIR}
-	unzip ${ARECASRC}
-	mkdir -p /lib/modules/${KVNAME}
-	ln -sf ${TOP}/${KERNEL_SRC} /lib/modules/${KVNAME}/build
-	cd ${ARECADIR}; make -C ${TOP}/${KERNEL_SRC} CONFIG_SCSI_ARCMSR=m SUBDIRS=${TOP}/${ARECADIR} modules
-	cp ${ARECADIR}/arcmsr.ko arcmsr.ko
+#arcmsr.ko: ${ARECASRC}
+#	rm -rf ${ARECADIR}
+#	unzip ${ARECASRC}
+#	mkdir -p /lib/modules/${KVNAME}
+#	ln -sf ${TOP}/${KERNEL_SRC} /lib/modules/${KVNAME}/build
+#	cd ${ARECADIR}; make -C ${TOP}/${KERNEL_SRC} CONFIG_SCSI_ARCMSR=m SUBDIRS=${TOP}/${ARECADIR} modules
+#	cp ${ARECADIR}/arcmsr.ko arcmsr.ko
 
 iscsi_trgt.ko: ${ISCSITARGETSRC}
 	rm -rf ${ISCSITARGETDIR}
@@ -244,7 +231,7 @@ linux-firmware.git/WHENCE:
 linux-firmware-from-kernel.git/WHENCE:
 	git clone git://git.kernel.org/pub/scm/linux/kernel/git/dwmw2/linux-firmware-from-kernel.git linux-firmware-from-kernel.git
 
-${FW_DEB} fw: control.firmware linux-firmware.git/WHENCE linux-firmware-from-kernel.git/WHENCE changelog.firmware fwlist-2.6.18-2-pve fwlist-2.6.24-12-pve fwlist-2.6.32-3-pve fwlist-2.6.32-4-pve fwlist-2.6.32-5-pve fwlist-2.6.35-1-pve fwlist-${KVNAME}
+${FW_DEB} fw: control.firmware linux-firmware.git/WHENCE linux-firmware-from-kernel.git/WHENCE changelog.firmware fwlist-2.6.18-2-pve fwlist-2.6.24-12-pve fwlist-2.6.32-3-pve fwlist-2.6.32-4-pve fwlist-2.6.32-5-pve fwlist-2.6.32-6-pve fwlist-2.6.35-1-pve fwlist-${KVNAME}
 	rm -rf fwdata
 	mkdir -p fwdata/lib/firmware
 	./assemble-firmware.pl fwlist-${KVNAME} fwdata/lib/firmware
@@ -254,6 +241,7 @@ ${FW_DEB} fw: control.firmware linux-firmware.git/WHENCE linux-firmware-from-ker
 	./assemble-firmware.pl fwlist-2.6.32-3-pve fwdata/lib/firmware
 	./assemble-firmware.pl fwlist-2.6.32-4-pve fwdata/lib/firmware
 	./assemble-firmware.pl fwlist-2.6.32-5-pve fwdata/lib/firmware
+	./assemble-firmware.pl fwlist-2.6.32-6-pve fwdata/lib/firmware
 	./assemble-firmware.pl fwlist-2.6.35-1-pve fwdata/lib/firmware
 	install -d fwdata/usr/share/doc/pve-firmware
 	cp linux-firmware.git/WHENCE fwdata/usr/share/doc/pve-firmware/README
@@ -285,7 +273,7 @@ distclean: clean
 
 .PHONY: clean
 clean:
-	rm -rf *~ .compile_mark ${KERNEL_CFG} ${KERNEL_SRC} tmp data proxmox-ve/data *.deb ${AOEDIR} aoe.ko ${headers_tmp} fwdata fwlist.tmp *.ko ${IXGBEDIR} ${E1000EDIR} e1000e.ko ${IGBDIR} igb.ko fwlist-${KVNAME} ${ARECADIR} arcmsr.ko  iscsi_trgt.ko ${ISCSITARGETDIR}
+	rm -rf *~ .compile_mark ${KERNEL_CFG} ${KERNEL_SRC} tmp data proxmox-ve/data *.deb ${AOEDIR} aoe.ko ${headers_tmp} fwdata fwlist.tmp *.ko ${IXGBEDIR} ${E1000EDIR} e1000e.ko ${IGBDIR} igb.ko fwlist-${KVNAME} iscsi_trgt.ko ${ISCSITARGETDIR}
 
 
 

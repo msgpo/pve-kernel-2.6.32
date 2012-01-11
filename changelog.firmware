@@ -1,3 +1,9 @@
+pve-firmware (1.0-15) unstable; urgency=low
+
+  * include firmware for new 2.6.32-7-pve kernel
+
+ -- Proxmox Support Team <support@proxmox.com>  Tue, 10 Jan 2012 09:06:54 +0100
+
 pve-firmware (1.0-14) unstable; urgency=low
 
   * conflict with debian firmware packages
