@@ -1,13 +1,13 @@
 RELEASE=2.0
 
 KERNEL_VER=2.6.32
-PKGREL=56
+PKGREL=57
 # also include firmware of previous versrion into 
 # the fw package:  fwlist-2.6.32-PREV-pve
 KREL=7
 
-RHKVER=220.el6
-OVZVER=042stab046.1
+RHKVER=220.2.1.el6
+OVZVER=042stab048.1
 
 KERNELSRCRPM=vzkernel-${KERNEL_VER}-${OVZVER}.src.rpm
 
@@ -129,12 +129,10 @@ ${KERNEL_SRC}/README: ${KERNEL_SRC}.org/README
 	rm -rf ${KERNEL_SRC}
 	cp -a ${KERNEL_SRC}.org ${KERNEL_SRC}
 	cd ${KERNEL_SRC}; patch -p1 <../bootsplash-3.1.9-2.6.31-rh.patch
-	cd ${KERNEL_SRC}; patch -p1 <../${RHKERSRCDIR}/patch-042stab046
+	cd ${KERNEL_SRC}; patch -p1 <../${RHKERSRCDIR}/patch-042stab048
 	cd ${KERNEL_SRC}; patch -p1 <../do-not-use-barrier-on-ext3.patch
 	cd ${KERNEL_SRC}; patch -p1 <../bridge-patch.diff
 	cd ${KERNEL_SRC}; patch -p1 <../fix-aspm-policy.patch
-	# hack: avoid crash on 'ping -R' - openvz bug # 2133
-	cd ${KERNEL_SRC}; patch -p1 <../ipv4-ip_options_compile-resilient-to-NULL-skb-route.patch
 	sed -i ${KERNEL_SRC}/Makefile -e 's/^EXTRAVERSION.*$$/EXTRAVERSION=${EXTRAVERSION}/'
 	touch $@
 
