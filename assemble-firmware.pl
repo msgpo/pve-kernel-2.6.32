@@ -6,7 +6,6 @@ use File::Path;
 
 my $fwsrc0 = "linux-2.6-2.6.32/firmware";
 my $fwsrc1 = "linux-firmware.git";
-my $fwsrc2 = "linux-firmware-from-kernel.git";
 my $fwsrc3 = "firmware-misc";
 
 my $fwlist = shift;
@@ -178,10 +177,6 @@ while(defined(my $line = <TMP>)) {
 	copy_fw("$fwsrc1/$fw", $fwdest);
 	next;
     }
-    if (-f "$fwsrc2/$fw") {
-	copy_fw("$fwsrc2/$fw", $fwdest);
-	next;
-    }
     if (-f "$fwsrc3/$fw") {
 	copy_fw("$fwsrc3/$fw", $fwdest);
 	next;
@@ -195,13 +190,6 @@ while(defined(my $line = <TMP>)) {
     my $name = basename($fw);
 
     my $sr = `find '$fwsrc1' -name '$name'`;
-    chomp $sr;
-    if ($sr) {
-	#print "found $fw in $sr\n";
-	copy_fw($sr, $fwdest);
-	next;
-    }
-    $sr = `find '$fwsrc2' -name '$name'`;
     chomp $sr;
     if ($sr) {
 	#print "found $fw in $sr\n";

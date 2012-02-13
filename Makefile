@@ -226,10 +226,7 @@ ${HDR_DEB} hdr: .compile_mark headers-control.in headers-postinst.in
 linux-firmware.git/WHENCE:
 	git clone git://git.kernel.org/pub/scm/linux/kernel/git/dwmw2/linux-firmware.git linux-firmware.git
 
-linux-firmware-from-kernel.git/WHENCE:
-	git clone git://git.kernel.org/pub/scm/linux/kernel/git/dwmw2/linux-firmware-from-kernel.git linux-firmware-from-kernel.git
-
-${FW_DEB} fw: control.firmware linux-firmware.git/WHENCE linux-firmware-from-kernel.git/WHENCE changelog.firmware fwlist-2.6.18-2-pve fwlist-2.6.24-12-pve fwlist-2.6.32-3-pve fwlist-2.6.32-4-pve fwlist-2.6.32-5-pve fwlist-2.6.32-6-pve fwlist-2.6.35-1-pve fwlist-${KVNAME}
+${FW_DEB} fw: control.firmware linux-firmware.git/WHENCE changelog.firmware fwlist-2.6.18-2-pve fwlist-2.6.24-12-pve fwlist-2.6.32-3-pve fwlist-2.6.32-4-pve fwlist-2.6.32-5-pve fwlist-2.6.32-6-pve fwlist-2.6.35-1-pve fwlist-${KVNAME}
 	rm -rf fwdata
 	mkdir -p fwdata/lib/firmware
 	./assemble-firmware.pl fwlist-${KVNAME} fwdata/lib/firmware
