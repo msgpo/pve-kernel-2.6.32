@@ -90,6 +90,10 @@ see config-2.6.32.diff
 	 CONFIG_USB_IP_VHCI_HCD=m
 	 CONFIG_USB_IP_HOST=m
 
+- enable IBM JFS file system
+
+  This is disabled in RHEL kernel for no real reason, so we enable
+  it as requested by users (bug #64)
 
 Testing final kernel with kvm
 -----------------------------

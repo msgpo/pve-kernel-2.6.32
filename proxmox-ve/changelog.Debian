@@ -1,3 +1,9 @@
+proxmox-ve-2.6.32 (2.0-60) unstable; urgency=low
+
+  *  re-package to update version number
+
+ -- Proxmox Support Team <support@proxmox.com>  Thu, 16 Feb 2012 08:48:29 +0100
+
 proxmox-ve-2.6.32 (2.0-38) unstable; urgency=low
 
   * re-package to update version number
