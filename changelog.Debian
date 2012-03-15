@@ -1,3 +1,11 @@
+pve-kernel-2.6.32 (2.6.32-61) unstable; urgency=low
+
+  * increase API to '10-pve'. We need that to for the 1.9 to 2.0 upgrade
+    script. API versions '8-pve' and '9-pve' will be reserved for future
+    kernel updates on onl 1.9 branch.
+
+ -- Proxmox Support Team <support@proxmox.com>  Thu, 15 Mar 2012 06:49:03 +0100
+
 pve-kernel-2.6.32 (2.6.32-60) unstable; urgency=low
 
   * enable JFS file system
