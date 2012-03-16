@@ -1,3 +1,9 @@
+pve-kernel-2.6.32 (2.6.32-62) unstable; urgency=low
+
+  * optimize CFQ scheduler paramemters
+
+ -- Proxmox Support Team <support@proxmox.com>  Fri, 16 Mar 2012 06:44:48 +0100
+
 pve-kernel-2.6.32 (2.6.32-61) unstable; urgency=low
 
   * increase API to '10-pve'. We need that to for the 1.9 to 2.0 upgrade

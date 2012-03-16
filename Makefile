@@ -1,7 +1,7 @@
 RELEASE=2.0
 
 KERNEL_VER=2.6.32
-PKGREL=61
+PKGREL=62
 # also include firmware of previous versrion into 
 # the fw package:  fwlist-2.6.32-PREV-pve
 KREL=10
@@ -133,6 +133,7 @@ ${KERNEL_SRC}/README: ${KERNEL_SRC}.org/README
 	cd ${KERNEL_SRC}; patch -p1 <../do-not-use-barrier-on-ext3.patch
 	cd ${KERNEL_SRC}; patch -p1 <../bridge-patch.diff
 	cd ${KERNEL_SRC}; patch -p1 <../fix-aspm-policy.patch
+	cd ${KERNEL_SRC}; patch -p1 <../optimize-cfq-parameters.patch
 	sed -i ${KERNEL_SRC}/Makefile -e 's/^EXTRAVERSION.*$$/EXTRAVERSION=${EXTRAVERSION}/'
 	touch $@
 
