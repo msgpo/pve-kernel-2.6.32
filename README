@@ -95,6 +95,11 @@ see config-2.6.32.diff
   This is disabled in RHEL kernel for no real reason, so we enable
   it as requested by users (bug #64)
 
+- enable CONFIG_BRIDGE=y
+
+  Else we get warnings on boot, that
+  net.bridge.bridge-nf-call-iptables is an unknown key
+
 Testing final kernel with kvm
 -----------------------------
 
