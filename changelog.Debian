@@ -1,3 +1,9 @@
+pve-kernel-2.6.32 (2.6.32-65) unstable; urgency=low
+
+  * update to vzkernel-2.6.32-042stab053.5.src.rpm
+
+ -- Proxmox Support Team <support@proxmox.com>  Tue, 03 Apr 2012 10:03:41 +0200
+
 pve-kernel-2.6.32 (2.6.32-64) unstable; urgency=low
 
   * enable HFS file system
