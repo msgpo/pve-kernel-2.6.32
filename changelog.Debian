@@ -1,3 +1,9 @@
+pve-kernel-2.6.32 (2.6.32-64) unstable; urgency=low
+
+  * enable HFS file system
+
+ -- Proxmox Support Team <support@proxmox.com>  Tue, 03 Apr 2012 07:59:11 +0200
+
 pve-kernel-2.6.32 (2.6.32-63) unstable; urgency=low
 
   * set CONFIG_BRIDGE=y (avoid sysctl warnings)

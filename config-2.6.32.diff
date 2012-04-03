@@ -1,5 +1,5 @@
 --- config-2.6.32-042stab049.6.x86_64	2012-02-13 07:18:08.000000000 +0100
-+++ config-2.6.32	2012-03-20 09:09:34.000000000 +0100
++++ config-2.6.32	2012-04-03 07:58:35.000000000 +0200
 @@ -103,7 +103,7 @@
  CONFIG_FAIR_GROUP_SCHED=y
  CONFIG_CFS_BANDWIDTH=y
@@ -94,6 +94,17 @@
  CONFIG_FS_POSIX_ACL=y
  CONFIG_XFS_FS=m
  CONFIG_XFS_QUOTA=y
+@@ -3938,8 +3949,8 @@
+ # CONFIG_ADFS_FS is not set
+ # CONFIG_AFFS_FS is not set
+ CONFIG_ECRYPT_FS=m
+-# CONFIG_HFS_FS is not set
+-# CONFIG_HFSPLUS_FS is not set
++CONFIG_HFS_FS=m
++CONFIG_HFSPLUS_FS=m
+ # CONFIG_BEFS_FS is not set
+ # CONFIG_BFS_FS is not set
+ # CONFIG_EFS_FS is not set
 @@ -4087,7 +4098,7 @@
  # Kernel hacking
  #
