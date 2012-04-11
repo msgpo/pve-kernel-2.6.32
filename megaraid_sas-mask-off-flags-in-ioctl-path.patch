@@ -1,0 +1,29 @@
+From 882be7c3be72f6d72ae7a81e707154287ea5d289 Mon Sep 17 00:00:00 2001
+From: adam radford <aradford@gmail.com>
+Date: Fri, 6 Jan 2012 17:02:34 -0800
+Subject: [PATCH] [SCSI] megaraid_sas: mask off flags in ioctl path
+
+Mask off flags in the ioctl path to prevent memory scribble with older MegaCLI
+versions.
+
+Signed-off-by: Adam Radford <aradford@gmail.com>
+Signed-off-by: James Bottomley <JBottomley@Parallels.com>
+---
+ drivers/scsi/megaraid/megaraid_sas_base.c |    2 ++
+ 1 files changed, 2 insertions(+), 0 deletions(-)
+
+diff --git a/drivers/scsi/megaraid/megaraid_sas_base.c b/drivers/scsi/megaraid/megaraid_sas_base.c
+index 29a994f..2bdc707 100644
+--- a/drivers/scsi/megaraid/megaraid_sas_base.c
++++ b/drivers/scsi/megaraid/megaraid_sas_base.c
+@@ -4773,6 +4773,8 @@ megasas_mgmt_fw_ioctl(struct megasas_instance *instance,
+ 	memcpy(cmd->frame, ioc->frame.raw, 2 * MEGAMFI_FRAME_SIZE);
+ 	cmd->frame->hdr.context = cmd->index;
+ 	cmd->frame->hdr.pad_0 = 0;
++	cmd->frame->hdr.flags &= ~(MFI_FRAME_IEEE | MFI_FRAME_SGL64 |
++				   MFI_FRAME_SENSE64);
+ 
+ 	/*
+ 	 * The management interface between applications and the fw uses
+-- 
+1.7.7.6

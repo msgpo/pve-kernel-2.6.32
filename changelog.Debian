@@ -1,3 +1,9 @@
+pve-kernel-2.6.32 (2.6.32-66) unstable; urgency=low
+
+  * include patch for megaraid_sas driver: http://www.anchor.com.au/blog/2012/03/bugfixing-the-in-kernel-megaraid_sas-driver-from-crash-to-patch/
+
+ -- Proxmox Support Team <support@proxmox.com>  Wed, 11 Apr 2012 07:02:48 +0200
+
 pve-kernel-2.6.32 (2.6.32-65) unstable; urgency=low
 
   * update to vzkernel-2.6.32-042stab053.5.src.rpm

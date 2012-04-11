@@ -1,7 +1,7 @@
 RELEASE=2.0
 
 KERNEL_VER=2.6.32
-PKGREL=65
+PKGREL=66
 # also include firmware of previous versrion into 
 # the fw package:  fwlist-2.6.32-PREV-pve
 KREL=11
@@ -134,6 +134,7 @@ ${KERNEL_SRC}/README: ${KERNEL_SRC}.org/README
 	cd ${KERNEL_SRC}; patch -p1 <../bridge-patch.diff
 	cd ${KERNEL_SRC}; patch -p1 <../fix-aspm-policy.patch
 	cd ${KERNEL_SRC}; patch -p1 <../optimize-cfq-parameters.patch
+	cd ${KERNEL_SRC}; patch -p1 <../megaraid_sas-mask-off-flags-in-ioctl-path.patch
 	sed -i ${KERNEL_SRC}/Makefile -e 's/^EXTRAVERSION.*$$/EXTRAVERSION=${EXTRAVERSION}/'
 	touch $@
 
