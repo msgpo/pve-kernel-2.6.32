@@ -1,3 +1,19 @@
+pve-kernel-2.6.32 (2.6.32-67) unstable; urgency=low
+
+  * update to vzkernel-2.6.32-042stab055.4.src.rpm
+  
+  * increase API version to 12-pve
+  
+  * remove megaraid_sas-mask-off-flags-in-ioctl-path.patch (now upstream)
+  
+  * update e1000e to 1.11.3
+  
+  * update igb to 3.4.7
+  
+  * update ixgbe to 3.9.15
+
+ -- Proxmox Support Team <support@proxmox.com>  Mon, 30 Apr 2012 11:31:39 +0200
+
 pve-kernel-2.6.32 (2.6.32-66) unstable; urgency=low
 
   * include patch for megaraid_sas driver: http://www.anchor.com.au/blog/2012/03/bugfixing-the-in-kernel-megaraid_sas-driver-from-crash-to-patch/

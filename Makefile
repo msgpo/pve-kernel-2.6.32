@@ -1,13 +1,13 @@
-RELEASE=2.0
+RELEASE=2.1
 
 KERNEL_VER=2.6.32
-PKGREL=66
+PKGREL=67
 # also include firmware of previous versrion into 
 # the fw package:  fwlist-2.6.32-PREV-pve
-KREL=11
+KREL=12
 
-RHKVER=220.7.1.el6
-OVZVER=042stab053.5
+RHKVER=220.13.1.el6
+OVZVER=042stab055.4
 
 KERNELSRCRPM=vzkernel-${KERNEL_VER}-${OVZVER}.src.rpm
 
@@ -25,19 +25,19 @@ KERNEL_CFG=config-${KERNEL_VER}
 KERNEL_CFG_ORG=config-${KERNEL_VER}-${OVZVER}.x86_64
 
 FW_VER=1.0
-FW_REL=15
+FW_REL=16
 FW_DEB=pve-firmware_${FW_VER}-${FW_REL}_all.deb
 
 AOEDIR=aoe6-77
 AOESRC=${AOEDIR}.tar.gz
 
-E1000EDIR=e1000e-1.9.5
+E1000EDIR=e1000e-1.11.3
 E1000ESRC=${E1000EDIR}.tar.gz
 
-IGBDIR=igb-3.3.6
+IGBDIR=igb-3.4.7
 IGBSRC=${IGBDIR}.tar.gz
 
-IXGBEDIR=ixgbe-3.7.17
+IXGBEDIR=ixgbe-3.9.15
 IXGBESRC=${IXGBEDIR}.tar.gz
 
 #ARECADIR=arcmsr.1.20.0X.15-110330
@@ -129,12 +129,11 @@ ${KERNEL_SRC}/README: ${KERNEL_SRC}.org/README
 	rm -rf ${KERNEL_SRC}
 	cp -a ${KERNEL_SRC}.org ${KERNEL_SRC}
 	cd ${KERNEL_SRC}; patch -p1 <../bootsplash-3.1.9-2.6.31-rh.patch
-	cd ${KERNEL_SRC}; patch -p1 <../${RHKERSRCDIR}/patch-042stab053
+	cd ${KERNEL_SRC}; patch -p1 <../${RHKERSRCDIR}/patch-042stab055
 	cd ${KERNEL_SRC}; patch -p1 <../do-not-use-barrier-on-ext3.patch
 	cd ${KERNEL_SRC}; patch -p1 <../bridge-patch.diff
 	cd ${KERNEL_SRC}; patch -p1 <../fix-aspm-policy.patch
 	cd ${KERNEL_SRC}; patch -p1 <../optimize-cfq-parameters.patch
-	cd ${KERNEL_SRC}; patch -p1 <../megaraid_sas-mask-off-flags-in-ioctl-path.patch
 	sed -i ${KERNEL_SRC}/Makefile -e 's/^EXTRAVERSION.*$$/EXTRAVERSION=${EXTRAVERSION}/'
 	touch $@
 
