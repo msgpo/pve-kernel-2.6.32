@@ -158,7 +158,7 @@ aoe.ko aoe: .compile_mark ${AOESRC}
 	cd ${AOEDIR}; make KVER=${KVNAME}
 	cp ${AOEDIR}/linux/drivers/block/aoe/aoe.ko aoe.ko
 
-e1000e.ko e1000e: ${E1000ESRC}
+e1000e.ko e1000e: .compile_mark ${E1000ESRC}
 	rm -rf ${E1000EDIR}
 	tar xf ${E1000ESRC}
 	mkdir -p /lib/modules/${KVNAME}
@@ -166,7 +166,7 @@ e1000e.ko e1000e: ${E1000ESRC}
 	cd ${E1000EDIR}/src; make BUILD_KERNEL=${KVNAME}
 	cp ${E1000EDIR}/src/e1000e.ko e1000e.ko
 
-igb.ko igb: ${IGBSRC}
+igb.ko igb: .compile_mark ${IGBSRC}
 	rm -rf ${IGBDIR}
 	tar xf ${IGBSRC}
 	mkdir -p /lib/modules/${KVNAME}
@@ -174,7 +174,7 @@ igb.ko igb: ${IGBSRC}
 	cd ${IGBDIR}/src; make BUILD_KERNEL=${KVNAME}
 	cp ${IGBDIR}/src/igb.ko igb.ko
 
-ixgbe.ko ixgbe: ${IXGBESRC}
+ixgbe.ko ixgbe: .compile_mark ${IXGBESRC}
 	rm -rf ${IXGBEDIR}
 	tar xf ${IXGBESRC}
 	mkdir -p /lib/modules/${KVNAME}
@@ -182,7 +182,7 @@ ixgbe.ko ixgbe: ${IXGBESRC}
 	cd ${IXGBEDIR}/src; make CFLAGS_EXTRA="-DIXGBE_NO_LRO" BUILD_KERNEL=${KVNAME}
 	cp ${IXGBEDIR}/src/ixgbe.ko ixgbe.ko
 
-#arcmsr.ko: ${ARECASRC}
+#arcmsr.ko: .compile_mark ${ARECASRC}
 #	rm -rf ${ARECADIR}
 #	unzip ${ARECASRC}
 #	mkdir -p /lib/modules/${KVNAME}
@@ -190,12 +190,10 @@ ixgbe.ko ixgbe: ${IXGBESRC}
 #	cd ${ARECADIR}; make -C ${TOP}/${KERNEL_SRC} CONFIG_SCSI_ARCMSR=m SUBDIRS=${TOP}/${ARECADIR} modules
 #	cp ${ARECADIR}/arcmsr.ko arcmsr.ko
 
-iscsi_trgt.ko: ${ISCSITARGETSRC}
+iscsi_trgt.ko: .compile_mark ${ISCSITARGETSRC}
 	rm -rf ${ISCSITARGETDIR}
 	tar xf ${ISCSITARGETSRC}
-	mkdir -p /lib/modules/${KVNAME}
-	ln -sf ${TOP}/${KERNEL_SRC} /lib/modules/${KVNAME}/build
-	cd ${ISCSITARGETDIR}; make KVER=${KVNAME}
+	cd ${ISCSITARGETDIR}; make KSRC=${TOP}/${KERNEL_SRC}
 	cp ${ISCSITARGETDIR}/kernel/iscsi_trgt.ko iscsi_trgt.ko
 
 headers_tmp := $(CURDIR)/tmp-headers
