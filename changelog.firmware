@@ -1,3 +1,9 @@
+pve-firmware (1.0-17) unstable; urgency=low
+
+  * qla firmware updates
+
+ -- Proxmox Support Team <support@proxmox.com>  Tue, 05 Jun 2012 10:16:18 +0200
+
 pve-firmware (1.0-15) unstable; urgency=low
 
   * include firmware for new 2.6.32-7-pve kernel

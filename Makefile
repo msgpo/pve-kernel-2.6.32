@@ -25,7 +25,7 @@ KERNEL_CFG=config-${KERNEL_VER}
 KERNEL_CFG_ORG=config-${KERNEL_VER}-${OVZVER}.x86_64
 
 FW_VER=1.0
-FW_REL=16
+FW_REL=17
 FW_DEB=pve-firmware_${FW_VER}-${FW_REL}_all.deb
 
 AOEDIR=aoe6-77
@@ -223,7 +223,7 @@ ${HDR_DEB} hdr: .compile_mark headers-control.in headers-postinst.in
 	#lintian ${HDR_DEB}
 
 linux-firmware.git/WHENCE:
-	git clone git://git.kernel.org/pub/scm/linux/kernel/git/dwmw2/linux-firmware.git linux-firmware.git
+	git clone git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git linux-firmware.git
 
 ${FW_DEB} fw: control.firmware linux-firmware.git/WHENCE changelog.firmware fwlist-2.6.18-2-pve fwlist-2.6.24-12-pve fwlist-2.6.32-3-pve fwlist-2.6.32-4-pve fwlist-2.6.32-5-pve fwlist-2.6.32-6-pve fwlist-2.6.35-1-pve fwlist-${KVNAME}
 	rm -rf fwdata
