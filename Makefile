@@ -1,13 +1,13 @@
 RELEASE=2.1
 
 KERNEL_VER=2.6.32
-PKGREL=68
+PKGREL=69
 # also include firmware of previous versrion into 
 # the fw package:  fwlist-2.6.32-PREV-pve
-KREL=12
+KREL=13
 
-RHKVER=220.13.1.el6
-OVZVER=042stab055.10
+RHKVER=220.17.1.el6
+OVZVER=042stab055.16
 
 KERNELSRCRPM=vzkernel-${KERNEL_VER}-${OVZVER}.src.rpm
 
@@ -31,13 +31,13 @@ FW_DEB=pve-firmware_${FW_VER}-${FW_REL}_all.deb
 AOEDIR=aoe6-77
 AOESRC=${AOEDIR}.tar.gz
 
-E1000EDIR=e1000e-1.11.3
+E1000EDIR=e1000e-2.0.0
 E1000ESRC=${E1000EDIR}.tar.gz
 
 IGBDIR=igb-3.4.7
 IGBSRC=${IGBDIR}.tar.gz
 
-IXGBEDIR=ixgbe-3.9.15
+IXGBEDIR=ixgbe-3.9.17
 IXGBESRC=${IXGBEDIR}.tar.gz
 
 #ARECADIR=arcmsr.1.20.0X.15-110330

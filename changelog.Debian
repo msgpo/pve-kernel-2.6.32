@@ -1,3 +1,15 @@
+pve-kernel-2.6.32 (2.6.32-69) unstable; urgency=low
+
+  * update to vzkernel-2.6.32-042stab055.16.src.rpm
+  
+  * increase API version to 13-pve
+  
+  * update ixgbe to 3.9.17
+  
+  * update e1000e to 2.0.0
+  
+ -- Proxmox Support Team <support@proxmox.com>  Wed, 13 Jun 2012 09:12:55 +0200
+
 pve-kernel-2.6.32 (2.6.32-68) unstable; urgency=low
 
   * update to vzkernel-2.6.32-042stab055.10.src.rpm
