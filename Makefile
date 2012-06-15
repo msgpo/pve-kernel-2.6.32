@@ -1,7 +1,7 @@
 RELEASE=2.1
 
 KERNEL_VER=2.6.32
-PKGREL=69
+PKGREL=70
 # also include firmware of previous versrion into 
 # the fw package:  fwlist-2.6.32-PREV-pve
 KREL=13
@@ -134,6 +134,10 @@ ${KERNEL_SRC}/README: ${KERNEL_SRC}.org/README
 	cd ${KERNEL_SRC}; patch -p1 <../bridge-patch.diff
 	cd ${KERNEL_SRC}; patch -p1 <../fix-aspm-policy.patch
 	cd ${KERNEL_SRC}; patch -p1 <../optimize-cfq-parameters.patch
+	# fix atheros atl1c driver (backports from 3.0.34)
+	cd ${KERNEL_SRC}; patch -p1 <../atl1c-Add-support-for-Atheros-AR8152-and-AR8152.patch
+	cd ${KERNEL_SRC}; patch -p1 <../atl1c-Add-support-for-Atheros-AR8151v2.patch
+	cd ${KERNEL_SRC}; patch -p1 <../atl1c-Add-missing-PCI-device-ID.patch
 	sed -i ${KERNEL_SRC}/Makefile -e 's/^EXTRAVERSION.*$$/EXTRAVERSION=${EXTRAVERSION}/'
 	touch $@
 
