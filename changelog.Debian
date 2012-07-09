@@ -1,3 +1,9 @@
+pve-kernel-2.6.32 (2.6.32-71) unstable; urgency=low
+
+  * update to vzkernel-2.6.32-042stab057.1.src.rpm
+
+ -- Proxmox Support Team <support@proxmox.com>  Mon, 09 Jul 2012 08:14:24 +0200
+
 pve-kernel-2.6.32 (2.6.32-70) unstable; urgency=low
 
   * atl1c: Add support for Atheros AR8152 and AR8152
