@@ -1,7 +1,7 @@
 RELEASE=2.1
 
 KERNEL_VER=2.6.32
-PKGREL=71
+PKGREL=72
 # also include firmware of previous versrion into 
 # the fw package:  fwlist-2.6.32-PREV-pve
 KREL=13
@@ -34,7 +34,7 @@ AOESRC=${AOEDIR}.tar.gz
 E1000EDIR=e1000e-2.0.0.1
 E1000ESRC=${E1000EDIR}.tar.gz
 
-IGBDIR=igb-3.4.7
+IGBDIR=igb-3.4.8
 IGBSRC=${IGBDIR}.tar.gz
 
 IXGBEDIR=ixgbe-3.10.16
@@ -181,6 +181,7 @@ igb.ko igb: .compile_mark ${IGBSRC}
 ixgbe.ko ixgbe: .compile_mark ${IXGBESRC}
 	rm -rf ${IXGBEDIR}
 	tar xf ${IXGBESRC}
+	cd ${IXGBEDIR}; patch -p1 <../ixgbe_fix_mac_flush.patch
 	mkdir -p /lib/modules/${KVNAME}
 	ln -sf ${TOP}/${KERNEL_SRC} /lib/modules/${KVNAME}/build
 	cd ${IXGBEDIR}/src; make CFLAGS_EXTRA="-DIXGBE_NO_LRO" BUILD_KERNEL=${KVNAME}

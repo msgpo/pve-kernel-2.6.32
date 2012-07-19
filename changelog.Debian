@@ -1,3 +1,11 @@
+pve-kernel-2.6.32 (2.6.32-72) unstable; urgency=low
+
+  * update igb to 3.4.8
+  
+  * ixgbe: include ixgbe_fix_mac_flush.patch
+  
+ -- Proxmox Support Team <support@proxmox.com>  Thu, 19 Jul 2012 05:58:18 +0200
+
 pve-kernel-2.6.32 (2.6.32-71) unstable; urgency=low
 
   * update to vzkernel-2.6.32-042stab057.1.src.rpm
