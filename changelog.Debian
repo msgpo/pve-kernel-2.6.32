@@ -1,3 +1,11 @@
+pve-kernel-2.6.32 (2.6.32-73) unstable; urgency=low
+
+  * update to vzkernel-2.6.32-042stab059.7.src.rpm
+
+  * remove atl1c fixes - now included upstream
+  
+ -- Proxmox Support Team <support@proxmox.com>  Mon, 06 Aug 2012 06:25:31 +0200
+
 pve-kernel-2.6.32 (2.6.32-72) unstable; urgency=low
 
   * update igb to 3.4.8

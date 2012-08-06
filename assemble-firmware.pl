@@ -103,6 +103,7 @@ b43/ucode15.fw
 b43/ucode14.fw
 b43/ucode13.fw
 b43/ucode11.fw
+b43/ucode16_mimo.fw
 orinoco_ezusb_fw
 isl3890
 isl3886
@@ -112,7 +113,10 @@ mwl8k/helper_8366.fw
 mwl8k/fmimage_8363.fw
 mwl8k/helper_8363.fw
 iwlwifi-6000g2a-4.ucode
+iwlwifi-6000g2a-6.ucode
 iwlwifi-130-5.ucode
+iwlwifi-100-6.ucode
+iwlwifi-1000-6.ucode
 cxgb4/t4fw.bin
 cxgb4/t4fw-1.3.10.0.bin
 

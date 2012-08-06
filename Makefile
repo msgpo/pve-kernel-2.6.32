@@ -1,13 +1,13 @@
 RELEASE=2.1
 
 KERNEL_VER=2.6.32
-PKGREL=72
+PKGREL=73
 # also include firmware of previous versrion into 
 # the fw package:  fwlist-2.6.32-PREV-pve
-KREL=13
+KREL=14
 
-RHKVER=220.23.1.el6
-OVZVER=042stab057.1
+RHKVER=279.1.1.el6
+OVZVER=042stab059.7
 
 KERNELSRCRPM=vzkernel-${KERNEL_VER}-${OVZVER}.src.rpm
 
@@ -25,7 +25,7 @@ KERNEL_CFG=config-${KERNEL_VER}
 KERNEL_CFG_ORG=config-${KERNEL_VER}-${OVZVER}.x86_64
 
 FW_VER=1.0
-FW_REL=17
+FW_REL=18
 FW_DEB=pve-firmware_${FW_VER}-${FW_REL}_all.deb
 
 AOEDIR=aoe6-77
@@ -129,15 +129,11 @@ ${KERNEL_SRC}/README: ${KERNEL_SRC}.org/README
 	rm -rf ${KERNEL_SRC}
 	cp -a ${KERNEL_SRC}.org ${KERNEL_SRC}
 	cd ${KERNEL_SRC}; patch -p1 <../bootsplash-3.1.9-2.6.31-rh.patch
-	cd ${KERNEL_SRC}; patch -p1 <../${RHKERSRCDIR}/patch-042stab057
+	cd ${KERNEL_SRC}; patch -p1 <../${RHKERSRCDIR}/patch-042stab059
 	cd ${KERNEL_SRC}; patch -p1 <../do-not-use-barrier-on-ext3.patch
 	cd ${KERNEL_SRC}; patch -p1 <../bridge-patch.diff
 	cd ${KERNEL_SRC}; patch -p1 <../fix-aspm-policy.patch
 	cd ${KERNEL_SRC}; patch -p1 <../optimize-cfq-parameters.patch
-	# fix atheros atl1c driver (backports from 3.0.34)
-	cd ${KERNEL_SRC}; patch -p1 <../atl1c-Add-support-for-Atheros-AR8152-and-AR8152.patch
-	cd ${KERNEL_SRC}; patch -p1 <../atl1c-Add-support-for-Atheros-AR8151v2.patch
-	cd ${KERNEL_SRC}; patch -p1 <../atl1c-Add-missing-PCI-device-ID.patch
 	sed -i ${KERNEL_SRC}/Makefile -e 's/^EXTRAVERSION.*$$/EXTRAVERSION=${EXTRAVERSION}/'
 	touch $@
 
@@ -230,7 +226,7 @@ ${HDR_DEB} hdr: .compile_mark headers-control.in headers-postinst.in
 linux-firmware.git/WHENCE:
 	git clone git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git linux-firmware.git
 
-${FW_DEB} fw: control.firmware linux-firmware.git/WHENCE changelog.firmware fwlist-2.6.18-2-pve fwlist-2.6.24-12-pve fwlist-2.6.32-3-pve fwlist-2.6.32-4-pve fwlist-2.6.32-5-pve fwlist-2.6.32-6-pve fwlist-2.6.35-1-pve fwlist-${KVNAME}
+${FW_DEB} fw: control.firmware linux-firmware.git/WHENCE changelog.firmware fwlist-2.6.18-2-pve fwlist-2.6.24-12-pve fwlist-2.6.32-3-pve fwlist-2.6.32-4-pve fwlist-2.6.32-5-pve fwlist-2.6.32-6-pve fwlist-2.6.35-1-pve fwlist-2.6.32-13-pve fwlist-${KVNAME}
 	rm -rf fwdata
 	mkdir -p fwdata/lib/firmware
 	./assemble-firmware.pl fwlist-${KVNAME} fwdata/lib/firmware
@@ -242,6 +238,7 @@ ${FW_DEB} fw: control.firmware linux-firmware.git/WHENCE changelog.firmware fwli
 	./assemble-firmware.pl fwlist-2.6.32-5-pve fwdata/lib/firmware
 	./assemble-firmware.pl fwlist-2.6.32-6-pve fwdata/lib/firmware
 	./assemble-firmware.pl fwlist-2.6.35-1-pve fwdata/lib/firmware
+	./assemble-firmware.pl fwlist-2.6.32-13-pve fwdata/lib/firmware
 	install -d fwdata/usr/share/doc/pve-firmware
 	cp linux-firmware.git/WHENCE fwdata/usr/share/doc/pve-firmware/README
 	install -d fwdata/usr/share/doc/pve-firmware/licenses
