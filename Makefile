@@ -134,6 +134,8 @@ ${KERNEL_SRC}/README: ${KERNEL_SRC}.org/README
 	cd ${KERNEL_SRC}; patch -p1 <../bridge-patch.diff
 	cd ${KERNEL_SRC}; patch -p1 <../fix-aspm-policy.patch
 	cd ${KERNEL_SRC}; patch -p1 <../optimize-cfq-parameters.patch
+	cd ${KERNEL_SRC}; patch -p1 <../rhel63-vlan-bonding-fix.patch
+	cd ${KERNEL_SRC}; patch -p1 <../rhel63-vlan-bonding-failover-fix.patch
 	sed -i ${KERNEL_SRC}/Makefile -e 's/^EXTRAVERSION.*$$/EXTRAVERSION=${EXTRAVERSION}/'
 	touch $@
 
