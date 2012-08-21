@@ -1,3 +1,9 @@
+pve-kernel-2.6.32 (2.6.32-74) unstable; urgency=low
+
+  * include bonding/vlan fixes
+
+ -- Proxmox Support Team <support@proxmox.com>  Tue, 21 Aug 2012 08:11:06 +0200
+
 pve-kernel-2.6.32 (2.6.32-73) unstable; urgency=low
 
   * update to vzkernel-2.6.32-042stab059.7.src.rpm
