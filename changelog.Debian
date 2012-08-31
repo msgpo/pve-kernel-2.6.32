@@ -1,3 +1,13 @@
+pve-kernel-2.6.32 (2.6.32-75) unstable; urgency=low
+
+  * update to vzkernel-2.6.32-042stab061.2.src.rpm
+
+  * remove patch rhel63-vlan-bonding-fix.patch (now in upstream)
+  
+  * remove patch rhel63-vlan-bonding-failover-fix.patch (now in upstream)
+
+ -- Proxmox Support Team <support@proxmox.com>  Fri, 31 Aug 2012 07:19:21 +0200
+
 pve-kernel-2.6.32 (2.6.32-74) unstable; urgency=low
 
   * include bonding/vlan fixes

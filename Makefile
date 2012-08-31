@@ -1,13 +1,13 @@
 RELEASE=2.1
 
 KERNEL_VER=2.6.32
-PKGREL=74
+PKGREL=75
 # also include firmware of previous versrion into 
 # the fw package:  fwlist-2.6.32-PREV-pve
 KREL=14
 
-RHKVER=279.1.1.el6
-OVZVER=042stab059.7
+RHKVER=279.5.1.el6
+OVZVER=042stab061.2
 
 KERNELSRCRPM=vzkernel-${KERNEL_VER}-${OVZVER}.src.rpm
 
@@ -129,13 +129,11 @@ ${KERNEL_SRC}/README: ${KERNEL_SRC}.org/README
 	rm -rf ${KERNEL_SRC}
 	cp -a ${KERNEL_SRC}.org ${KERNEL_SRC}
 	cd ${KERNEL_SRC}; patch -p1 <../bootsplash-3.1.9-2.6.31-rh.patch
-	cd ${KERNEL_SRC}; patch -p1 <../${RHKERSRCDIR}/patch-042stab059
+	cd ${KERNEL_SRC}; patch -p1 <../${RHKERSRCDIR}/patch-042stab061
 	cd ${KERNEL_SRC}; patch -p1 <../do-not-use-barrier-on-ext3.patch
 	cd ${KERNEL_SRC}; patch -p1 <../bridge-patch.diff
 	cd ${KERNEL_SRC}; patch -p1 <../fix-aspm-policy.patch
 	cd ${KERNEL_SRC}; patch -p1 <../optimize-cfq-parameters.patch
-	cd ${KERNEL_SRC}; patch -p1 <../rhel63-vlan-bonding-fix.patch
-	cd ${KERNEL_SRC}; patch -p1 <../rhel63-vlan-bonding-failover-fix.patch
 	sed -i ${KERNEL_SRC}/Makefile -e 's/^EXTRAVERSION.*$$/EXTRAVERSION=${EXTRAVERSION}/'
 	touch $@
 
