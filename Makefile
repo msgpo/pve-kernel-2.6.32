@@ -1,13 +1,13 @@
-RELEASE=2.1
+RELEASE=2.2
 
 KERNEL_VER=2.6.32
-PKGREL=76
+PKGREL=77
 # also include firmware of previous versrion into 
 # the fw package:  fwlist-2.6.32-PREV-pve
 KREL=14
 
 RHKVER=279.5.1.el6
-OVZVER=042stab061.8
+OVZVER=042stab061.9
 
 KERNELSRCRPM=vzkernel-${KERNEL_VER}-${OVZVER}.src.rpm
 
@@ -31,13 +31,13 @@ FW_DEB=pve-firmware_${FW_VER}-${FW_REL}_all.deb
 AOEDIR=aoe6-77
 AOESRC=${AOEDIR}.tar.gz
 
-E1000EDIR=e1000e-2.0.0.1
+E1000EDIR=e1000e-2.2.0
 E1000ESRC=${E1000EDIR}.tar.gz
 
 IGBDIR=igb-3.4.8
 IGBSRC=${IGBDIR}.tar.gz
 
-IXGBEDIR=ixgbe-3.10.16
+IXGBEDIR=ixgbe-3.10.17
 IXGBESRC=${IXGBEDIR}.tar.gz
 
 #ARECADIR=arcmsr.1.20.0X.15-110330
@@ -177,7 +177,6 @@ igb.ko igb: .compile_mark ${IGBSRC}
 ixgbe.ko ixgbe: .compile_mark ${IXGBESRC}
 	rm -rf ${IXGBEDIR}
 	tar xf ${IXGBESRC}
-	cd ${IXGBEDIR}; patch -p1 <../ixgbe_fix_mac_flush.patch
 	mkdir -p /lib/modules/${KVNAME}
 	ln -sf ${TOP}/${KERNEL_SRC} /lib/modules/${KVNAME}/build
 	cd ${IXGBEDIR}/src; make CFLAGS_EXTRA="-DIXGBE_NO_LRO" BUILD_KERNEL=${KVNAME}

@@ -1,3 +1,15 @@
+pve-kernel-2.6.32 (2.6.32-77) unstable; urgency=low
+
+  * update to vzkernel-2.6.32-042stab061.9.src.rpm
+  
+  * update e1000e to 2.2.0
+  
+  * update ixgbe to 3.10.17 
+  
+  * remove ixgbe_fix_mac_flush.patch (now upstream)
+
+ -- Proxmox Support Team <support@proxmox.com>  Thu, 13 Sep 2012 06:47:13 +0200
+
 pve-kernel-2.6.32 (2.6.32-76) unstable; urgency=low
 
   * update to vzkernel-2.6.32-042stab061.8.src.rpm
