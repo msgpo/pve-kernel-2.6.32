@@ -1,8 +1,8 @@
-pve-kernel-2.6.32 (2.6.32-77) unstable; urgency=low
+pve-kernel-2.6.32 (2.6.32-78) unstable; urgency=low
 
   * update to vzkernel-2.6.32-042stab061.9.src.rpm
   
-  * update e1000e to 2.2.0
+  * update e1000e to 2.1.4
   
   * update ixgbe to 3.10.17 
   

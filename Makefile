@@ -1,10 +1,10 @@
 RELEASE=2.2
 
 KERNEL_VER=2.6.32
-PKGREL=77
+PKGREL=78
 # also include firmware of previous versrion into 
 # the fw package:  fwlist-2.6.32-PREV-pve
-KREL=14
+KREL=15
 
 RHKVER=279.5.1.el6
 OVZVER=042stab061.9
@@ -25,13 +25,13 @@ KERNEL_CFG=config-${KERNEL_VER}
 KERNEL_CFG_ORG=config-${KERNEL_VER}-${OVZVER}.x86_64
 
 FW_VER=1.0
-FW_REL=18
+FW_REL=19
 FW_DEB=pve-firmware_${FW_VER}-${FW_REL}_all.deb
 
 AOEDIR=aoe6-77
 AOESRC=${AOEDIR}.tar.gz
 
-E1000EDIR=e1000e-2.2.0
+E1000EDIR=e1000e-2.1.4
 E1000ESRC=${E1000EDIR}.tar.gz
 
 IGBDIR=igb-3.4.8
