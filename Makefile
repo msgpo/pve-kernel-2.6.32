@@ -1,7 +1,7 @@
 RELEASE=2.2
 
 KERNEL_VER=2.6.32
-PKGREL=79
+PKGREL=80
 # also include firmware of previous versrion into 
 # the fw package:  fwlist-2.6.32-PREV-pve
 KREL=16
@@ -34,10 +34,10 @@ AOESRC=${AOEDIR}.tar.gz
 E1000EDIR=e1000e-2.1.4
 E1000ESRC=${E1000EDIR}.tar.gz
 
-IGBDIR=igb-3.4.8
+IGBDIR=igb-4.0.17
 IGBSRC=${IGBDIR}.tar.gz
 
-IXGBEDIR=ixgbe-3.10.17
+IXGBEDIR=ixgbe-3.11.33
 IXGBESRC=${IXGBEDIR}.tar.gz
 
 #ARECADIR=arcmsr.1.20.0X.15-110330

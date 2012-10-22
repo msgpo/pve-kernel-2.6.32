@@ -1,3 +1,11 @@
+pve-kernel-2.6.32 (2.6.32-80) unstable; urgency=low
+
+  * update igb to 4.0.17
+  
+  * update ixgbe to 3.11.33
+
+ -- Proxmox Support Team <support@proxmox.com>  Mon, 22 Oct 2012 08:23:25 +0200
+
 pve-kernel-2.6.32 (2.6.32-79) unstable; urgency=low
 
   * update to vzkernel-2.6.32-042stab062.2.src.rpm
