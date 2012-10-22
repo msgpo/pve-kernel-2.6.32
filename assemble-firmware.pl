@@ -72,9 +72,6 @@ isl3886usb
 isl3886pci
 3826.arm
 
-rtl8168d-1.fw
-rtl8168d-2.fw
-
 i2400m-fw-sdio-1.3.sbcf
 
 nx3fwmn.bin
@@ -173,7 +170,9 @@ while(defined(my $line = <TMP>)) {
 	$fw = 'cis/PE520.cis';
     }
  
-    if (-f "$fwsrc0/$fw") {
+    # the rtl_nic/rtl8168d-1.fw file is buggy in current kernel tree
+    if (-f "$fwsrc0/$fw" && 
+	($fw ne 'rtl_nic/rtl8168d-1.fw')) { 
 	copy_fw("$fwsrc0/$fw", $fwdest);
 	next;
     }

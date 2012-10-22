@@ -1,3 +1,9 @@
+pve-firmware (1.0-21) unstable; urgency=low
+
+  * include correct rtl8168d-1.fw file
+  
+ -- Proxmox Support Team <support@proxmox.com>  Mon, 22 Oct 2012 11:54:29 +0200
+
 pve-firmware (1.0-19) unstable; urgency=low
 
   *  updates for new 2.6.32-15pve kernel
