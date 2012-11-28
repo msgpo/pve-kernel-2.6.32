@@ -1,13 +1,13 @@
 RELEASE=2.2
 
 KERNEL_VER=2.6.32
-PKGREL=82
+PKGREL=83
 # also include firmware of previous versrion into 
 # the fw package:  fwlist-2.6.32-PREV-pve
-KREL=16
+KREL=17
 
-RHKVER=279.11.1.el6
-OVZVER=042stab063.2
+RHKVER=279.14.1.el6
+OVZVER=042stab065.3
 
 KERNELSRCRPM=vzkernel-${KERNEL_VER}-${OVZVER}.src.rpm
 
@@ -129,7 +129,7 @@ ${KERNEL_SRC}/README: ${KERNEL_SRC}.org/README
 	rm -rf ${KERNEL_SRC}
 	cp -a ${KERNEL_SRC}.org ${KERNEL_SRC}
 	cd ${KERNEL_SRC}; patch -p1 <../bootsplash-3.1.9-2.6.31-rh.patch
-	cd ${KERNEL_SRC}; patch -p1 <../${RHKERSRCDIR}/patch-042stab063
+	cd ${KERNEL_SRC}; patch -p1 <../${RHKERSRCDIR}/patch-042stab065
 	cd ${KERNEL_SRC}; patch -p1 <../do-not-use-barrier-on-ext3.patch
 	cd ${KERNEL_SRC}; patch -p1 <../bridge-patch.diff
 	cd ${KERNEL_SRC}; patch -p1 <../fix-aspm-policy.patch
@@ -241,6 +241,7 @@ ${FW_DEB} fw: control.firmware linux-firmware.git/WHENCE changelog.firmware fwli
 	./assemble-firmware.pl fwlist-2.6.32-13-pve fwdata/lib/firmware
 	./assemble-firmware.pl fwlist-2.6.32-14-pve fwdata/lib/firmware
 	./assemble-firmware.pl fwlist-2.6.32-15-pve fwdata/lib/firmware
+	./assemble-firmware.pl fwlist-2.6.32-16-pve fwdata/lib/firmware
 	install -d fwdata/usr/share/doc/pve-firmware
 	cp linux-firmware.git/WHENCE fwdata/usr/share/doc/pve-firmware/README
 	install -d fwdata/usr/share/doc/pve-firmware/licenses
