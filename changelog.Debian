@@ -1,3 +1,15 @@
+pve-kernel-2.6.32 (2.6.32-85) unstable; urgency=low
+
+  * update to vzkernel-2.6.32-042stab072.3.src.rpm
+
+  * remove openvz-nfs-migration-fix.patch (now upstream)
+  
+  * rm optimize-cfq-parameters.patch and enable CONFIG_RT_GROUP_SCHED
+    again (was disabled to avoid corosync startup errors). Seems those
+    changes have negative impact on scheduler with newer kernel.
+   
+ -- Proxmox Support Team <support@proxmox.com>  Thu, 10 Jan 2013 11:12:37 +0100
+
 pve-kernel-2.6.32 (2.6.32-84) unstable; urgency=low
 
   * update to vzkernel-2.6.32-042stab068.8.src.rpm
