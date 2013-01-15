@@ -1,3 +1,9 @@
+pve-kernel-2.6.32 (2.6.32-86) unstable; urgency=low
+
+  * update to vzkernel-2.6.32-042stab072.8.src.rpm
+
+ -- Proxmox Support Team <support@proxmox.com>  Tue, 15 Jan 2013 10:16:47 +0100
+
 pve-kernel-2.6.32 (2.6.32-85) unstable; urgency=low
 
   * update to vzkernel-2.6.32-042stab072.3.src.rpm
