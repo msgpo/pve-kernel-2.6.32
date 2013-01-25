@@ -4,6 +4,8 @@ pve-kernel-2.6.32 (2.6.32-88) unstable; urgency=low
   
   * include latest Adaptec aacraid driver
 
+  * update e1000e to 2.2.14
+  
  -- Proxmox Support Team <support@proxmox.com>  Fri, 25 Jan 2013 11:14:53 +0100
 
 pve-kernel-2.6.32 (2.6.32-87) unstable; urgency=low

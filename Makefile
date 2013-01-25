@@ -31,7 +31,7 @@ FW_DEB=pve-firmware_${FW_VER}-${FW_REL}_all.deb
 AOEDIR=aoe6-77
 AOESRC=${AOEDIR}.tar.gz
 
-E1000EDIR=e1000e-2.1.4
+E1000EDIR=e1000e-2.2.14
 E1000ESRC=${E1000EDIR}.tar.gz
 
 IGBDIR=igb-4.0.17
