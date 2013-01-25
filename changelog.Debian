@@ -6,6 +6,8 @@ pve-kernel-2.6.32 (2.6.32-88) unstable; urgency=low
 
   * update e1000e to 2.2.14
   
+  * update igb to 4.1.2
+  
  -- Proxmox Support Team <support@proxmox.com>  Fri, 25 Jan 2013 11:14:53 +0100
 
 pve-kernel-2.6.32 (2.6.32-87) unstable; urgency=low
