@@ -37,7 +37,7 @@ E1000ESRC=${E1000EDIR}.tar.gz
 IGBDIR=igb-4.1.2
 IGBSRC=${IGBDIR}.tar.gz
 
-IXGBEDIR=ixgbe-3.11.33
+IXGBEDIR=ixgbe-3.12.6
 IXGBESRC=${IXGBEDIR}.tar.gz
 
 BNX2DIR=netxtreme2-7.4.27
