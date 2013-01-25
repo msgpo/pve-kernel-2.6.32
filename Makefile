@@ -43,6 +43,9 @@ IXGBESRC=${IXGBEDIR}.tar.gz
 BNX2DIR=netxtreme2-7.4.27
 BNX2SRC=${BNX2DIR}.tar.gz
 
+AACRAIDSRC=aacraid-1.2.1-29900.src.rpm
+AACRAIDDIR=aacraid-1.2.1
+
 #ARECADIR=arcmsr.1.20.0X.15-110330
 #ARECASRC=${ARECADIR}.zip
 
@@ -90,7 +93,7 @@ fwlist-${KVNAME}: data
 	./find-firmware.pl data/lib/modules/${KVNAME} >fwlist.tmp
 	mv fwlist.tmp $@
 
-data: .compile_mark ${KERNEL_CFG} aoe.ko e1000e.ko igb.ko ixgbe.ko bnx2.ko cnic.ko bnx2x.ko iscsi_trgt.ko
+data: .compile_mark ${KERNEL_CFG} aoe.ko e1000e.ko igb.ko ixgbe.ko bnx2.ko cnic.ko bnx2x.ko iscsi_trgt.ko aacraid.ko
 	rm -rf data tmp; mkdir -p tmp/lib/modules/${KVNAME}
 	mkdir tmp/boot
 	install -m 644 ${KERNEL_CFG} tmp/boot/config-${KVNAME}
@@ -109,6 +112,8 @@ data: .compile_mark ${KERNEL_CFG} aoe.ko e1000e.ko igb.ko ixgbe.ko bnx2.ko cnic.
 	install -m 644 bnx2.ko tmp/lib/modules/${KVNAME}/kernel/drivers/net/
 	install -m 644 cnic.ko tmp/lib/modules/${KVNAME}/kernel/drivers/net/
 	install -m 644 bnx2x.ko tmp/lib/modules/${KVNAME}/kernel/drivers/net/bnx2x/
+	# install aacraid drivers
+	install -m 644 aacraid.ko tmp/lib/modules/${KVNAME}/kernel/drivers/scsi/aacraid/
 	# install areca driver
 	#install -m 644 arcmsr.ko tmp/lib/modules/${KVNAME}/kernel/drivers/scsi/arcmsr/
 	# install iscsitarget module
@@ -155,6 +160,16 @@ ${RHKERSRCDIR}/kernel.spec: ${KERNELSRCRPM}
 	mkdir ${RHKERSRCDIR}
 	cd ${RHKERSRCDIR};rpm2cpio ../${KERNELSRCRPM} |cpio -i
 	touch $@
+
+aacraid.ko: .compile_mark ${AACRAIDSRC}
+	rm -rf ${AACRAIDDIR}
+	mkdir ${AACRAIDDIR}
+	cd ${AACRAIDDIR};rpm2cpio ../${AACRAIDSRC} |cpio -i
+	cd ${AACRAIDDIR};tar xzf aacraid_source.tgz	
+	mkdir -p /lib/modules/${KVNAME}
+	ln -sf ${TOP}/${KERNEL_SRC} /lib/modules/${KVNAME}/build
+	make -C ${TOP}/${KERNEL_SRC} M=${TOP}/${AACRAIDDIR} modules
+	cp ${AACRAIDDIR}/aacraid.ko .
 
 aoe.ko aoe: .compile_mark ${AOESRC}
 	# aoe driver updates
@@ -287,7 +302,7 @@ distclean: clean
 
 .PHONY: clean
 clean:
-	rm -rf *~ .compile_mark ${KERNEL_CFG} ${KERNEL_SRC} tmp data proxmox-ve/data *.deb ${AOEDIR} aoe.ko ${headers_tmp} fwdata fwlist.tmp *.ko ${IXGBEDIR} ${E1000EDIR} e1000e.ko ${IGBDIR} igb.ko fwlist-${KVNAME} iscsi_trgt.ko ${ISCSITARGETDIR} ${BNX2DIR} bnx2.ko cnic.ko bnx2x.ko
+	rm -rf *~ .compile_mark ${KERNEL_CFG} ${KERNEL_SRC} tmp data proxmox-ve/data *.deb ${AOEDIR} aoe.ko ${headers_tmp} fwdata fwlist.tmp *.ko ${IXGBEDIR} ${E1000EDIR} e1000e.ko ${IGBDIR} igb.ko fwlist-${KVNAME} iscsi_trgt.ko ${ISCSITARGETDIR} ${BNX2DIR} bnx2.ko cnic.ko bnx2x.ko aacraid.ko ${AACRAIDDIR}
 
 
 

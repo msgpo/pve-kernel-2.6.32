@@ -1,6 +1,8 @@
 pve-kernel-2.6.32 (2.6.32-88) unstable; urgency=low
 
-  * include latest broadcom bnx2/bnx2x drivers
+  * include latest Broadcom bnx2/bnx2x drivers
+  
+  * include latest Adaptec aacraid driver
 
  -- Proxmox Support Team <support@proxmox.com>  Fri, 25 Jan 2013 11:14:53 +0100
 
