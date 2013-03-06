@@ -192,14 +192,14 @@ while(defined(my $line = <TMP>)) {
 
     my $name = basename($fw);
 
-    my $sr = `find '$fwsrc1' -name '$name'`;
+    my $sr = `find '$fwsrc1' -type f -name '$name'`;
     chomp $sr;
     if ($sr) {
 	#print "found $fw in $sr\n";
 	copy_fw($sr, $fwdest);
 	next;
     }
-    $sr = `find '$fwsrc3' -name '$name'`;
+    $sr = `find '$fwsrc3' -type f -name '$name'`;
     chomp $sr;
     if ($sr) {
 	#print "found $fw in $sr\n";

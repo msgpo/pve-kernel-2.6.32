@@ -1,3 +1,9 @@
+pve-kernel-2.6.32 (2.6.32-89) unstable; urgency=low
+
+  * update to vzkernel-2.6.32-042stab074.10.src.rpm
+
+ -- Proxmox Support Team <support@proxmox.com>  Wed, 06 Mar 2013 05:46:58 +0100
+
 pve-kernel-2.6.32 (2.6.32-88) unstable; urgency=low
 
   * include latest Broadcom bnx2/bnx2x drivers
