@@ -110,6 +110,13 @@ see config-2.6.32.diff
   Else we get warnings on boot, that
   net.bridge.bridge-nf-call-iptables is an unknown key
 
+- disable CONFIG_BRIDGE_IGMP_SNOOPING 
+
+  To avoid problems with multicasting. Various users reported
+  multipath problems, which can be avoided by turning off IGMP
+  snooping.
+
+
 Testing final kernel with kvm
 -----------------------------
 
