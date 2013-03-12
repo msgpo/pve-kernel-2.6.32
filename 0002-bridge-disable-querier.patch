@@ -1,0 +1,60 @@
+From c83b8fab06fc8c80d6440649f117bb7541df5fd0 Mon Sep 17 00:00:00 2001
+From: Herbert Xu <herbert@gondor.apana.org.au>
+Date: Fri, 13 Apr 2012 02:37:42 +0000
+Subject: bridge: Restart queries when last querier expires
+
+As it stands when we discover that a real querier (one that queries
+with a non-zero source address) we stop querying.  However, even
+after said querier has fallen off the edge of the earth, we will
+never restart querying (unless the bridge itself is restarted).
+
+This patch fixes this by kicking our own querier into gear when
+the timer for other queriers expire.
+
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+Signed-off-by: David S. Miller <davem@davemloft.net>
+---
+diff --git a/net/bridge/br_multicast.c b/net/bridge/br_multicast.c
+index 0385584..656b77c 100644
+--- a/net/bridge/br_multicast.c
++++ b/net/bridge/br_multicast.c
+@@ -33,6 +33,8 @@
+ 
+ #include "br_private.h"
+ 
++static void br_multicast_start_querier(struct net_bridge *br);
++
+ #if defined(CONFIG_IPV6) || defined(CONFIG_IPV6_MODULE)
+ static inline int ipv6_is_transient_multicast(const struct in6_addr *addr)
+ {
+@@ -802,6 +804,21 @@ static void br_multicast_local_router_expired(unsigned long data)
+ {
+ }
+ 
++static void br_multicast_querier_expired(unsigned long data)
++{
++	struct net_bridge_port *port = (void *)data;
++	struct net_bridge *br = port->br;
++
++	spin_lock(&br->multicast_lock);
++	if (!netif_running(br->dev) || br->multicast_disabled)
++		goto out;
++
++	br_multicast_start_querier(br);
++
++out:
++	spin_unlock(&br->multicast_lock);
++}
++
+ static void __br_multicast_send_query(struct net_bridge *br,
+ 				      struct net_bridge_port *port,
+ 				      struct br_ip *ip)
+@@ -1612,7 +1629,7 @@ void br_multicast_init(struct net_bridge *br)
+ 	setup_timer(&br->multicast_router_timer,
+ 		    br_multicast_local_router_expired, 0);
+ 	setup_timer(&br->multicast_querier_timer,
+-		    br_multicast_local_router_expired, 0);
++		    br_multicast_querier_expired, 0);
+ 	setup_timer(&br->multicast_query_timer, br_multicast_query_expired,
+ 		    (unsigned long)br);
+ }

@@ -1,0 +1,54 @@
+From 748572162a2bc3ce6f0b215e25ad601c3ec33e77 Mon Sep 17 00:00:00 2001
+From: Herbert Xu <herbert@gondor.apana.org.au>
+Date: Fri, 13 Apr 2012 02:37:42 +0000
+Subject: bridge: Add br_multicast_start_querier
+
+This patch adds the helper br_multicast_start_querier so that
+the code which starts the queriers in br_multicast_toggle can
+be reused elsewhere.
+
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+Signed-off-by: David S. Miller <davem@davemloft.net>
+---
+diff --git a/net/bridge/br_multicast.c b/net/bridge/br_multicast.c
+index 3253107..0385584 100644
+--- a/net/bridge/br_multicast.c
++++ b/net/bridge/br_multicast.c
+@@ -1740,6 +1740,21 @@ unlock:
+ 	return err;
+ }
+ 
++static void br_multicast_start_querier(struct net_bridge *br)
++{
++	struct net_bridge_port *port;
++
++	br_multicast_open(br);
++
++	list_for_each_entry(port, &br->port_list, list) {
++		if (port->state == BR_STATE_DISABLED ||
++		    port->state == BR_STATE_BLOCKING)
++			continue;
++
++		__br_multicast_enable_port(port);
++	}
++}
++
+ int br_multicast_toggle(struct net_bridge *br, unsigned long val)
+ {
+ 	struct net_bridge_port *port;
+@@ -1771,14 +1786,7 @@ rollback:
+ 			goto rollback;
+ 	}
+ 
+-	br_multicast_open(br);
+-	list_for_each_entry(port, &br->port_list, list) {
+-		if (port->state == BR_STATE_DISABLED ||
+-		    port->state == BR_STATE_BLOCKING)
+-			continue;
+-
+-		__br_multicast_enable_port(port);
+-	}
++	br_multicast_start_querier(br);
+ 
+ unlock:
+ 	spin_unlock(&br->multicast_lock);

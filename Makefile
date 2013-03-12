@@ -144,6 +144,10 @@ ${KERNEL_SRC}/README: ${KERNEL_SRC}.org/README
 	cd ${KERNEL_SRC}; patch -p1 <../${RHKERSRCDIR}/patch-042stab074
 	cd ${KERNEL_SRC}; patch -p1 <../do-not-use-barrier-on-ext3.patch
 	cd ${KERNEL_SRC}; patch -p1 <../bridge-patch.diff
+	cd ${KERNEL_SRC}; patch -p1 <../0001-bridge-disable-querier.patch
+	cd ${KERNEL_SRC}; patch -p1 <../0002-bridge-disable-querier.patch
+	cd ${KERNEL_SRC}; patch -p1 <../0003-bridge-disable-querier.patch
+	cd ${KERNEL_SRC}; patch -p1 <../0004-bridge-disable-querier.patch
 	cd ${KERNEL_SRC}; patch -p1 <../fix-aspm-policy.patch
 	#cd ${KERNEL_SRC}; patch -p1 <../optimize-cfq-parameters.patch
 	sed -i ${KERNEL_SRC}/Makefile -e 's/^EXTRAVERSION.*$$/EXTRAVERSION=${EXTRAVERSION}/'
