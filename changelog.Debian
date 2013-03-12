@@ -1,3 +1,11 @@
+pve-kernel-2.6.32 (2.6.32-91) unstable; urgency=low
+
+  * re-enable CONFIG_BRIDGE_IGMP_SNOOPING
+  
+  * bridge: disable igmp querier by default
+
+ -- Proxmox Support Team <support@proxmox.com>  Tue, 12 Mar 2013 10:18:04 +0100
+
 pve-kernel-2.6.32 (2.6.32-90) unstable; urgency=low
 
   * disable CONFIG_BRIDGE_IGMP_SNOOPING to avoid problems with
