@@ -1,3 +1,12 @@
+pve-kernel-2.6.32 (2.6.32-92) unstable; urgency=low
+
+  * update to vzkernel-2.6.32-042stab075.2.src.rpm
+  
+  * bridge: enable igmp querier by default. We now have same behavior as
+    we had with 2.6.32-89, but we can enable/disable it at runtime.
+  
+ -- Proxmox Support Team <support@proxmox.com>  Thu, 14 Mar 2013 07:07:19 +0100
+
 pve-kernel-2.6.32 (2.6.32-91) unstable; urgency=low
 
   * re-enable CONFIG_BRIDGE_IGMP_SNOOPING
