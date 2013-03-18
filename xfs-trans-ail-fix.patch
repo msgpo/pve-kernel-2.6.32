@@ -1,0 +1,16 @@
+customers claims on high load average when using xfs
+
+see https://bugzilla.redhat.com/show_bug.cgi?id=883905
+
+diff --git a/fs/xfs/xfs_trans_ail.c b/fs/xfs/xfs_trans_ail.c
+index e8d8c84..a12ad65 100644
+--- a/fs/xfs/xfs_trans_ail.c
++++ b/fs/xfs/xfs_trans_ail.c
+@@ -405,6 +405,7 @@ xfsaild_push(
+ 		xfs_trans_ail_cursor_done(ailp, cur);
+ 		spin_unlock(&ailp->xa_lock);
+ 		*last_lsn = 0;
++		tout = 50;
+ 		return tout;
+ 	}
+
