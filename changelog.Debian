@@ -1,3 +1,9 @@
+pve-kernel-2.6.32 (2.6.32-93) unstable; urgency=low
+
+  * fix xfs high load bug
+
+ -- Proxmox Support Team <support@proxmox.com>  Mon, 18 Mar 2013 06:24:28 +0100
+
 pve-kernel-2.6.32 (2.6.32-92) unstable; urgency=low
 
   * update to vzkernel-2.6.32-042stab075.2.src.rpm
