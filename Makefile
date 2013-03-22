@@ -1,7 +1,7 @@
-RELEASE=2.3
+RELEASE=3.0
 
 KERNEL_VER=2.6.32
-PKGREL=92
+PKGREL=93
 # also include firmware of previous versrion into 
 # the fw package:  fwlist-2.6.32-PREV-pve
 KREL=19
@@ -73,7 +73,7 @@ ${PVE_DEB} pve: proxmox-ve/control proxmox-ve/postinst
 	dpkg-deb --build proxmox-ve/data ${PVE_DEB}
 
 check_gcc: 
-	gcc --version|grep "4.4.5" || false
+	gcc --version|grep "4.7.2" || false
 
 ${DST_DEB}: data control.in postinst.in
 	mkdir -p data/DEBIAN
@@ -150,6 +150,7 @@ ${KERNEL_SRC}/README: ${KERNEL_SRC}.org/README
 	cd ${KERNEL_SRC}; patch -p1 <../0004-bridge-disable-querier.patch
 	cd ${KERNEL_SRC}; patch -p1 <../0005-bridge-disable-querier.patch
 	cd ${KERNEL_SRC}; patch -p1 <../fix-aspm-policy.patch
+	cd ${KERNEL_SRC}; patch -p1 <../kbuild-generate-mudules-builtin.patch
 	#cd ${KERNEL_SRC}; patch -p1 <../optimize-cfq-parameters.patch
 	sed -i ${KERNEL_SRC}/Makefile -e 's/^EXTRAVERSION.*$$/EXTRAVERSION=${EXTRAVERSION}/'
 	touch $@

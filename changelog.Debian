@@ -1,3 +1,11 @@
+pve-kernel-2.6.32 (2.6.32-93) unstable; urgency=low
+
+  * updates for debian wheezy
+  
+  * generate generate modules.builtin to suppress mkinitrd warnings on wheezy
+
+ -- Proxmox Support Team <support@proxmox.com>  Thu, 14 Mar 2013 13:27:15 +0100
+
 pve-kernel-2.6.32 (2.6.32-92) unstable; urgency=low
 
   * update to vzkernel-2.6.32-042stab075.2.src.rpm
