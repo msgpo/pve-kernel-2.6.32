@@ -1,0 +1,24 @@
+--- linux-2.6-2.6.32/include/asm-generic/ioctls.h.org	2013-03-22 11:29:33.000000000 +0100
++++ linux-2.6-2.6.32/include/asm-generic/ioctls.h	2013-03-22 11:29:38.000000000 +0100
+@@ -65,6 +65,7 @@
+ #define TIOCSRS485	0x542F
+ #define TIOCGPTN	_IOR('T', 0x30, unsigned int) /* Get Pty Number (of pty-mux device) */
+ #define TIOCSPTLCK	_IOW('T', 0x31, int)  /* Lock/unlock Pty */
++#define TIOCGDEV        _IOR('T',0x32, unsigned int) /* Get primary device node of /dev/console */
+ #define TCGETX		0x5432 /* SYS5 TCGETX compatibility */
+ #define TCSETX		0x5433
+ #define TCSETXF		0x5434
+--- linux-2.6-2.6.32/drivers/char/tty_io.c.org	2013-03-22 11:02:50.000000000 +0100
++++ linux-2.6-2.6.32/drivers/char/tty_io.c	2013-03-22 11:30:34.000000000 +0100
+@@ -2617,6 +2617,11 @@
+ 		return put_user(tty->ldisc->ops->num, (int __user *)p);
+ 	case TIOCSETD:
+ 		return tiocsetd(tty, p);
++	case TIOCGDEV:
++	{
++		unsigned int ret = new_encode_dev(tty_devnum(real_tty));
++		return put_user(ret, (unsigned int __user *)p);
++	}
+ 	/*
+ 	 * Break handling
+ 	 */
