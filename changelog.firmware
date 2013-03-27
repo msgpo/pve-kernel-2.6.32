@@ -1,3 +1,9 @@
+pve-firmware (1.0-22) unstable; urgency=low
+
+  * update version for wheezy
+
+ -- Proxmox Support Team <support@proxmox.com>  Wed, 27 Mar 2013 09:52:47 +0100
+
 pve-firmware (1.0-21) unstable; urgency=low
 
   * include correct rtl8168d-1.fw file
