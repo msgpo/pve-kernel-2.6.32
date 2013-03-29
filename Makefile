@@ -1,7 +1,7 @@
 RELEASE=2.3
 
 KERNEL_VER=2.6.32
-PKGREL=93
+PKGREL=94
 # also include firmware of previous versrion into 
 # the fw package:  fwlist-2.6.32-PREV-pve
 KREL=19
@@ -151,6 +151,7 @@ ${KERNEL_SRC}/README: ${KERNEL_SRC}.org/README
 	cd ${KERNEL_SRC}; patch -p1 <../0005-bridge-disable-querier.patch
 	cd ${KERNEL_SRC}; patch -p1 <../fix-aspm-policy.patch
 	cd ${KERNEL_SRC}; patch -p1 <../xfs-trans-ail-fix.patch
+	cd ${KERNEL_SRC}; patch -p1 <../fix-ipoib-add-missing-lock.patch
 	#cd ${KERNEL_SRC}; patch -p1 <../optimize-cfq-parameters.patch
 	sed -i ${KERNEL_SRC}/Makefile -e 's/^EXTRAVERSION.*$$/EXTRAVERSION=${EXTRAVERSION}/'
 	touch $@
