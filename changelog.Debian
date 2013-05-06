@@ -1,3 +1,17 @@
+pve-kernel-2.6.32 (2.6.32-98) unstable; urgency=low
+
+  * update to vzkernel-2.6.32-042stab076.7.src.rpm
+  
+  * remove xfs-trans-ail-fix.patch (fixed upstream)
+  
+  * update e1000e to 2.3.2
+  
+  * update igb to 4.2.16
+  
+  * update ixgbe to 3.14.5
+
+ -- Proxmox Support Team <support@proxmox.com>  Fri, 03 May 2013 19:51:48 +0200
+
 pve-kernel-2.6.32 (2.6.32-97) unstable; urgency=low
 
   * update to vzkernel-2.6.32-042stab076.5.src.rpm
