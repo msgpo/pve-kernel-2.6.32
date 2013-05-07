@@ -116,6 +116,10 @@ see config-2.6.32.diff
   multipath problems, which can be avoided by turning off IGMP
   snooping.
 
+- use 'deadline' as default scheduler
+
+  This is the suggested setting for KVM. We also measure bad fsync
+  performance with ext4 and cfq.
 
 Testing final kernel with kvm
 -----------------------------
