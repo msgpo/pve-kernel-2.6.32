@@ -1,3 +1,9 @@
+pve-kernel-2.6.32 (2.6.32-100) unstable; urgency=low
+
+  * fix CVE-2013-2094
+
+ -- Proxmox Support Team <support@proxmox.com>  Wed, 15 May 2013 08:09:23 +0200
+
 pve-kernel-2.6.32 (2.6.32-99) unstable; urgency=low
 
   * set default scheduler to 'deadline'

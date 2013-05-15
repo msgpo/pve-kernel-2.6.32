@@ -1,7 +1,7 @@
 RELEASE=3.0
 
 KERNEL_VER=2.6.32
-PKGREL=99
+PKGREL=100
 # also include firmware of previous versrion into 
 # the fw package:  fwlist-2.6.32-PREV-pve
 KREL=20
@@ -153,6 +153,7 @@ ${KERNEL_SRC}/README: ${KERNEL_SRC}.org/README
 	cd ${KERNEL_SRC}; patch -p1 <../kbuild-generate-mudules-builtin.patch
 	cd ${KERNEL_SRC}; patch -p1 <../add-tiocgdev-ioctl.patch
 	cd ${KERNEL_SRC}; patch -p1 <../fix-ipoib-add-missing-lock.patch
+	cd ${KERNEL_SRC}; patch -p1 <../fix-CVE-2013-2094.patch
 	sed -i ${KERNEL_SRC}/Makefile -e 's/^EXTRAVERSION.*$$/EXTRAVERSION=${EXTRAVERSION}/'
 	touch $@
 
