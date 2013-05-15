@@ -1,3 +1,9 @@
+pve-kernel-2.6.32 (2.6.32-96) unstable; urgency=low
+
+  * fix CVE-2013-2094
+
+ -- Proxmox Support Team <support@proxmox.com>  Wed, 15 May 2013 07:12:46 +0200
+
 pve-kernel-2.6.32 (2.6.32-95) unstable; urgency=low
 
   * update to vzkernel-2.6.32-042stab076.5.src.rpm
