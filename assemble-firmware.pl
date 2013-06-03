@@ -24,7 +24,8 @@ my $skip = {};
 # debian squeeze also misses those files
 foreach my $fw (qw(
 libertas/gspi8385.bin libertas/gspi8385_hlp.bin
-cbfw.bin ctfw.bin ct2fw.bin
+ctfw.bin ct2fw.bin ctfw-3.0.3.1.bin ct2fw-3.0.3.1.bin
+cbfw.bin cbfw-3.0.3.1.bin 
 tehuti/firmware.bin
 cyzfirm.bin
 isi4616.bin

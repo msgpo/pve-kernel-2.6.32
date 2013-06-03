@@ -1,3 +1,9 @@
+pve-firmware (1.0-23) unstable; urgency=low
+
+  * update for RHEL6.4 based kernels
+
+ -- Proxmox Support Team <support@proxmox.com>  Mon, 03 Jun 2013 07:50:22 +0200
+
 pve-firmware (1.0-22) unstable; urgency=low
 
   * update version for wheezy
