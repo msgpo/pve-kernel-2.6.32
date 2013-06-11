@@ -1,0 +1,144 @@
+From 88654a86563317f36c38a279ea47e7aa09892192 Mon Sep 17 00:00:00 2001
+From: Alexandre Derumier <aderumier@odiso.com>
+Date: Mon, 3 Jun 2013 17:26:49 +0200
+Subject: [PATCH 1/2] bridge: only expire the mdb entry when query is received
+
+Currently we arm the expire timer when the mdb entry is added, however,
+this causes problem when there is no querier sent
+out after that.
+
+So we should only arm the timer when a corresponding query is received, as suggested by Herbert.
+And he also mentioned "if there is no querier then group subscriptions shouldn't expire.
+There has to be at least one querier in the network for this thing to work.
+Otherwise it just degenerates into a non-snooping switch, which is OK."
+
+Signed-off-by: Alexandre Derumier <aderumier@odiso.com>
+---
+ net/bridge/br_multicast.c |   37 +++++++++++--------------------------
+ net/bridge/br_private.h   |    1 +
+ 2 files changed, 12 insertions(+), 26 deletions(-)
+
+diff --git a/net/bridge/br_multicast.c b/net/bridge/br_multicast.c
+index 97b06de..ceb364a 100644
+--- a/net/bridge/br_multicast.c
++++ b/net/bridge/br_multicast.c
+@@ -677,8 +677,6 @@ rehash:
+ 
+ 	mp->br = br;
+ 	mp->addr = *group;
+-	setup_timer(&mp->timer, br_multicast_group_expired,
+-		    (unsigned long)mp);
+ 	setup_timer(&mp->query_timer, br_multicast_group_query_expired,
+ 		    (unsigned long)mp);
+ 
+@@ -696,7 +694,6 @@ static int br_multicast_add_group(struct net_bridge *br,
+ 	struct net_bridge_mdb_entry *mp;
+ 	struct net_bridge_port_group *p;
+ 	struct net_bridge_port_group **pp;
+-	unsigned long now = jiffies;
+ 	int err;
+ 
+ 	spin_lock(&br->multicast_lock);
+@@ -712,13 +709,12 @@ static int br_multicast_add_group(struct net_bridge *br,
+ 	if (!port) {
+ 		if (hlist_unhashed(&mp->mglist))
+ 			hlist_add_head(&mp->mglist, &br->mglist);
+-		mod_timer(&mp->timer, now + br->multicast_membership_interval);
+ 		goto out;
+ 	}
+ 
+ 	for (pp = &mp->ports; (p = *pp); pp = &p->next) {
+ 		if (p->port == port)
+-			goto found;
++			goto out;
+ 		if ((unsigned long)p->port < (unsigned long)port)
+ 			break;
+ 	}
+@@ -739,8 +735,6 @@ static int br_multicast_add_group(struct net_bridge *br,
+ 
+ 	rcu_assign_pointer(*pp, p);
+ 
+-found:
+-	mod_timer(&p->timer, now + br->multicast_membership_interval);
+ out:
+ 	err = 0;
+ 
+@@ -1151,6 +1145,10 @@ static int br_ip4_multicast_query(struct net_bridge *br,
+ 	if (!mp)
+ 		goto out;
+ 
++        setup_timer(&mp->timer, br_multicast_group_expired, (unsigned long)mp);
++        mod_timer(&mp->timer, now + br->multicast_membership_interval);
++        mp->timer_armed = true;
++
+ 	max_delay *= br->multicast_last_member_count;
+ 
+ 	if (!hlist_unhashed(&mp->mglist) &&
+@@ -1220,6 +1218,10 @@ static int br_ip6_multicast_query(struct net_bridge *br,
+ 	if (!mp)
+ 		goto out;
+ 
++	setup_timer(&mp->timer, br_multicast_group_expired, (unsigned long)mp);
++	mod_timer(&mp->timer, now + br->multicast_membership_interval);
++	mp->timer_armed = true;
++
+ 	max_delay *= br->multicast_last_member_count;
+ 	if (!hlist_unhashed(&mp->mglist) &&
+ 	    (timer_pending(&mp->timer) ?
+@@ -1266,7 +1268,7 @@ static void br_multicast_leave_group(struct net_bridge *br,
+ 		     br->multicast_last_member_interval;
+ 
+ 	if (!port) {
+-		if (!hlist_unhashed(&mp->mglist) &&
++		if (!hlist_unhashed(&mp->mglist) && mp->timer_armed &&
+ 		    (timer_pending(&mp->timer) ?
+ 		     time_after(mp->timer.expires, time) :
+ 		     try_to_del_timer_sync(&mp->timer) >= 0)) {
+@@ -1276,24 +1278,6 @@ static void br_multicast_leave_group(struct net_bridge *br,
+ 			mod_timer(&mp->query_timer, now);
+ 		}
+ 
+-		goto out;
+-	}
+-
+-	for (p = mp->ports; p; p = p->next) {
+-		if (p->port != port)
+-			continue;
+-
+-		if (!hlist_unhashed(&p->mglist) &&
+-		    (timer_pending(&p->timer) ?
+-		     time_after(p->timer.expires, time) :
+-		     try_to_del_timer_sync(&p->timer) >= 0)) {
+-			mod_timer(&p->timer, time);
+-
+-			p->queries_sent = 0;
+-			mod_timer(&p->query_timer, now);
+-		}
+-
+-		break;
+ 	}
+ 
+ out:
+@@ -1650,6 +1634,7 @@ void br_multicast_stop(struct net_bridge *br)
+ 		hlist_for_each_entry_safe(mp, p, n, &mdb->mhash[i],
+ 					  hlist[ver]) {
+ 			del_timer(&mp->timer);
++			mp->timer_armed = false;
+ 			del_timer(&mp->query_timer);
+ 			call_rcu_bh(&mp->rcu, br_multicast_free_group);
+ 		}
+diff --git a/net/bridge/br_private.h b/net/bridge/br_private.h
+index 03a4afc..e8ecef1 100644
+--- a/net/bridge/br_private.h
++++ b/net/bridge/br_private.h
+@@ -91,6 +91,7 @@ struct net_bridge_mdb_entry
+ 	struct timer_list		query_timer;
+ 	struct br_ip			addr;
+ 	u32				queries_sent;
++	bool 				timer_armed;
+ };
+ 
+ struct net_bridge_mdb_htable
+-- 
+1.7.10.4
+
