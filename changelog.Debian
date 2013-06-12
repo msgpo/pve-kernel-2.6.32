@@ -1,3 +1,11 @@
+pve-kernel-2.6.32 (2.6.32-102) unstable; urgency=low
+
+  * bridge: 0001-bridge-only-expire-the-mdb-entry-when-query-is-recei.patch
+  
+  * bridge: 0002-bridge-send-query-as-soon-as-leave-is-received.patch
+
+ -- Proxmox Support Team <support@proxmox.com>  Wed, 12 Jun 2013 06:41:31 +0200
+
 pve-kernel-2.6.32 (2.6.32-101) unstable; urgency=low
 
   * update to vzkernel-2.6.32-042stab078.16.src.rpm
