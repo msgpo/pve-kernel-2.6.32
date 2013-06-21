@@ -1,6 +1,10 @@
 pve-kernel-2.6.32 (2.6.32-103) unstable; urgency=low
 
   * update to vzkernel-2.6.32-042stab078.22.src.rpm
+  
+  * disable: 0001-bridge-only-expire-the-mdb-entry-when-query-is-recei.patch and
+    0002-bridge-send-query-as-soon-as-leave-is-received.patch (produces
+    crash on cluster)
 
  -- Proxmox Support Team <support@proxmox.com>  Thu, 20 Jun 2013 12:12:36 +0200
 

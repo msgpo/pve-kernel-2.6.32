@@ -149,8 +149,8 @@ ${KERNEL_SRC}/README: ${KERNEL_SRC}.org/README
 	cd ${KERNEL_SRC}; patch -p1 <../0003-bridge-disable-querier.patch
 	cd ${KERNEL_SRC}; patch -p1 <../0004-bridge-disable-querier.patch
 	cd ${KERNEL_SRC}; patch -p1 <../0005-bridge-disable-querier.patch
-	cd ${KERNEL_SRC}; patch -p1 <../0001-bridge-only-expire-the-mdb-entry-when-query-is-recei.patch
-	cd ${KERNEL_SRC}; patch -p1 <../0002-bridge-send-query-as-soon-as-leave-is-received.patch
+	#cd ${KERNEL_SRC}; patch -p1 <../0001-bridge-only-expire-the-mdb-entry-when-query-is-recei.patch
+	#cd ${KERNEL_SRC}; patch -p1 <../0002-bridge-send-query-as-soon-as-leave-is-received.patch
 	cd ${KERNEL_SRC}; patch -p1 <../fix-aspm-policy.patch
 	cd ${KERNEL_SRC}; patch -p1 <../kbuild-generate-mudules-builtin.patch
 	cd ${KERNEL_SRC}; patch -p1 <../add-tiocgdev-ioctl.patch
