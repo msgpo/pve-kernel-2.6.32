@@ -1,13 +1,13 @@
 RELEASE=3.0
 
 KERNEL_VER=2.6.32
-PKGREL=104
+PKGREL=105
 # also include firmware of previous versrion into 
 # the fw package:  fwlist-2.6.32-PREV-pve
 KREL=21
 
 RHKVER=358.6.2.el6
-OVZVER=042stab078.26
+OVZVER=042stab078.27
 
 KERNELSRCRPM=vzkernel-${KERNEL_VER}-${OVZVER}.src.rpm
 
