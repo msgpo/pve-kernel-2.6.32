@@ -31,13 +31,13 @@ FW_DEB=pve-firmware_${FW_VER}-${FW_REL}_all.deb
 AOEDIR=aoe6-77
 AOESRC=${AOEDIR}.tar.gz
 
-E1000EDIR=e1000e-2.3.2
+E1000EDIR=e1000e-2.4.14
 E1000ESRC=${E1000EDIR}.tar.gz
 
-IGBDIR=igb-4.2.16
+IGBDIR=igb-4.3.0
 IGBSRC=${IGBDIR}.tar.gz
 
-IXGBEDIR=ixgbe-3.14.5
+IXGBEDIR=ixgbe-3.16.1
 IXGBESRC=${IXGBEDIR}.tar.gz
 
 BNX2DIR=netxtreme2-7.4.27

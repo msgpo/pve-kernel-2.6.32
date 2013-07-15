@@ -3,7 +3,13 @@ pve-kernel-2.6.32 (2.6.32-106) unstable; urgency=low
   * update to vzkernel-2.6.32-042stab078.28.src.rpm
   
   * update aacraid to aacraid-1.2.1-30200.src.rpm
+  
+  * update ixgbe to 3.16.1
 
+  * update e1000e to 2.4.14
+
+  * update igb to 4.3.0
+  
  -- Proxmox Support Team <support@proxmox.com>  Mon, 15 Jul 2013 08:21:36 +0200
 
 pve-kernel-2.6.32 (2.6.32-105) unstable; urgency=low
