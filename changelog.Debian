@@ -1,3 +1,9 @@
+pve-kernel-2.6.32 (2.6.32-107) unstable; urgency=low
+
+  * fix bug #420: allow grub-efi-amd64
+
+ -- Proxmox Support Team <support@proxmox.com>  Mon, 15 Jul 2013 10:58:34 +0200
+
 pve-kernel-2.6.32 (2.6.32-106) unstable; urgency=low
 
   * update to vzkernel-2.6.32-042stab078.28.src.rpm
