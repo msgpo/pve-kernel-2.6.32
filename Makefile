@@ -43,7 +43,7 @@ IXGBESRC=${IXGBEDIR}.tar.gz
 BNX2DIR=netxtreme2-7.4.27
 BNX2SRC=${BNX2DIR}.tar.gz
 
-AACRAIDSRC=aacraid-1.2.1-29900.src.rpm
+AACRAIDSRC=aacraid-1.2.1-30200.src.rpm
 AACRAIDDIR=aacraid-1.2.1
 
 #ARECADIR=arcmsr.1.20.0X.15-110330
