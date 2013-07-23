@@ -28,6 +28,12 @@ Additional/Updated Modules:
 
   * http://download.adaptec.com/raid/aac/linux/aacraid-linux-src-1.2.1-30200.tgz
 
+- include latest megaraid_sas driver
+
+  *  http://www.lsi.com/downloads/Public/MegaRAID%20Common%20Files/MR_Linux_Driver_6.600.18.00.tgz
+
+  (extract source file megaraid_sas-06.600.18.00-src.tar.gz)
+
 FIRMWARE:
 =========
 

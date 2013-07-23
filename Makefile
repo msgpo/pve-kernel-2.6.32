@@ -1,10 +1,10 @@
 RELEASE=3.0
 
 KERNEL_VER=2.6.32
-PKGREL=107
+PKGREL=108
 # also include firmware of previous versrion into 
 # the fw package:  fwlist-2.6.32-PREV-pve
-KREL=22
+KREL=23
 
 RHKVER=358.6.2.el6
 OVZVER=042stab078.28
@@ -45,6 +45,9 @@ BNX2SRC=${BNX2DIR}.tar.gz
 
 AACRAIDSRC=aacraid-1.2.1-30200.src.rpm
 AACRAIDDIR=aacraid-1.2.1
+
+MEGARAID_DIR=megaraid_sas-06.600.18.00
+MEGARAID_SRC=${MEGARAID_DIR}-src.tar.gz
 
 #ARECADIR=arcmsr.1.20.0X.15-110330
 #ARECASRC=${ARECADIR}.zip
@@ -93,7 +96,7 @@ fwlist-${KVNAME}: data
 	./find-firmware.pl data/lib/modules/${KVNAME} >fwlist.tmp
 	mv fwlist.tmp $@
 
-data: .compile_mark ${KERNEL_CFG} aoe.ko e1000e.ko igb.ko ixgbe.ko bnx2.ko cnic.ko bnx2x.ko iscsi_trgt.ko aacraid.ko
+data: .compile_mark ${KERNEL_CFG} aoe.ko e1000e.ko igb.ko ixgbe.ko bnx2.ko cnic.ko bnx2x.ko iscsi_trgt.ko aacraid.ko megaraid_sas.ko
 	rm -rf data tmp; mkdir -p tmp/lib/modules/${KVNAME}
 	mkdir tmp/boot
 	install -m 644 ${KERNEL_CFG} tmp/boot/config-${KVNAME}
@@ -114,6 +117,8 @@ data: .compile_mark ${KERNEL_CFG} aoe.ko e1000e.ko igb.ko ixgbe.ko bnx2.ko cnic.
 	install -m 644 bnx2x.ko tmp/lib/modules/${KVNAME}/kernel/drivers/net/bnx2x/
 	# install aacraid drivers
 	install -m 644 aacraid.ko tmp/lib/modules/${KVNAME}/kernel/drivers/scsi/aacraid/
+	# install megaraid_sas driver
+	install -m 644 megaraid_sas.ko tmp/lib/modules/${KVNAME}/kernel/drivers/scsi/megaraid/
 	# install areca driver
 	#install -m 644 arcmsr.ko tmp/lib/modules/${KVNAME}/kernel/drivers/scsi/arcmsr/
 	# install iscsitarget module
@@ -169,6 +174,14 @@ ${RHKERSRCDIR}/kernel.spec: ${KERNELSRCRPM}
 	mkdir ${RHKERSRCDIR}
 	cd ${RHKERSRCDIR};rpm2cpio ../${KERNELSRCRPM} |cpio -i
 	touch $@
+
+megaraid_sas.ko: .compile_mark ${MEGARAID_SRC}
+	rm -rf ${MEGARAID_DIR}
+	tar xf ${MEGARAID_SRC}
+	mkdir -p /lib/modules/${KVNAME}
+	ln -sf ${TOP}/${KERNEL_SRC} /lib/modules/${KVNAME}/build
+	make -C ${TOP}/${KERNEL_SRC} M=${TOP}/${MEGARAID_DIR} modules
+	cp ${MEGARAID_DIR}/megaraid_sas.ko .
 
 aacraid.ko: .compile_mark ${AACRAIDSRC}
 	rm -rf ${AACRAIDDIR}
@@ -312,7 +325,7 @@ distclean: clean
 
 .PHONY: clean
 clean:
-	rm -rf *~ .compile_mark ${KERNEL_CFG} ${KERNEL_SRC} tmp data proxmox-ve/data *.deb ${AOEDIR} aoe.ko ${headers_tmp} fwdata fwlist.tmp *.ko ${IXGBEDIR} ${E1000EDIR} e1000e.ko ${IGBDIR} igb.ko fwlist-${KVNAME} iscsi_trgt.ko ${ISCSITARGETDIR} ${BNX2DIR} bnx2.ko cnic.ko bnx2x.ko aacraid.ko ${AACRAIDDIR}
+	rm -rf *~ .compile_mark ${KERNEL_CFG} ${KERNEL_SRC} tmp data proxmox-ve/data *.deb ${AOEDIR} aoe.ko ${headers_tmp} fwdata fwlist.tmp *.ko ${IXGBEDIR} ${E1000EDIR} e1000e.ko ${IGBDIR} igb.ko fwlist-${KVNAME} iscsi_trgt.ko ${ISCSITARGETDIR} ${BNX2DIR} bnx2.ko cnic.ko bnx2x.ko aacraid.ko ${AACRAIDDIR} megaraid_sas.ko ${MEGARAID_DIR}
 
 
 

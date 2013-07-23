@@ -1,3 +1,9 @@
+pve-kernel-2.6.32 (2.6.32-108) unstable; urgency=low
+
+  * update megaraid_sas to 6.600.18.00
+  
+ -- Proxmox Support Team <support@proxmox.com>  Tue, 23 Jul 2013 07:27:19 +0200
+
 pve-kernel-2.6.32 (2.6.32-107) unstable; urgency=low
 
   * fix bug #420: allow grub-efi-amd64
