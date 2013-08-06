@@ -1,3 +1,11 @@
+pve-kernel-2.6.32 (2.6.32-109) unstable; urgency=low
+
+  * update to vzkernel-2.6.32-042stab079.5.src.rpm
+  
+  * remove fix-ipoib-add-missing-lock.patch (now upstream)
+
+ -- Proxmox Support Team <support@proxmox.com>  Tue, 06 Aug 2013 06:46:38 +0200
+
 pve-kernel-2.6.32 (2.6.32-108) unstable; urgency=low
 
   * update megaraid_sas to 6.600.18.00
