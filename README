@@ -34,6 +34,10 @@ Additional/Updated Modules:
 
   (extract source file megaraid_sas-06.600.18.00-src.tar.gz)
 
+- include Highpoint RocketRAID 272X driver
+
+  * http://www.highpoint-tech.com/BIOS_Driver/rr272x_1x/linux_1.5/RR272x_1x-Linux-Src-v1.5-130325-0732.tar.gz
+
 FIRMWARE:
 =========
 

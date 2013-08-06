@@ -3,6 +3,8 @@ pve-kernel-2.6.32 (2.6.32-109) unstable; urgency=low
   * update to vzkernel-2.6.32-042stab079.5.src.rpm
   
   * remove fix-ipoib-add-missing-lock.patch (now upstream)
+  
+  * include Highpoint 2710 RAID driver
 
  -- Proxmox Support Team <support@proxmox.com>  Tue, 06 Aug 2013 06:46:38 +0200
 
