@@ -17,6 +17,8 @@ PACKAGE=pve-kernel-${KVNAME}
 HDRPACKAGE=pve-headers-${KVNAME}
 
 ARCH=amd64
+GITVERSION:=$(shell cat .git/refs/heads/master)
+
 TOP=$(shell pwd)
 
 KERNEL_SRC=linux-2.6-${KERNEL_VER}
@@ -73,6 +75,7 @@ ${PVE_DEB} pve: proxmox-ve/control proxmox-ve/postinst
 	sed -e 's/@KVNAME@/${KVNAME}/' -e 's/@KERNEL_VER@/${KERNEL_VER}/' -e 's/@RELEASE@/${RELEASE}/' -e 's/@PKGREL@/${PKGREL}/' <proxmox-ve/control >proxmox-ve/data/DEBIAN/control
 	sed -e 's/@KERNEL_VER@/${KERNEL_VER}/' <proxmox-ve/postinst >proxmox-ve/data/DEBIAN/postinst
 	chmod 0755 proxmox-ve/data/DEBIAN/postinst
+	echo "git clone git://git.proxmox.com/git/pve-kernel-2.6.32.git\\ngit checkout ${GITVERSION}" > proxmox-ve/data/usr/share/doc/${PVEPKG}/SOURCE
 	install -m 0644 proxmox-ve/copyright proxmox-ve/data/usr/share/doc/${PVEPKG}
 	install -m 0644 proxmox-ve/changelog.Debian proxmox-ve/data/usr/share/doc/${PVEPKG}
 	gzip --best proxmox-ve/data/usr/share/doc/${PVEPKG}/changelog.Debian
@@ -88,6 +91,7 @@ ${DST_DEB}: data control.in postinst.in
 	chmod 0755 data/DEBIAN/postinst
 	install -D -m 644 copyright data/usr/share/doc/${PACKAGE}/copyright
 	install -D -m 644 changelog.Debian data/usr/share/doc/${PACKAGE}/changelog.Debian
+	echo "git clone git://git.proxmox.com/git/pve-kernel-2.6.32.git\\ngit checkout ${GITVERSION}" > data/usr/share/doc/${PACKAGE}/SOURCE
 	gzip -f --best data/usr/share/doc/${PACKAGE}/changelog.Debian
 	rm -f data/lib/modules/${KVNAME}/source
 	rm -f data/lib/modules/${KVNAME}/build
@@ -272,6 +276,7 @@ ${HDR_DEB} hdr: .compile_mark headers-control.in headers-postinst.in
 	chmod 0755 $(headers_tmp)/DEBIAN/postinst
 	install -D -m 644 copyright $(headers_tmp)/usr/share/doc/${HDRPACKAGE}/copyright
 	install -D -m 644 changelog.Debian $(headers_tmp)/usr/share/doc/${HDRPACKAGE}/changelog.Debian
+	echo "git clone git://git.proxmox.com/git/pve-kernel-2.6.32.git\\ngit checkout ${GITVERSION}" > $(headers_tmp)/usr/share/doc/${HDRPACKAGE}/SOURCE
 	gzip -f --best $(headers_tmp)/usr/share/doc/${HDRPACKAGE}/changelog.Debian
 	install -m 0644 ${KERNEL_SRC}/.config $(headers_dir)
 	install -m 0644 ${KERNEL_SRC}/Module.symvers $(headers_dir)
@@ -312,7 +317,8 @@ ${FW_DEB} fw: control.firmware linux-firmware.git/WHENCE changelog.firmware fwli
 	install -d fwdata/usr/share/doc/pve-firmware/licenses
 	cp linux-firmware.git/LICEN[CS]E* fwdata/usr/share/doc/pve-firmware/licenses
 	install -D -m 0644 changelog.firmware fwdata/usr/share/doc/pve-firmware/changelog.Debian
-	gzip -9 fwdata/usr/share/doc/pve-firmware/changelog.Debian	
+	gzip -9 fwdata/usr/share/doc/pve-firmware/changelog.Debian
+	echo "git clone git://git.proxmox.com/git/pve-kernel-2.6.32.git\\ngit checkout ${GITVERSION}" >fwdata/usr/share/doc/pve-firmware/SOURCE
 	install -d fwdata/DEBIAN
 	sed -e 's/@VERSION@/${FW_VER}-${FW_REL}/' <control.firmware >fwdata/DEBIAN/control
 	dpkg-deb --build fwdata ${FW_DEB}
