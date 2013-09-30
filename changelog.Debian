@@ -1,3 +1,11 @@
+pve-kernel-2.6.32 (2.6.32-112) unstable; urgency=low
+
+  * update to vzkernel-2.6.32-042stab081.3.src.rpm
+  
+  * update igb to 5.0.6
+
+ -- Proxmox Support Team <support@proxmox.com>  Mon, 30 Sep 2013 10:10:14 +0200
+
 pve-kernel-2.6.32 (2.6.32-111) unstable; urgency=low
 
   * KVM: x86: Fix invalid secondary exec controls in vmx_cpuid_update()
