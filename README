@@ -21,8 +21,8 @@ Additional/Updated Modules:
 
 - include latest Broadcom bnx2 drivers
 
-  * original file linux-7.4.27.zip contains
-    netxtreme2-7.4.27.tar.gz (added to repository)
+  * original file linux-7.6.62.zip contains
+    netxtreme2-7.6.62.tar.gz (added to repository)
 
 - include latest Adaptec aacraid driver
 

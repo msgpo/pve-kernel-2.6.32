@@ -1,3 +1,11 @@
+pve-kernel-2.6.32 (2.6.32-114) unstable; urgency=low
+
+  * update Broadcom bnx2/bnx2x drivers to 7.6.62
+  
+  * update ixgbe to 3.18.7
+
+ -- Proxmox Support Team <support@proxmox.com>  Mon, 14 Oct 2013 08:00:49 +0200
+
 pve-kernel-2.6.32 (2.6.32-113) unstable; urgency=low
 
   * fix OpenVZ bug 2738: stat returns bad values for blocks of an NFS file
