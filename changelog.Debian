@@ -1,3 +1,11 @@
+pve-kernel-2.6.32 (2.6.32-115) unstable; urgency=low
+
+  * update to vzkernel-2.6.32-042stab083.2.src.rpm
+  
+  * remove bridge-disable-querier patches (now upstream)
+
+ -- Proxmox Support Team <support@proxmox.com>  Thu, 14 Nov 2013 11:08:45 +0100
+
 pve-kernel-2.6.32 (2.6.32-114) unstable; urgency=low
 
   * update Broadcom bnx2/bnx2x drivers to 7.6.62

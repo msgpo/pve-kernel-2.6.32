@@ -1,13 +1,13 @@
 RELEASE=3.1
 
 KERNEL_VER=2.6.32
-PKGREL=114
+PKGREL=115
 # also include firmware of previous versrion into 
 # the fw package:  fwlist-2.6.32-PREV-pve
-KREL=26
+KREL=27
 
-RHKVER=358.18.1.el6
-OVZVER=042stab081.3
+RHKVER=358.23.2.el6
+OVZVER=042stab083.2
 
 KERNELSRCRPM=vzkernel-${KERNEL_VER}-${OVZVER}.src.rpm
 
@@ -155,15 +155,15 @@ ${KERNEL_SRC}/README: ${KERNEL_SRC}.org/README
 	rm -rf ${KERNEL_SRC}
 	cp -a ${KERNEL_SRC}.org ${KERNEL_SRC}
 	cd ${KERNEL_SRC}; patch -p1 <../bootsplash-3.1.9-2.6.31-rh.patch
-	cd ${KERNEL_SRC}; patch -p1 <../${RHKERSRCDIR}/patch-042stab081
+	cd ${KERNEL_SRC}; patch -p1 <../${RHKERSRCDIR}/patch-042stab083
 	cd ${KERNEL_SRC}; patch -p1 <../do-not-use-barrier-on-ext3.patch
 	cd ${KERNEL_SRC}; patch -p1 <../bridge-patch.diff
 	cd ${KERNEL_SRC}; patch -p1 <../kvm-fix-invalid-secondary-exec-controls.patch
-	cd ${KERNEL_SRC}; patch -p1 <../0001-bridge-disable-querier.patch
-	cd ${KERNEL_SRC}; patch -p1 <../0002-bridge-disable-querier.patch
-	cd ${KERNEL_SRC}; patch -p1 <../0003-bridge-disable-querier.patch
-	cd ${KERNEL_SRC}; patch -p1 <../0004-bridge-disable-querier.patch
-	cd ${KERNEL_SRC}; patch -p1 <../0005-bridge-disable-querier.patch
+	#cd ${KERNEL_SRC}; patch -p1 <../0001-bridge-disable-querier.patch
+	#cd ${KERNEL_SRC}; patch -p1 <../0002-bridge-disable-querier.patch
+	#cd ${KERNEL_SRC}; patch -p1 <../0003-bridge-disable-querier.patch
+	#cd ${KERNEL_SRC}; patch -p1 <../0004-bridge-disable-querier.patch
+	#cd ${KERNEL_SRC}; patch -p1 <../0005-bridge-disable-querier.patch
 	#cd ${KERNEL_SRC}; patch -p1 <../0001-bridge-only-expire-the-mdb-entry-when-query-is-recei.patch
 	#cd ${KERNEL_SRC}; patch -p1 <../0002-bridge-send-query-as-soon-as-leave-is-received.patch
 	cd ${KERNEL_SRC}; patch -p1 <../fix-aspm-policy.patch
