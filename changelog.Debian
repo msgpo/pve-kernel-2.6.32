@@ -1,3 +1,9 @@
+pve-kernel-2.6.32 (2.6.32-116) unstable; urgency=low
+
+  * fix idr.h header
+
+ -- Proxmox Support Team <support@proxmox.com>  Tue, 03 Dec 2013 06:20:45 +0100
+
 pve-kernel-2.6.32 (2.6.32-115) unstable; urgency=low
 
   * update to vzkernel-2.6.32-042stab083.2.src.rpm
