@@ -51,8 +51,8 @@ AACRAIDDIR=aacraid-1.2.1
 MEGARAID_DIR=megaraid_sas-06.600.18.00
 MEGARAID_SRC=${MEGARAID_DIR}-src.tar.gz
 
-#ARECADIR=arcmsr.1.20.0X.15-110330
-#ARECASRC=${ARECADIR}.zip
+ARECADIR=arcmsr-1.30.0X.16-20131206
+ARECASRC=${ARECADIR}.zip
 
 RR272XSRC=RR272x_1x-Linux-Src-v1.5-130325-0732.tar.gz
 RR272XDIR=rr272x_1x-linux-src-v1.5
@@ -103,7 +103,7 @@ fwlist-${KVNAME}: data
 	./find-firmware.pl data/lib/modules/${KVNAME} >fwlist.tmp
 	mv fwlist.tmp $@
 
-data: .compile_mark ${KERNEL_CFG} aoe.ko e1000e.ko igb.ko ixgbe.ko bnx2.ko cnic.ko bnx2x.ko iscsi_trgt.ko aacraid.ko megaraid_sas.ko rr272x_1x.ko
+data: .compile_mark ${KERNEL_CFG} aoe.ko e1000e.ko igb.ko ixgbe.ko bnx2.ko cnic.ko bnx2x.ko iscsi_trgt.ko aacraid.ko megaraid_sas.ko rr272x_1x.ko arcmsr.ko
 	rm -rf data tmp; mkdir -p tmp/lib/modules/${KVNAME}
 	mkdir tmp/boot
 	install -m 644 ${KERNEL_CFG} tmp/boot/config-${KVNAME}
@@ -129,7 +129,7 @@ data: .compile_mark ${KERNEL_CFG} aoe.ko e1000e.ko igb.ko ixgbe.ko bnx2.ko cnic.
 	# install Highpoint 2710 RAID driver
 	install -m 644 rr272x_1x.ko -D tmp/lib/modules/${KVNAME}/kernel/drivers/scsi/rr272x_1x/rr272x_1x.ko
 	# install areca driver
-	#install -m 644 arcmsr.ko tmp/lib/modules/${KVNAME}/kernel/drivers/scsi/arcmsr/
+	install -m 644 arcmsr.ko tmp/lib/modules/${KVNAME}/kernel/drivers/scsi/arcmsr/
 	# install iscsitarget module
 	install -m 644 -D iscsi_trgt.ko tmp/lib/modules/${KVNAME}/kernel/drivers/scsi/iscsi_trgt.ko
 	# remove firmware
@@ -254,13 +254,13 @@ bnx2.ko cnic.ko bnx2x.ko: ${BNX2SRC}
 	cd ${BNX2DIR}; make -C bnx2x/src KVER=${KVNAME}
 	cp `find ${BNX2DIR} -name bnx2.ko -o -name cnic.ko -o -name bnx2x.ko` .
 
-#arcmsr.ko: .compile_mark ${ARECASRC}
-#	rm -rf ${ARECADIR}
-#	unzip ${ARECASRC}
-#	mkdir -p /lib/modules/${KVNAME}
-#	ln -sf ${TOP}/${KERNEL_SRC} /lib/modules/${KVNAME}/build
-#	cd ${ARECADIR}; make -C ${TOP}/${KERNEL_SRC} CONFIG_SCSI_ARCMSR=m SUBDIRS=${TOP}/${ARECADIR} modules
-#	cp ${ARECADIR}/arcmsr.ko arcmsr.ko
+arcmsr.ko: .compile_mark ${ARECASRC}
+	rm -rf ${ARECADIR}
+	mkdir ${ARECADIR}; cd ${ARECADIR}; unzip ../${ARECASRC}
+	mkdir -p /lib/modules/${KVNAME}
+	ln -sf ${TOP}/${KERNEL_SRC} /lib/modules/${KVNAME}/build
+	cd ${ARECADIR}; make -C ${TOP}/${KERNEL_SRC} SUBDIRS=${TOP}/${ARECADIR} modules
+	cp ${ARECADIR}/arcmsr.ko arcmsr.ko
 
 iscsi_trgt.ko: .compile_mark ${ISCSITARGETSRC}
 	rm -rf ${ISCSITARGETDIR}
@@ -346,7 +346,7 @@ distclean: clean
 
 .PHONY: clean
 clean:
-	rm -rf *~ .compile_mark ${KERNEL_CFG} ${KERNEL_SRC} tmp data proxmox-ve/data *.deb ${AOEDIR} aoe.ko ${headers_tmp} fwdata fwlist.tmp *.ko ${IXGBEDIR} ${E1000EDIR} e1000e.ko ${IGBDIR} igb.ko fwlist-${KVNAME} iscsi_trgt.ko ${ISCSITARGETDIR} ${BNX2DIR} bnx2.ko cnic.ko bnx2x.ko aacraid.ko ${AACRAIDDIR} megaraid_sas.ko ${MEGARAID_DIR} rr272x_1x.ko ${RR272XDIR}
+	rm -rf *~ .compile_mark ${KERNEL_CFG} ${KERNEL_SRC} tmp data proxmox-ve/data *.deb ${AOEDIR} aoe.ko ${headers_tmp} fwdata fwlist.tmp *.ko ${IXGBEDIR} ${E1000EDIR} e1000e.ko ${IGBDIR} igb.ko fwlist-${KVNAME} iscsi_trgt.ko ${ISCSITARGETDIR} ${BNX2DIR} bnx2.ko cnic.ko bnx2x.ko aacraid.ko ${AACRAIDDIR} megaraid_sas.ko ${MEGARAID_DIR} rr272x_1x.ko ${RR272XDIR} ${ARECADIR}.ko ${ARECADIR}
 
 
 

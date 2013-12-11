@@ -1,5 +1,7 @@
 pve-kernel-2.6.32 (2.6.32-116) unstable; urgency=low
 
+  * include latest ARECA RAID drivers
+
   * fix idr.h header
 
  -- Proxmox Support Team <support@proxmox.com>  Tue, 03 Dec 2013 06:20:45 +0100
