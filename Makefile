@@ -26,10 +26,6 @@ RHKERSRCDIR=rh-kernel-src
 KERNEL_CFG=config-${KERNEL_VER}
 KERNEL_CFG_ORG=config-${KERNEL_VER}-${OVZVER}.x86_64
 
-FW_VER=1.0
-FW_REL=23
-FW_DEB=pve-firmware_${FW_VER}-${FW_REL}_all.deb
-
 AOEDIR=aoe6-77
 AOESRC=${AOEDIR}.tar.gz
 
@@ -65,7 +61,7 @@ HDR_DEB=${HDRPACKAGE}_${KERNEL_VER}-${PKGREL}_${ARCH}.deb
 PVEPKG=proxmox-ve-${KERNEL_VER}
 PVE_DEB=${PVEPKG}_${RELEASE}-${PKGREL}_all.deb
 
-all: check_gcc ${DST_DEB} ${PVE_DEB} ${FW_DEB} ${HDR_DEB}
+all: check_gcc ${DST_DEB} ${PVE_DEB} ${HDR_DEB}
 
 ${PVE_DEB} pve: proxmox-ve/control proxmox-ve/postinst
 	rm -rf proxmox-ve/data
@@ -99,8 +95,9 @@ ${DST_DEB}: data control.in postinst.in
 	lintian ${DST_DEB}
 
 
-fwlist-${KVNAME}: data
+fwlist-${KVNAME} fwtest: data
 	./find-firmware.pl data/lib/modules/${KVNAME} >fwlist.tmp
+	cmp fwlist.tmp fwlist-2.6.32-20-pve
 	mv fwlist.tmp $@
 
 data: .compile_mark ${KERNEL_CFG} aoe.ko e1000e.ko igb.ko ixgbe.ko bnx2.ko cnic.ko bnx2x.ko iscsi_trgt.ko aacraid.ko megaraid_sas.ko rr272x_1x.ko arcmsr.ko
@@ -295,48 +292,16 @@ ${HDR_DEB} hdr: .compile_mark headers-control.in headers-postinst.in
 	dpkg-deb --build $(headers_tmp) ${HDR_DEB}
 	#lintian ${HDR_DEB}
 
-linux-firmware.git/WHENCE:
-	git clone git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git linux-firmware.git
-
-${FW_DEB} fw: control.firmware linux-firmware.git/WHENCE changelog.firmware fwlist-2.6.18-2-pve fwlist-2.6.24-12-pve fwlist-2.6.32-3-pve fwlist-2.6.32-4-pve fwlist-2.6.32-5-pve fwlist-2.6.32-6-pve fwlist-2.6.35-1-pve fwlist-2.6.32-13-pve fwlist-2.6.32-14-pve fwlist-2.6.32-15-pve fwlist-2.6.32-20-pve fwlist-${KVNAME}
-	rm -rf fwdata
-	mkdir -p fwdata/lib/firmware
-	./assemble-firmware.pl fwlist-${KVNAME} fwdata/lib/firmware
-	# include any files from older/newer kernels here
-	./assemble-firmware.pl fwlist-2.6.24-12-pve fwdata/lib/firmware
-	./assemble-firmware.pl fwlist-2.6.18-2-pve fwdata/lib/firmware
-	./assemble-firmware.pl fwlist-2.6.32-3-pve fwdata/lib/firmware
-	./assemble-firmware.pl fwlist-2.6.32-4-pve fwdata/lib/firmware
-	./assemble-firmware.pl fwlist-2.6.32-5-pve fwdata/lib/firmware
-	./assemble-firmware.pl fwlist-2.6.32-6-pve fwdata/lib/firmware
-	./assemble-firmware.pl fwlist-2.6.35-1-pve fwdata/lib/firmware
-	./assemble-firmware.pl fwlist-2.6.32-13-pve fwdata/lib/firmware
-	./assemble-firmware.pl fwlist-2.6.32-14-pve fwdata/lib/firmware
-	./assemble-firmware.pl fwlist-2.6.32-15-pve fwdata/lib/firmware
-	./assemble-firmware.pl fwlist-2.6.32-16-pve fwdata/lib/firmware
-	./assemble-firmware.pl fwlist-2.6.32-20-pve fwdata/lib/firmware
-	install -d fwdata/usr/share/doc/pve-firmware
-	cp linux-firmware.git/WHENCE fwdata/usr/share/doc/pve-firmware/README
-	install -d fwdata/usr/share/doc/pve-firmware/licenses
-	cp linux-firmware.git/LICEN[CS]E* fwdata/usr/share/doc/pve-firmware/licenses
-	install -D -m 0644 changelog.firmware fwdata/usr/share/doc/pve-firmware/changelog.Debian
-	gzip -9 fwdata/usr/share/doc/pve-firmware/changelog.Debian
-	echo "git clone git://git.proxmox.com/git/pve-kernel-2.6.32.git\\ngit checkout ${GITVERSION}" >fwdata/usr/share/doc/pve-firmware/SOURCE
-	install -d fwdata/DEBIAN
-	sed -e 's/@VERSION@/${FW_VER}-${FW_REL}/' <control.firmware >fwdata/DEBIAN/control
-	dpkg-deb --build fwdata ${FW_DEB}
-
 .PHONY: upload
-upload: ${DST_DEB} ${PVE_DEB} ${HDR_DEB} ${FW_DEB}
+upload: ${DST_DEB} ${PVE_DEB} ${HDR_DEB}
 	umount /pve/${RELEASE}; mount /pve/${RELEASE} -o rw 
 	mkdir -p /pve/${RELEASE}/extra
 	mkdir -p /pve/${RELEASE}/install
 	rm -rf /pve/${RELEASE}/extra/${PACKAGE}_*.deb
 	rm -rf /pve/${RELEASE}/extra/${HDRPACKAGE}_*.deb
 	rm -rf /pve/${RELEASE}/extra/${PVEPKG}_*.deb
-	rm -rf /pve/${RELEASE}/extra/pve-firmware*.deb
 	rm -rf /pve/${RELEASE}/extra/Packages*
-	cp ${DST_DEB} ${PVE_DEB} ${HDR_DEB} ${FW_DEB} /pve/${RELEASE}/extra
+	cp ${DST_DEB} ${PVE_DEB} ${HDR_DEB} /pve/${RELEASE}/extra
 	cd /pve/${RELEASE}/extra; dpkg-scanpackages . /dev/null | gzip -9c > Packages.gz
 	umount /pve/${RELEASE}; mount /pve/${RELEASE} -o ro
 
