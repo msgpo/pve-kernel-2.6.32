@@ -1,7 +1,7 @@
 RELEASE=3.1
 
 KERNEL_VER=2.6.32
-PKGREL=116
+PKGREL=117
 # also include firmware of previous versrion into 
 # the fw package:  fwlist-2.6.32-PREV-pve
 KREL=27
@@ -38,13 +38,13 @@ IGBSRC=${IGBDIR}.tar.gz
 IXGBEDIR=ixgbe-3.18.7
 IXGBESRC=${IXGBEDIR}.tar.gz
 
-BNX2DIR=netxtreme2-7.6.62
+BNX2DIR=netxtreme2-7.8.56
 BNX2SRC=${BNX2DIR}.tar.gz
 
 AACRAIDSRC=aacraid-1.2.1-30300.src.rpm
 AACRAIDDIR=aacraid-1.2.1
 
-MEGARAID_DIR=megaraid_sas-06.600.18.00
+MEGARAID_DIR=megaraid_sas-06.601.06.00
 MEGARAID_SRC=${MEGARAID_DIR}-src.tar.gz
 
 ARECADIR=arcmsr-1.30.0X.16-20131206

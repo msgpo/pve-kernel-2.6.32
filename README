@@ -21,8 +21,8 @@ Additional/Updated Modules:
 
 - include latest Broadcom bnx2 drivers
 
-  * original file linux-7.6.62.zip contains
-    netxtreme2-7.6.62.tar.gz (added to repository)
+  * original file linux-7.8.56.zip contains
+    netxtreme2-7.8.56.tar.gz (added to repository)
 
 - include latest Adaptec aacraid driver
 
@@ -30,9 +30,9 @@ Additional/Updated Modules:
 
 - include latest megaraid_sas driver
 
-  *  http://www.lsi.com/downloads/Public/MegaRAID%20Common%20Files/MR_Linux_Driver_6.600.18.00.tgz
+  *  http://www.lsi.com/downloads/Public/MegaRAID%20Common%20Files/MR_Linux_Driver_6.601.06.00.tgz
 
-  (extract source file megaraid_sas-06.600.18.00-src.tar.gz)
+  (extract source file megaraid_sas-06.601.06.00-src.tar.gz)
 
 - include Highpoint RocketRAID 272X driver
 
