@@ -166,7 +166,7 @@ ${KERNEL_SRC}/README: ${KERNEL_SRC}.org/README
 	cd ${KERNEL_SRC}; patch -p1 <../fix-aspm-policy.patch
 	cd ${KERNEL_SRC}; patch -p1 <../kbuild-generate-mudules-builtin.patch
 	cd ${KERNEL_SRC}; patch -p1 <../add-tiocgdev-ioctl.patch
-	cd ${KERNEL_SRC}; patch -p1 <../fix-nfs-block-count.patch
+	#cd ${KERNEL_SRC}; patch -p1 <../fix-nfs-block-count.patch
 	cd ${KERNEL_SRC}; patch -p1 <../fix-idr-header-for-drbd-compilation.patch
 	sed -i ${KERNEL_SRC}/Makefile -e 's/^EXTRAVERSION.*$$/EXTRAVERSION=${EXTRAVERSION}/'
 	touch $@
