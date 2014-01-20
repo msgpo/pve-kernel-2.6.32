@@ -1,13 +1,13 @@
 RELEASE=3.1
 
 KERNEL_VER=2.6.32
-PKGREL=118
+PKGREL=119
 # also include firmware of previous versrion into 
 # the fw package:  fwlist-2.6.32-PREV-pve
 KREL=27
 
 RHKVER=358.23.2.el6
-OVZVER=042stab084.14
+OVZVER=042stab084.17
 
 KERNELSRCRPM=vzkernel-${KERNEL_VER}-${OVZVER}.src.rpm
 
@@ -32,10 +32,10 @@ AOESRC=${AOEDIR}.tar.gz
 E1000EDIR=e1000e-2.5.4
 E1000ESRC=${E1000EDIR}.tar.gz
 
-IGBDIR=igb-5.0.6
+IGBDIR=igb-5.1.2
 IGBSRC=${IGBDIR}.tar.gz
 
-IXGBEDIR=ixgbe-3.18.7
+IXGBEDIR=ixgbe-3.19.1
 IXGBESRC=${IXGBEDIR}.tar.gz
 
 BNX2DIR=netxtreme2-7.8.56
