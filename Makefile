@@ -1,7 +1,7 @@
 RELEASE=3.1
 
 KERNEL_VER=2.6.32
-PKGREL=119
+PKGREL=120
 # also include firmware of previous versrion into 
 # the fw package:  fwlist-2.6.32-PREV-pve
 KREL=27
@@ -160,7 +160,8 @@ ${KERNEL_SRC}/README: ${KERNEL_SRC}.org/README
 	#cd ${KERNEL_SRC}; patch -p1 <../0002-bridge-disable-querier.patch
 	#cd ${KERNEL_SRC}; patch -p1 <../0003-bridge-disable-querier.patch
 	#cd ${KERNEL_SRC}; patch -p1 <../0004-bridge-disable-querier.patch
-	#cd ${KERNEL_SRC}; patch -p1 <../0005-bridge-disable-querier.patch
+	# this enable querier by default
+	cd ${KERNEL_SRC}; patch -p1 <../0005-bridge-disable-querier.patch 
 	#cd ${KERNEL_SRC}; patch -p1 <../0001-bridge-only-expire-the-mdb-entry-when-query-is-recei.patch
 	#cd ${KERNEL_SRC}; patch -p1 <../0002-bridge-send-query-as-soon-as-leave-is-received.patch
 	cd ${KERNEL_SRC}; patch -p1 <../fix-aspm-policy.patch
