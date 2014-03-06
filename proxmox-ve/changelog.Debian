@@ -1,3 +1,9 @@
+proxmox-ve-2.6.32 (3.2-121) unstable; urgency=low
+
+  * re-package to update version number for 3.2 release
+
+ -- Proxmox Support Team <support@proxmox.com>  Thu, 06 Mar 2014 06:47:33 +0100
+
 proxmox-ve-2.6.32 (3.1-121) unstable; urgency=low
 
   * re-package to update version number for 3.1 release
