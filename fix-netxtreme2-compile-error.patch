@@ -1,0 +1,13 @@
+--- netxtreme2-7.8.56/bnx2-2.78.33/src/bnx2_compat.h.org	2014-03-18 06:04:53.000000000 +0100
++++ netxtreme2-7.8.56/bnx2-2.78.33/src/bnx2_compat.h	2014-03-18 06:05:19.000000000 +0100
+@@ -250,8 +250,8 @@
+ #endif
+ 
+ #ifndef HAVE_LE32
+-typedef u32 __le32;
+-typedef u32 __be32;
++//typedef u32 __le32;
++//typedef u32 __be32;
+ #endif
+ 
+ #ifndef USEC_PER_SEC

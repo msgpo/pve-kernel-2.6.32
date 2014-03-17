@@ -1,13 +1,13 @@
 RELEASE=3.2
 
 KERNEL_VER=2.6.32
-PKGREL=121
+PKGREL=122
 # also include firmware of previous versrion into 
 # the fw package:  fwlist-2.6.32-PREV-pve
-KREL=27
+KREL=28
 
-RHKVER=358.23.2.el6
-OVZVER=042stab084.20
+RHKVER=431.1.2.el6
+OVZVER=042stab085.17
 
 KERNELSRCRPM=vzkernel-${KERNEL_VER}-${OVZVER}.src.rpm
 
@@ -29,7 +29,7 @@ KERNEL_CFG_ORG=config-${KERNEL_VER}-${OVZVER}.x86_64
 AOEDIR=aoe6-77
 AOESRC=${AOEDIR}.tar.gz
 
-E1000EDIR=e1000e-2.5.4
+E1000EDIR=e1000e-3.0.4.1
 E1000ESRC=${E1000EDIR}.tar.gz
 
 IGBDIR=igb-5.1.2
@@ -78,7 +78,7 @@ ${PVE_DEB} pve: proxmox-ve/control proxmox-ve/postinst
 	dpkg-deb --build proxmox-ve/data ${PVE_DEB}
 
 check_gcc: 
-	gcc --version|grep "4.7.2" || false
+	gcc --version|grep "4.4.7" || false
 
 ${DST_DEB}: data control.in postinst.in
 	mkdir -p data/DEBIAN
@@ -152,10 +152,10 @@ ${KERNEL_SRC}/README: ${KERNEL_SRC}.org/README
 	rm -rf ${KERNEL_SRC}
 	cp -a ${KERNEL_SRC}.org ${KERNEL_SRC}
 	cd ${KERNEL_SRC}; patch -p1 <../bootsplash-3.1.9-2.6.31-rh.patch
-	cd ${KERNEL_SRC}; patch -p1 <../${RHKERSRCDIR}/patch-042stab084
+	cd ${KERNEL_SRC}; patch -p1 <../${RHKERSRCDIR}/patch-042stab085
 	cd ${KERNEL_SRC}; patch -p1 <../do-not-use-barrier-on-ext3.patch
 	cd ${KERNEL_SRC}; patch -p1 <../bridge-patch.diff
-	cd ${KERNEL_SRC}; patch -p1 <../kvm-fix-invalid-secondary-exec-controls.patch
+	#cd ${KERNEL_SRC}; patch -p1 <../kvm-fix-invalid-secondary-exec-controls.patch
 	#cd ${KERNEL_SRC}; patch -p1 <../0001-bridge-disable-querier.patch
 	#cd ${KERNEL_SRC}; patch -p1 <../0002-bridge-disable-querier.patch
 	#cd ${KERNEL_SRC}; patch -p1 <../0003-bridge-disable-querier.patch
@@ -246,6 +246,7 @@ ixgbe.ko ixgbe: .compile_mark ${IXGBESRC}
 bnx2.ko cnic.ko bnx2x.ko: ${BNX2SRC}
 	rm -rf ${BNX2DIR}
 	tar xf ${BNX2SRC}
+	cd ${BNX2DIR}; patch -p1 <../fix-netxtreme2-compile-error.patch
 	mkdir -p /lib/modules/${KVNAME}
 	ln -sf ${TOP}/${KERNEL_SRC} /lib/modules/${KVNAME}/build
 	cd ${BNX2DIR}; make -C bnx2/src KVER=${KVNAME}

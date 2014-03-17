@@ -1,3 +1,15 @@
+pve-kernel-2.6.32 (2.6.32-122) unstable; urgency=low
+
+  * update to vzkernel-2.6.32-042stab085.17.src.rpm 
+  
+  * update e1000e to 3.0.4.1
+  
+  * bump API version to 28-pve
+  
+  * remove kvm-fix-invalid-secondary-exec-controls.patch (now upstream)
+
+ -- Proxmox Support Team <support@proxmox.com>  Mon, 17 Mar 2014 06:49:36 +0100
+
 pve-kernel-2.6.32 (2.6.32-121) unstable; urgency=low
 
   * update to vzkernel-2.6.32-042stab084.20.src.rpm
