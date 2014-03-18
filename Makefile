@@ -1,7 +1,7 @@
 RELEASE=3.2
 
 KERNEL_VER=2.6.32
-PKGREL=122
+PKGREL=123
 # also include firmware of previous versrion into 
 # the fw package:  fwlist-2.6.32-PREV-pve
 KREL=28
@@ -153,6 +153,7 @@ ${KERNEL_SRC}/README: ${KERNEL_SRC}.org/README
 	cp -a ${KERNEL_SRC}.org ${KERNEL_SRC}
 	cd ${KERNEL_SRC}; patch -p1 <../bootsplash-3.1.9-2.6.31-rh.patch
 	cd ${KERNEL_SRC}; patch -p1 <../${RHKERSRCDIR}/patch-042stab085
+	cd ${KERNEL_SRC}; patch -p1 <../cpt-drop-DCACHE_NFSFS_RENAMED-for-all-NFS-dentries-on-kill.patch
 	cd ${KERNEL_SRC}; patch -p1 <../do-not-use-barrier-on-ext3.patch
 	cd ${KERNEL_SRC}; patch -p1 <../bridge-patch.diff
 	#cd ${KERNEL_SRC}; patch -p1 <../kvm-fix-invalid-secondary-exec-controls.patch

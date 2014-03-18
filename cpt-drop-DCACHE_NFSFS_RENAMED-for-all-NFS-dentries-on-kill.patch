@@ -1,0 +1,32 @@
+cpt: drop DCACHE_NFSFS_RENAMED for all NFS dentries on kill
+
+From: Stanislav Kinsbursky <skinsbursky@parallels.com>
+
+No need to check for dentry is hashed: things are changing and silly-renamed
+dentries are hashed now.
+And no need to check for dentry belongs to NFS mount: flag
+DCACHE_NFSFS_RENAMED is set only for NFS dentries.
+
+https://bugzilla.openvz.org/show_bug.cgi?id=2242
+
+Signed-off-by: Stanislav Kinsbursky <skinsbursky@parallels.com>
+---
+ kernel/cpt/cpt_dump.c |    5 -----
+ 1 files changed, 0 insertions(+), 5 deletions(-)
+
+diff --git a/kernel/cpt/cpt_dump.c b/kernel/cpt/cpt_dump.c
+index 6f5fda3..ab069a6 100644
+--- a/kernel/cpt/cpt_dump.c
++++ b/kernel/cpt/cpt_dump.c
+@@ -442,11 +442,6 @@ void cpt_drop_nfs_unhashed(struct cpt_context *ctx)
+ 		struct file *file = obj->o_obj;
+ 		struct dentry *d = file->f_dentry;
+ 
+-		if (IS_ROOT(d) || !d_unhashed(d))
+-			continue;
+-		if (d->d_sb->s_magic != FSMAGIC_NFS)
+-			continue;
+-
+ 		if (d->d_flags & DCACHE_NFSFS_RENAMED) {
+ 			spin_lock(&d->d_lock);
+ 			d->d_flags &= ~DCACHE_NFSFS_RENAMED;
