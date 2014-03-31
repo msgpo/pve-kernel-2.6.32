@@ -41,8 +41,9 @@ IXGBESRC=${IXGBEDIR}.tar.gz
 BNX2DIR=netxtreme2-7.8.56
 BNX2SRC=${BNX2DIR}.tar.gz
 
-AACRAIDSRC=aacraid-1.2.1-30300.src.rpm
-AACRAIDDIR=aacraid-1.2.1
+AACRAIDVER=1.2.1-40300
+AACRAIDSRC=aacraid-linux-src-${AACRAIDVER}.tgz
+AACRAIDDIR=aacraid
 
 MEGARAID_DIR=megaraid_sas-06.602.03.00
 MEGARAID_SRC=${MEGARAID_DIR}-src.tar.gz
@@ -204,12 +205,11 @@ megaraid_sas.ko: .compile_mark ${MEGARAID_SRC}
 aacraid.ko: .compile_mark ${AACRAIDSRC}
 	rm -rf ${AACRAIDDIR}
 	mkdir ${AACRAIDDIR}
-	cd ${AACRAIDDIR};rpm2cpio ../${AACRAIDSRC} |cpio -i
-	cd ${AACRAIDDIR};tar xzf aacraid_source.tgz	
+	cd ${AACRAIDDIR};tar xzf ../${AACRAIDSRC}	
 	mkdir -p /lib/modules/${KVNAME}
 	ln -sf ${TOP}/${KERNEL_SRC} /lib/modules/${KVNAME}/build
-	make -C ${TOP}/${KERNEL_SRC} M=${TOP}/${AACRAIDDIR} modules
-	cp ${AACRAIDDIR}/aacraid.ko .
+	make -C ${TOP}/${KERNEL_SRC} M=${TOP}/${AACRAIDDIR}/aacraid-${AACRAIDVER}.src/aacraid_source modules
+	cp ${AACRAIDDIR}/aacraid-${AACRAIDVER}.src/aacraid_source/aacraid.ko .
 
 aoe.ko aoe: .compile_mark ${AOESRC}
 	# aoe driver updates

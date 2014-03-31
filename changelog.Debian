@@ -2,7 +2,9 @@ pve-kernel-2.6.32 (2.6.32-124) unstable; urgency=low
 
   * update megaraid_sas to 06.602.03.00
 
- -- Proxmox Support Team <support@proxmox.com>  Mon, 31 Mar 2014 08:34:12 +0200
+  * update aacraid to 1.2.1-40300
+
+  -- Proxmox Support Team <support@proxmox.com>  Mon, 31 Mar 2014 08:34:12 +0200
 
 pve-kernel-2.6.32 (2.6.32-123) unstable; urgency=low
 
