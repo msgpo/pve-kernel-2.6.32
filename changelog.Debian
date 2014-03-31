@@ -1,3 +1,9 @@
+pve-kernel-2.6.32 (2.6.32-124) unstable; urgency=low
+
+  * update megaraid_sas to 06.602.03.00
+
+ -- Proxmox Support Team <support@proxmox.com>  Mon, 31 Mar 2014 08:34:12 +0200
+
 pve-kernel-2.6.32 (2.6.32-123) unstable; urgency=low
 
   * add fix for openvz bug #2242   
@@ -59,7 +65,7 @@ pve-kernel-2.6.32 (2.6.32-117) unstable; urgency=low
 
 pve-kernel-2.6.32 (2.6.32-116) unstable; urgency=low
 
-  * include latest ARECA RAID drivers
+  * include latest ARECA RAID drivers (arcmsr-1.30.0X.16-20131206)
 
   * fix idr.h header
 
