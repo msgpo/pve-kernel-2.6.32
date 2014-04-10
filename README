@@ -137,6 +137,13 @@ see config-2.6.32.diff
   This is the suggested setting for KVM. We also measure bad fsync
   performance with ext4 and cfq.
 
+- set CONFIG_CPU_FREQ_DEFAULT_GOV_PERFORMANCE=y
+
+  because if not set, it can give some dynamic memory or cpu frequencies 
+  change, and vms can crash (mainly windows guest).
+
+  see http://forum.proxmox.com/threads/18238-Windows-7-x64-VMs-crashing-randomly-during-process-termination?p=93273#post93273
+
 Testing final kernel with kvm
 -----------------------------
 
