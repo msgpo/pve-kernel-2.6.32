@@ -1,3 +1,9 @@
+pve-kernel-2.6.32 (2.6.32-126) unstable; urgency=low
+
+  * update to vzkernel-2.6.32-042stab088.4.src.rpm
+
+ -- Proxmox Support Team <support@proxmox.com>  Mon, 14 Apr 2014 07:39:19 +0200
+
 pve-kernel-2.6.32 (2.6.32-125) unstable; urgency=low
 
   * set CONFIG_CPU_FREQ_DEFAULT_GOV_PERFORMANCE=y

@@ -1,13 +1,13 @@
 RELEASE=3.2
 
 KERNEL_VER=2.6.32
-PKGREL=125
+PKGREL=126
 # also include firmware of previous versrion into 
 # the fw package:  fwlist-2.6.32-PREV-pve
-KREL=28
+KREL=29
 
-RHKVER=431.1.2.el6
-OVZVER=042stab085.17
+RHKVER=431.11.2.el6
+OVZVER=042stab088.4
 
 KERNELSRCRPM=vzkernel-${KERNEL_VER}-${OVZVER}.src.rpm
 
@@ -79,7 +79,7 @@ ${PVE_DEB} pve: proxmox-ve/control proxmox-ve/postinst
 	dpkg-deb --build proxmox-ve/data ${PVE_DEB}
 
 check_gcc: 
-	gcc --version|grep "4.4.7" || false
+	gcc --version|grep "4\.4\.7" || false
 
 ${DST_DEB}: data control.in postinst.in
 	mkdir -p data/DEBIAN
@@ -153,7 +153,7 @@ ${KERNEL_SRC}/README: ${KERNEL_SRC}.org/README
 	rm -rf ${KERNEL_SRC}
 	cp -a ${KERNEL_SRC}.org ${KERNEL_SRC}
 	cd ${KERNEL_SRC}; patch -p1 <../bootsplash-3.1.9-2.6.31-rh.patch
-	cd ${KERNEL_SRC}; patch -p1 <../${RHKERSRCDIR}/patch-042stab085
+	cd ${KERNEL_SRC}; patch -p1 <../${RHKERSRCDIR}/patch-042stab088
 	cd ${KERNEL_SRC}; patch -p1 <../cpt-drop-DCACHE_NFSFS_RENAMED-for-all-NFS-dentries-on-kill.patch
 	cd ${KERNEL_SRC}; patch -p1 <../do-not-use-barrier-on-ext3.patch
 	cd ${KERNEL_SRC}; patch -p1 <../bridge-patch.diff
