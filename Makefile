@@ -1,7 +1,5 @@
 RELEASE=3.2
 
-export CC=gcc-4.4
-
 KERNEL_VER=2.6.32
 PKGREL=126
 # also include firmware of previous versrion into 
@@ -81,7 +79,7 @@ ${PVE_DEB} pve: proxmox-ve/control proxmox-ve/postinst
 	dpkg-deb --build proxmox-ve/data ${PVE_DEB}
 
 check_gcc: 
-	${CC} --version|grep "4\.4\.7" || false
+	gcc --version|grep "4\.4\.7" || false
 
 ${DST_DEB}: data control.in postinst.in
 	mkdir -p data/DEBIAN
