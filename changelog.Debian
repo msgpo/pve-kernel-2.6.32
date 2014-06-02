@@ -2,6 +2,8 @@ pve-kernel-2.6.32 (2.6.32-127) unstable; urgency=low
 
   * update to vzkernel-2.6.32-042stab090.2.src.rpm
 
+  * bump API version to 30-pve
+ 
  -- Proxmox Support Team <support@proxmox.com>  Mon, 02 Jun 2014 12:25:22 +0200
 
 pve-kernel-2.6.32 (2.6.32-126) unstable; urgency=low
