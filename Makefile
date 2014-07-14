@@ -78,8 +78,12 @@ ${PVE_DEB} pve: proxmox-ve/control proxmox-ve/postinst
 	gzip --best proxmox-ve/data/usr/share/doc/${PVEPKG}/changelog.Debian
 	dpkg-deb --build proxmox-ve/data ${PVE_DEB}
 
-check_gcc: 
+check_gcc:
+ifeq ($(CC), cc)
 	gcc --version|grep "4\.7\.2" || false
+else
+	$(CC) --version|grep "4\.7" || false
+endif
 
 ${DST_DEB}: data control.in postinst.in
 	mkdir -p data/DEBIAN
