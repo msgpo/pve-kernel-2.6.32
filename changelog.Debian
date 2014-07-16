@@ -1,3 +1,14 @@
+pve-kernel-2.6.32 (2.6.32-131) unstable; urgency=low
+
+  * update to vzkernel-2.6.32-042stab092.2.src.rpm
+  
+  * bump API version to 31-pve
+  
+  * remove cpt-drop-DCACHE_NFSFS_RENAMED-for-all-NFS-dentries-on-kill.patch
+    (now upstream)
+
+ -- Proxmox Support Team <support@proxmox.com>  Wed, 16 Jul 2014 13:02:28 +0200
+
 pve-kernel-2.6.32 (2.6.32-130) unstable; urgency=low
 
   * update to vzkernel-2.6.32-042stab090.5.src.rpm 
