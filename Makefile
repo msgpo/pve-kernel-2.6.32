@@ -1,7 +1,7 @@
 RELEASE=3.2
 
 KERNEL_VER=2.6.32
-PKGREL=133
+PKGREL=134
 # also include firmware of previous versrion into 
 # the fw package:  fwlist-2.6.32-PREV-pve
 KREL=31
@@ -176,6 +176,7 @@ ${KERNEL_SRC}/README: ${KERNEL_SRC}.org/README
 	cd ${KERNEL_SRC}; patch -p1 <../add-tiocgdev-ioctl.patch
 	#cd ${KERNEL_SRC}; patch -p1 <../fix-nfs-block-count.patch
 	cd ${KERNEL_SRC}; patch -p1 <../fix-idr-header-for-drbd-compilation.patch
+	cd ${KERNEL_SRC}; patch -p1 <../kvm-x86-ignore-ioapic-polarity.patch
 	sed -i ${KERNEL_SRC}/Makefile -e 's/^EXTRAVERSION.*$$/EXTRAVERSION=${EXTRAVERSION}/'
 	touch $@
 

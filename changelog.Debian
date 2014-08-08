@@ -1,3 +1,9 @@
+pve-kernel-2.6.32 (2.6.32-134) unstable; urgency=low
+
+  * fix bug 546: ignore ioapic polarity which adds support for OS X
+
+ -- Proxmox Support Team <support@proxmox.com>  Fri, 08 Aug 2014 05:59:12 +0200
+
 pve-kernel-2.6.32 (2.6.32-133) unstable; urgency=low
 
   * fix bug #292: add postrm file for cleanup

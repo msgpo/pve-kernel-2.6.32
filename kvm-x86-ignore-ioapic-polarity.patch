@@ -1,0 +1,76 @@
+From 100943c54e0947a07d2c0185368fc2fd848f7f28 Mon Sep 17 00:00:00 2001
+From: "Gabriel L. Somlo" <gsomlo@gmail.com>
+Date: Thu, 27 Feb 2014 23:06:17 -0500
+Subject: kvm: x86: ignore ioapic polarity
+
+Both QEMU and KVM have already accumulated a significant number of
+optimizations based on the hard-coded assumption that ioapic polarity
+will always use the ActiveHigh convention, where the logical and
+physical states of level-triggered irq lines always match (i.e.,
+active(asserted) == high == 1, inactive == low == 0). QEMU guests
+are expected to follow directions given via ACPI and configure the
+ioapic with polarity 0 (ActiveHigh). However, even when misbehaving
+guests (e.g. OS X <= 10.9) set the ioapic polarity to 1 (ActiveLow),
+QEMU will still use the ActiveHigh signaling convention when
+interfacing with KVM.
+
+This patch modifies KVM to completely ignore ioapic polarity as set by
+the guest OS, enabling misbehaving guests to work alongside those which
+comply with the ActiveHigh polarity specified by QEMU's ACPI tables.
+
+Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+Signed-off-by: Gabriel L. Somlo <somlo@cmu.edu>
+[Move documentation to KVM_IRQ_LINE, add ia64. - Paolo]
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+
+diff --git a/arch/ia64/kvm/kvm-ia64.c b/arch/ia64/kvm/kvm-ia64.c
+index 53f44be..6a4309b 100644
+--- a/arch/ia64/kvm/kvm-ia64.c
++++ b/arch/ia64/kvm/kvm-ia64.c
+@@ -197,6 +197,7 @@ int kvm_dev_ioctl_check_extension(long ext)
+ 	case KVM_CAP_IRQCHIP:
+ 	case KVM_CAP_MP_STATE:
+ 	case KVM_CAP_IRQ_INJECT_STATUS:
++	case KVM_CAP_IOAPIC_POLARITY_IGNORED:
+ 		r = 1;
+ 		break;
+ 	case KVM_CAP_COALESCED_MMIO:
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index d906391..a37da6b 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -1971,6 +1971,7 @@ int kvm_dev_ioctl_check_extension(long ext)
+ 	case KVM_CAP_XSAVE:
+ 	case KVM_CAP_GET_TSC_KHZ:
+ 	case KVM_CAP_KVMCLOCK_CTRL:
++	case KVM_CAP_IOAPIC_POLARITY_IGNORED:
+ 		r = 1;
+ 		break;
+ 	case KVM_CAP_COALESCED_MMIO:
+diff --git a/include/uapi/linux/kvm.h b/include/uapi/linux/kvm.h
+index 7d76401..a7518be 100644
+--- a/include/linux/kvm.h
++++ b/include/linux/kvm.h
+@@ -459,6 +459,7 @@ struct kvm_ppc_smmu_info {
+ #define KVM_CAP_GET_TSC_KHZ 61
+ #define KVM_CAP_TSC_DEADLINE_TIMER 72
+ #define KVM_CAP_KVMCLOCK_CTRL 76
++#define KVM_CAP_IOAPIC_POLARITY_IGNORED 97
+ 
+ #ifdef KVM_CAP_IRQ_ROUTING
+ 
+diff --git a/virt/kvm/ioapic.c b/virt/kvm/ioapic.c
+index ce9ed99..1539d37 100644
+--- a/virt/kvm/ioapic.c
++++ b/virt/kvm/ioapic.c
+@@ -206,7 +206,6 @@ int kvm_ioapic_set_irq(struct kvm_ioapic *ioapic, int irq, int irq_source_id,
+ 		int irq_level = __kvm_irq_line_state(&ioapic->irq_states[irq],
+ 						     irq_source_id, level);
+ 		entry = ioapic->redirtbl[irq];
+-		irq_level ^= entry.fields.polarity;
+ 		if (!irq_level)
+ 			ioapic->irr &= ~mask;
+ 		else {
+-- 
+cgit v0.10.1
+
