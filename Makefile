@@ -4,7 +4,7 @@ KERNEL_VER=2.6.32
 PKGREL=134
 # also include firmware of previous versrion into 
 # the fw package:  fwlist-2.6.32-PREV-pve
-KREL=31
+KREL=32
 
 RHKVER=431.20.3.el6
 OVZVER=042stab092.3
@@ -29,26 +29,26 @@ KERNEL_CFG_ORG=config-${KERNEL_VER}-${OVZVER}.x86_64
 AOEDIR=aoe6-77
 AOESRC=${AOEDIR}.tar.gz
 
-E1000EDIR=e1000e-3.0.4.1
+E1000EDIR=e1000e-3.1.0.2
 E1000ESRC=${E1000EDIR}.tar.gz
 
-IGBDIR=igb-5.1.2
+IGBDIR=igb-5.2.9.4
 IGBSRC=${IGBDIR}.tar.gz
 
-IXGBEDIR=ixgbe-3.19.1
+IXGBEDIR=ixgbe-3.21.2
 IXGBESRC=${IXGBEDIR}.tar.gz
 
-BNX2DIR=netxtreme2-7.8.56
+BNX2DIR=netxtreme2-7.10.14
 BNX2SRC=${BNX2DIR}.tar.gz
 
-AACRAIDVER=1.2.1-40300
+AACRAIDVER=1.2.1-40700
 AACRAIDSRC=aacraid-linux-src-${AACRAIDVER}.tgz
 AACRAIDDIR=aacraid
 
-MEGARAID_DIR=megaraid_sas-06.602.03.00
+MEGARAID_DIR=megaraid_sas-06.703.11.00
 MEGARAID_SRC=${MEGARAID_DIR}-src.tar.gz
 
-ARECADIR=arcmsr-1.30.0X.16-20131206
+ARECADIR=arcmsr-1.30.0X.19-140509
 ARECASRC=${ARECADIR}.zip
 
 RR272XSRC=RR272x_1x-Linux-Src-v1.5-130325-0732.tar.gz
@@ -211,11 +211,13 @@ megaraid_sas.ko: .compile_mark ${MEGARAID_SRC}
 aacraid.ko: .compile_mark ${AACRAIDSRC}
 	rm -rf ${AACRAIDDIR}
 	mkdir ${AACRAIDDIR}
-	cd ${AACRAIDDIR};tar xzf ../${AACRAIDSRC}	
+	cd ${AACRAIDDIR};tar xzf ../${AACRAIDSRC}
+	cd ${AACRAIDDIR};rpm2cpio aacraid-${AACRAIDVER}.src.rpm|cpio -i
+	cd ${AACRAIDDIR};tar xf aacraid_source.tgz
 	mkdir -p /lib/modules/${KVNAME}
 	ln -sf ${TOP}/${KERNEL_SRC} /lib/modules/${KVNAME}/build
-	make -C ${TOP}/${KERNEL_SRC} M=${TOP}/${AACRAIDDIR}/aacraid-${AACRAIDVER}.src/aacraid_source modules
-	cp ${AACRAIDDIR}/aacraid-${AACRAIDVER}.src/aacraid_source/aacraid.ko .
+	make -C ${TOP}/${KERNEL_SRC} M=${TOP}/${AACRAIDDIR} modules
+	cp ${AACRAIDDIR}/aacraid.ko .
 
 aoe.ko aoe: .compile_mark ${AOESRC}
 	# aoe driver updates
@@ -253,7 +255,6 @@ ixgbe.ko ixgbe: .compile_mark ${IXGBESRC}
 bnx2.ko cnic.ko bnx2x.ko: ${BNX2SRC}
 	rm -rf ${BNX2DIR}
 	tar xf ${BNX2SRC}
-	cd ${BNX2DIR}; patch -p1 <../fix-netxtreme2-compile-error.patch
 	mkdir -p /lib/modules/${KVNAME}
 	ln -sf ${TOP}/${KERNEL_SRC} /lib/modules/${KVNAME}/build
 	cd ${BNX2DIR}; make -C bnx2/src KVER=${KVNAME}

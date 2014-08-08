@@ -1,6 +1,20 @@
 pve-kernel-2.6.32 (2.6.32-134) unstable; urgency=low
 
   * fix bug 546: ignore ioapic polarity which adds support for OS X
+  
+  * update aacraid to 1.2.1
+  
+  * update e1000e to 3.1.0.2
+  
+  * update igb to 5.2.9.4
+  
+  * update ixgbe to 3.21.2
+  
+  * update netxtreme2 drivers to 7.10.14
+  
+  * update arcmsr to 1.30.0X.19-140509
+
+  * update megaraid_sas to 06.703.11.00
 
  -- Proxmox Support Team <support@proxmox.com>  Fri, 08 Aug 2014 05:59:12 +0200
 

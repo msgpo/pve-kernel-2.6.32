@@ -19,20 +19,21 @@ Additional/Updated Modules:
 
 - include latest e1000e driver from intel/sourceforge
 
-- include latest Broadcom bnx2 drivers
+- include latest Broadcom bnx2 drivers: http://driverdownloads.qlogic.com/
 
-  * original file linux-7.8.56.zip contains
-    netxtreme2-7.8.56.tar.gz (added to repository)
+  * original file linux-7.10.14.zip contains
+    netxtreme2-7.10.14.tar.gz (added to repository)
 
 - include latest Adaptec aacraid driver
 
-  * http://download.adaptec.com/raid/aac/linux/aacraid-linux-src-1.2.1-40300.tgz
+  * http://download.adaptec.com/raid/aac/linux/aacraid-linux-src-1.2.1-40700.tgz
 
 - include latest megaraid_sas driver
 
-  *  http://www.lsi.com/downloads/Public/MegaRAID%20Common%20Files/MR_Linux_Driver_6.601.06.00.tgz
+  * http://www.lsi.com/support/pages/download-search.aspx
+  * download "6.703.11.00-2_MR Linux_Driver.zip"
 
-  (extract source file megaraid_sas-06.602.03.00-src.tar.gz)
+  (extract source file megaraid_sas-06.703.11.00-src.tar.gz)
 
 - include Highpoint RocketRAID 272X driver
 
