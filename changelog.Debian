@@ -1,3 +1,9 @@
+pve-kernel-2.6.32 (2.6.32-135) unstable; urgency=low
+
+  * update to vzkernel-2.6.32-042stab093.4.src.rpm
+
+ -- Proxmox Support Team <support@proxmox.com>  Thu, 21 Aug 2014 08:31:09 +0200
+
 pve-kernel-2.6.32 (2.6.32-134) unstable; urgency=low
 
   * fix bug 546: ignore ioapic polarity which adds support for OS X
