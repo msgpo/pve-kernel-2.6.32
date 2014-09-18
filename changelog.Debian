@@ -1,3 +1,9 @@
+pve-kernel-2.6.32 (2.6.32-137) unstable; urgency=low
+
+  * inclused latest stable OVS openvswitch.ko module
+
+ -- Proxmox Support Team <support@proxmox.com>  Thu, 18 Sep 2014 07:12:43 +0200
+
 pve-kernel-2.6.32 (2.6.32-136) unstable; urgency=low
 
   * allow to use grub-efi-ia32 boot loader 
