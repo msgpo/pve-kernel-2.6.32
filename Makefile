@@ -57,6 +57,9 @@ RR272XDIR=rr272x_1x-linux-src-v1.5
 ISCSITARGETDIR=iscsitarget-1.4.20.2
 ISCSITARGETSRC=${ISCSITARGETDIR}.tar.gz
 
+OVSDIR=openvswitch-2.3.0
+OVSSRC=${OVSDIR}.tar.gz
+
 DST_DEB=${PACKAGE}_${KERNEL_VER}-${PKGREL}_${ARCH}.deb
 HDR_DEB=${HDRPACKAGE}_${KERNEL_VER}-${PKGREL}_${ARCH}.deb
 PVEPKG=proxmox-ve-${KERNEL_VER}
@@ -107,13 +110,15 @@ fwlist-${KVNAME} fwtest: data
 	cmp fwlist.tmp fwlist-2.6.32-20-pve
 	mv fwlist.tmp $@
 
-data: .compile_mark ${KERNEL_CFG} aoe.ko e1000e.ko igb.ko ixgbe.ko bnx2.ko cnic.ko bnx2x.ko iscsi_trgt.ko aacraid.ko megaraid_sas.ko rr272x_1x.ko arcmsr.ko
+data: .compile_mark ${KERNEL_CFG} aoe.ko e1000e.ko igb.ko ixgbe.ko bnx2.ko cnic.ko bnx2x.ko iscsi_trgt.ko aacraid.ko megaraid_sas.ko rr272x_1x.ko arcmsr.ko openvswitch.ko
 	rm -rf data tmp; mkdir -p tmp/lib/modules/${KVNAME}
 	mkdir tmp/boot
 	install -m 644 ${KERNEL_CFG} tmp/boot/config-${KVNAME}
 	install -m 644 ${KERNEL_SRC}/System.map tmp/boot/System.map-${KVNAME}
 	install -m 644 ${KERNEL_SRC}/arch/x86_64/boot/bzImage tmp/boot/vmlinuz-${KVNAME}
 	cd ${KERNEL_SRC}; make INSTALL_MOD_PATH=../tmp/ modules_install
+	# install OVS driver
+	install -m 644 openvswitch.ko tmp/lib/modules/${KVNAME}/kernel/net/openvswitch/openvswitch.ko
 	# install latest aoe driver
 	install -m 644 aoe.ko tmp/lib/modules/${KVNAME}/kernel/drivers/block/aoe/aoe.ko
 	# install latest ixgbe driver
@@ -268,6 +273,17 @@ arcmsr.ko: .compile_mark ${ARECASRC}
 	ln -sf ${TOP}/${KERNEL_SRC} /lib/modules/${KVNAME}/build
 	cd ${ARECADIR}; make -C ${TOP}/${KERNEL_SRC} SUBDIRS=${TOP}/${ARECADIR} modules
 	cp ${ARECADIR}/arcmsr.ko arcmsr.ko
+
+openvswitch.ko: .compile_mark ${OVSSRC}
+	rm -rf ${OVSDIR}
+	tar xf ${OVSSRC}
+	mkdir -p /lib/modules/${KVNAME}
+	ln -sf ${TOP}/${KERNEL_SRC} /lib/modules/${KVNAME}/build
+	cd ${OVSDIR}; ln -s ../ovspatches/ patches; quilt push -a
+	cd ${OVSDIR}; ./boot.sh
+	cd ${OVSDIR}; ./configure --with-linux=${TOP}/${KERNEL_SRC}
+	cd ${OVSDIR}; make -C datapath/linux
+	cp ${OVSDIR}/datapath/linux/openvswitch.ko openvswitch.ko
 
 iscsi_trgt.ko: .compile_mark ${ISCSITARGETSRC}
 	rm -rf ${ISCSITARGETDIR}

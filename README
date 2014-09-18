@@ -11,6 +11,8 @@ Additional/Updated Modules:
 
 - we use bootsplash to display the boot logo.
 
+- inclused latest stable OVS openvswitch.ko module
+
 - include latest AoE driver (http://support.coraid.com/support/linux)
 
 - include latest ixgbe driver from intel/sourceforge
