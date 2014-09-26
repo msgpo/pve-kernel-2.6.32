@@ -1,3 +1,11 @@
+pve-kernel-2.6.32 (2.6.32-138) unstable; urgency=low
+
+  * update to vzkernel-2.6.32-042stab093.5.src.rpm
+  
+  * bump kernel API to 33-pve
+
+ -- Proxmox Support Team <support@proxmox.com>  Fri, 26 Sep 2014 07:42:30 +0200
+
 pve-kernel-2.6.32 (2.6.32-137) unstable; urgency=low
 
   * inclused latest stable OVS openvswitch.ko module
