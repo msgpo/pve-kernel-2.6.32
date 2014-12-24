@@ -1,3 +1,11 @@
+pve-kernel-2.6.32 (2.6.32-141) unstable; urgency=low
+
+  * update netxtreme2 drivers to version 7.11.05
+  
+  * bump kernel API to 34-pve
+
+ -- Proxmox Support Team <support@proxmox.com>  Wed, 24 Dec 2014 15:21:57 +0100
+
 pve-kernel-2.6.32 (2.6.32-140) unstable; urgency=low
 
   * update to vzkernel-2.6.32-042stab094.8.src.rpm (fix for CVE-2014-9322)

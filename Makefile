@@ -1,10 +1,10 @@
 RELEASE=3.3
 
 KERNEL_VER=2.6.32
-PKGREL=140
+PKGREL=141
 # also include firmware of previous versrion into 
 # the fw package:  fwlist-2.6.32-PREV-pve
-KREL=34
+KREL=35
 
 RHKVER=431.29.2.el6
 OVZVER=042stab094.8
@@ -38,7 +38,7 @@ IGBSRC=${IGBDIR}.tar.gz
 IXGBEDIR=ixgbe-3.21.2
 IXGBESRC=${IXGBEDIR}.tar.gz
 
-BNX2DIR=netxtreme2-7.10.14
+BNX2DIR=netxtreme2-7.11.05
 BNX2SRC=${BNX2DIR}.tar.gz
 
 AACRAIDVER=1.2.1-40700
