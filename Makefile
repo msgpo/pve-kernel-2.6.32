@@ -1,7 +1,7 @@
 RELEASE=3.3
 
 KERNEL_VER=2.6.32
-PKGREL=141
+PKGREL=142
 # also include firmware of previous versrion into 
 # the fw package:  fwlist-2.6.32-PREV-pve
 KREL=35
@@ -32,10 +32,10 @@ AOESRC=${AOEDIR}.tar.gz
 E1000EDIR=e1000e-3.1.0.2
 E1000ESRC=${E1000EDIR}.tar.gz
 
-IGBDIR=igb-5.2.9.4
+IGBDIR=igb-5.2.15
 IGBSRC=${IGBDIR}.tar.gz
 
-IXGBEDIR=ixgbe-3.21.2
+IXGBEDIR=ixgbe-3.23.2
 IXGBESRC=${IXGBEDIR}.tar.gz
 
 BNX2DIR=netxtreme2-7.11.05

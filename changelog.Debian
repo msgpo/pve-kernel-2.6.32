@@ -1,3 +1,11 @@
+pve-kernel-2.6.32 (2.6.32-142) unstable; urgency=low
+
+  * update igb to 5.2.15
+  
+  * update ixgbe to 3.23.2
+
+ -- Proxmox Support Team <support@proxmox.com>  Fri, 26 Dec 2014 10:34:21 +0100
+
 pve-kernel-2.6.32 (2.6.32-141) unstable; urgency=low
 
   * update netxtreme2 drivers to version 7.11.05
