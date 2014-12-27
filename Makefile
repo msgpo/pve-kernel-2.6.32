@@ -1,13 +1,13 @@
 RELEASE=3.3
 
 KERNEL_VER=2.6.32
-PKGREL=142
+PKGREL=143
 # also include firmware of previous versrion into 
 # the fw package:  fwlist-2.6.32-PREV-pve
 KREL=35
 
-RHKVER=431.29.2.el6
-OVZVER=042stab094.8
+RHKVER=504.1.3.el6
+OVZVER=042stab102.9
 
 KERNELSRCRPM=vzkernel-${KERNEL_VER}-${OVZVER}.src.rpm
 
@@ -164,7 +164,7 @@ ${KERNEL_SRC}/README: ${KERNEL_SRC}.org/README
 	rm -rf ${KERNEL_SRC}
 	cp -a ${KERNEL_SRC}.org ${KERNEL_SRC}
 	cd ${KERNEL_SRC}; patch -p1 <../bootsplash-3.1.9-2.6.31-rh.patch
-	cd ${KERNEL_SRC}; patch -p1 <../${RHKERSRCDIR}/patch-042stab094
+	cd ${KERNEL_SRC}; patch -p1 <../${RHKERSRCDIR}/patch-042stab102
 	cd ${KERNEL_SRC}; patch -p1 <../do-not-use-barrier-on-ext3.patch
 	cd ${KERNEL_SRC}; patch -p1 <../bridge-patch.diff
 	#cd ${KERNEL_SRC}; patch -p1 <../kvm-fix-invalid-secondary-exec-controls.patch
