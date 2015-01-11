@@ -1,7 +1,7 @@
 RELEASE=3.3
 
 KERNEL_VER=2.6.32
-PKGREL=143
+PKGREL=144
 # also include firmware of previous versrion into 
 # the fw package:  fwlist-2.6.32-PREV-pve
 KREL=35
@@ -60,6 +60,14 @@ ISCSITARGETSRC=${ISCSITARGETDIR}.tar.gz
 OVSDIR=openvswitch-2.3.1
 OVSSRC=${OVSDIR}.tar.gz
 
+ZFSVER=0.6.3-1.2
+SPLDIR=spl-spl-${ZFSVER}
+SPLSRC=spl-${ZFSVER}.tar.gz
+ZFSDIR=zfs-zfs-${ZFSVER}
+ZFSSRC=zfs-${ZFSVER}.tar.gz
+ZFS_MODULES=zfs.ko zavl.ko znvpair.ko zunicode.ko zcommon.ko zpios.ko
+SPL_MODULES=spl.ko splat.ko
+
 DST_DEB=${PACKAGE}_${KERNEL_VER}-${PKGREL}_${ARCH}.deb
 HDR_DEB=${HDRPACKAGE}_${KERNEL_VER}-${PKGREL}_${ARCH}.deb
 PVEPKG=proxmox-ve-${KERNEL_VER}
@@ -110,7 +118,7 @@ fwlist-${KVNAME} fwtest: data
 	cmp fwlist.tmp fwlist-2.6.32-20-pve
 	mv fwlist.tmp $@
 
-data: .compile_mark ${KERNEL_CFG} aoe.ko e1000e.ko igb.ko ixgbe.ko bnx2.ko cnic.ko bnx2x.ko iscsi_trgt.ko aacraid.ko megaraid_sas.ko rr272x_1x.ko arcmsr.ko openvswitch.ko
+data: .compile_mark ${KERNEL_CFG} aoe.ko e1000e.ko igb.ko ixgbe.ko bnx2.ko cnic.ko bnx2x.ko iscsi_trgt.ko aacraid.ko megaraid_sas.ko rr272x_1x.ko arcmsr.ko openvswitch.ko ${SPL_MODULES} ${ZFS_MODULES}
 	rm -rf data tmp; mkdir -p tmp/lib/modules/${KVNAME}
 	mkdir tmp/boot
 	install -m 644 ${KERNEL_CFG} tmp/boot/config-${KVNAME}
@@ -141,6 +149,9 @@ data: .compile_mark ${KERNEL_CFG} aoe.ko e1000e.ko igb.ko ixgbe.ko bnx2.ko cnic.
 	install -m 644 arcmsr.ko tmp/lib/modules/${KVNAME}/kernel/drivers/scsi/arcmsr/
 	# install iscsitarget module
 	install -m 644 -D iscsi_trgt.ko tmp/lib/modules/${KVNAME}/kernel/drivers/scsi/iscsi_trgt.ko
+	# install zfs drivers
+	install -d -m 0755 tmp/lib/modules/${KVNAME}/zfs
+	install -m 644 ${SPL_MODULES} ${ZFS_MODULES} tmp/lib/modules/${KVNAME}/zfs
 	# remove firmware
 	rm -rf tmp/lib/firmware
 	# strip debug info
@@ -285,6 +296,28 @@ openvswitch.ko: .compile_mark ${OVSSRC}
 	cd ${OVSDIR}; make -C datapath/linux
 	cp ${OVSDIR}/datapath/linux/openvswitch.ko openvswitch.ko
 
+${SPL_MODULES}: .compile_mark ${SPLSRC}
+	rm -rf ${SPLDIR}
+	tar xf ${SPLSRC}
+	cd ${SPLDIR}; ./autogen.sh
+	cd ${SPLDIR}; ./configure --with-config=kernel --with-linux=${TOP}/${KERNEL_SRC} --with-linux-obj=${TOP}/${KERNEL_SRC}
+	cd ${SPLDIR}; make
+	cp ${SPLDIR}/module/spl/spl.ko spl.ko
+	cp ${SPLDIR}/module/splat/splat.ko splat.ko
+
+${ZFS_MODULES}: .compile_mark ${SPL_MODULES} ${ZFSSRC}
+	rm -rf ${ZFSDIR}
+	tar xf ${ZFSSRC}
+	cd ${ZFSDIR}; ./autogen.sh
+	cd ${ZFSDIR}; ./configure --with-spl=${TOP}/${SPLDIR} --with-spl-obj=${TOP}/${SPLDIR} --with-config=kernel --with-linux=${TOP}/${KERNEL_SRC} --with-linux-obj=${TOP}/${KERNEL_SRC}
+	cd ${ZFSDIR}; make
+	cp ${ZFSDIR}/module/zfs/zfs.ko zfs.ko
+	cp ${ZFSDIR}/module/avl/zavl.ko zavl.ko
+	cp ${ZFSDIR}/module/nvpair/znvpair.ko znvpair.ko
+	cp ${ZFSDIR}/module/unicode/zunicode.ko zunicode.ko
+	cp ${ZFSDIR}/module/zcommon/zcommon.ko zcommon.ko
+	cp ${ZFSDIR}/module/zpios/zpios.ko zpios.ko
+
 iscsi_trgt.ko: .compile_mark ${ISCSITARGETSRC}
 	rm -rf ${ISCSITARGETDIR}
 	tar xf ${ISCSITARGETSRC}
@@ -337,7 +370,7 @@ distclean: clean
 
 .PHONY: clean
 clean:
-	rm -rf *~ .compile_mark ${KERNEL_CFG} ${KERNEL_SRC} tmp data proxmox-ve/data *.deb ${AOEDIR} aoe.ko ${headers_tmp} fwdata fwlist.tmp *.ko ${IXGBEDIR} ${E1000EDIR} e1000e.ko ${IGBDIR} igb.ko fwlist-${KVNAME} iscsi_trgt.ko ${ISCSITARGETDIR} ${BNX2DIR} bnx2.ko cnic.ko bnx2x.ko aacraid.ko ${AACRAIDDIR} megaraid_sas.ko ${MEGARAID_DIR} rr272x_1x.ko ${RR272XDIR} ${ARECADIR}.ko ${ARECADIR} ${OVSDIR} openvswitch.ko
+	rm -rf *~ .compile_mark ${KERNEL_CFG} ${KERNEL_SRC} tmp data proxmox-ve/data *.deb ${AOEDIR} aoe.ko ${headers_tmp} fwdata fwlist.tmp *.ko ${IXGBEDIR} ${E1000EDIR} e1000e.ko ${IGBDIR} igb.ko fwlist-${KVNAME} iscsi_trgt.ko ${ISCSITARGETDIR} ${BNX2DIR} bnx2.ko cnic.ko bnx2x.ko aacraid.ko ${AACRAIDDIR} megaraid_sas.ko ${MEGARAID_DIR} rr272x_1x.ko ${RR272XDIR} ${ARECADIR}.ko ${ARECADIR} ${OVSDIR} openvswitch.ko ${ZFSDIR} ${SPLDIR} ${SPL_MODULES} ${ZFS_MODULES}
 
 
 
