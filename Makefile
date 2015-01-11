@@ -96,11 +96,13 @@ else
 	$(CC) --version|grep "4\.7" || false
 endif
 
-${DST_DEB}: data control.in postinst.in postrm.in
+${DST_DEB}: data control.in postinst.in prerm.in postrm.in
 	mkdir -p data/DEBIAN
 	sed -e 's/@KERNEL_VER@/${KERNEL_VER}/' -e 's/@KVNAME@/${KVNAME}/' -e 's/@PKGREL@/${PKGREL}/' <control.in >data/DEBIAN/control
 	sed -e 's/@@KVNAME@@/${KVNAME}/g'  <postinst.in >data/DEBIAN/postinst
 	chmod 0755 data/DEBIAN/postinst
+	sed -e 's/@@KVNAME@@/${KVNAME}/g'  <prerm.in >data/DEBIAN/prerm
+	chmod 0755 data/DEBIAN/prerm
 	sed -e 's/@@KVNAME@@/${KVNAME}/g'  <postrm.in >data/DEBIAN/postrm
 	chmod 0755 data/DEBIAN/postrm
 	install -D -m 644 copyright data/usr/share/doc/${PACKAGE}/copyright
