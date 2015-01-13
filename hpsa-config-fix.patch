@@ -1,0 +1,30 @@
+diff -ur a/drivers/scsi/hpsa_kernel_compat.h b/drivers/scsi/hpsa_kernel_compat.h
+--- a/drivers/scsi/hpsa_kernel_compat.h	2015-01-13 17:54:31.000000000 +0100
++++ b/drivers/scsi/hpsa_kernel_compat.h	2015-01-13 18:00:01.000000000 +0100
+@@ -49,7 +49,7 @@
+ /* #define SLES11sp2plus */
+ /* #define RHEL5 */
+ /* #define RHEL5u2 */
+-/* #define RHEL6 */
++#define RHEL6
+ /* #define RHEL7 */
+ /* Default is kernel.org */
+ 
+@@ -124,7 +124,7 @@
+ 
+ #ifdef RHEL6 /************ RHEL 6 ************/
+ #define KFEATURE_HAS_WAIT_FOR_COMPLETION_IO_TIMEOUT 0
+-#define KFEATURE_HAS_WAIT_FOR_COMPLETION_IO 0
++#define KFEATURE_HAS_WAIT_FOR_COMPLETION_IO 1
+ #define KFEATURE_HAS_2011_03_INTERRUPT_HANDLER 1
+ #define KFEATURE_CHANGE_QDEPTH_HAS_REASON 1
+ #define KFEATURE_HAS_2011_03_STYLE_DEVICE_ATTR 1
+@@ -684,7 +684,7 @@
+  * the thread that is doing the swapping i/o needs to allocate.
+  */
+ #define WQ_MEM_RECLAIM (0)
+-#define alloc_workqueue(name, flags, max_active) __create_workqueue(name, flags, max_active, 0)
++#define alloc_workqueue(name, flags, max_active) __create_workqueue(name, flags, max_active, 0, NULL)
+ #endif
+ 
+ #if !KFEATURE_HAS_ATOMIC_DEC_IF_POSITIVE

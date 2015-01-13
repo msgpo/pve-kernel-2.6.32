@@ -45,6 +45,10 @@ AACRAIDVER=1.2.1-40700
 AACRAIDSRC=aacraid-linux-src-${AACRAIDVER}.tgz
 AACRAIDDIR=aacraid
 
+HPSAVER=3.4.6
+HPSADIR=hpsa-${HPSAVER}
+HPSASRC=${HPSADIR}-170.tar.bz2
+
 MEGARAID_DIR=megaraid_sas-06.703.11.00
 MEGARAID_SRC=${MEGARAID_DIR}-src.tar.gz
 
@@ -120,7 +124,7 @@ fwlist-${KVNAME} fwtest: data
 	cmp fwlist.tmp fwlist-2.6.32-20-pve
 	mv fwlist.tmp $@
 
-data: .compile_mark ${KERNEL_CFG} aoe.ko e1000e.ko igb.ko ixgbe.ko bnx2.ko cnic.ko bnx2x.ko iscsi_trgt.ko aacraid.ko megaraid_sas.ko rr272x_1x.ko arcmsr.ko openvswitch.ko ${SPL_MODULES} ${ZFS_MODULES}
+data: .compile_mark ${KERNEL_CFG} aoe.ko e1000e.ko igb.ko ixgbe.ko bnx2.ko cnic.ko bnx2x.ko iscsi_trgt.ko aacraid.ko megaraid_sas.ko rr272x_1x.ko arcmsr.ko openvswitch.ko hpsa.ko ${SPL_MODULES} ${ZFS_MODULES}
 	rm -rf data tmp; mkdir -p tmp/lib/modules/${KVNAME}
 	mkdir tmp/boot
 	install -m 644 ${KERNEL_CFG} tmp/boot/config-${KVNAME}
@@ -143,6 +147,8 @@ data: .compile_mark ${KERNEL_CFG} aoe.ko e1000e.ko igb.ko ixgbe.ko bnx2.ko cnic.
 	install -m 644 bnx2x.ko tmp/lib/modules/${KVNAME}/kernel/drivers/net/bnx2x/
 	# install aacraid drivers
 	install -m 644 aacraid.ko tmp/lib/modules/${KVNAME}/kernel/drivers/scsi/aacraid/
+	# install hpsa driver
+	install -m 644 hpsa.ko tmp/lib/modules/${KVNAME}/kernel/drivers/scsi/
 	# install megaraid_sas driver
 	install -m 644 megaraid_sas.ko tmp/lib/modules/${KVNAME}/kernel/drivers/scsi/megaraid/
 	# install Highpoint 2710 RAID driver
@@ -236,6 +242,15 @@ aacraid.ko: .compile_mark ${AACRAIDSRC}
 	ln -sf ${TOP}/${KERNEL_SRC} /lib/modules/${KVNAME}/build
 	make -C ${TOP}/${KERNEL_SRC} M=${TOP}/${AACRAIDDIR} modules
 	cp ${AACRAIDDIR}/aacraid.ko .
+
+hpsa.ko hpsa: .compile_mark ${HPSASRC}
+	rm -rf ${HPSADIR}
+	tar xf ${HPSASRC}
+	cd ${HPSADIR}; patch -p1 <../hpsa-config-fix.patch
+	mkdir -p /lib/modules/${KVNAME}
+	ln -sf ${TOP}/${KERNEL_SRC} /lib/modules/${KVNAME}/build
+	make -C ${TOP}/${KERNEL_SRC} M=${TOP}/${HPSADIR}/drivers/scsi modules
+	cp ${HPSADIR}/drivers/scsi/hpsa.ko hpsa.ko
 
 aoe.ko aoe: .compile_mark ${AOESRC}
 	# aoe driver updates
@@ -372,7 +387,7 @@ distclean: clean
 
 .PHONY: clean
 clean:
-	rm -rf *~ .compile_mark ${KERNEL_CFG} ${KERNEL_SRC} tmp data proxmox-ve/data *.deb ${AOEDIR} aoe.ko ${headers_tmp} fwdata fwlist.tmp *.ko ${IXGBEDIR} ${E1000EDIR} e1000e.ko ${IGBDIR} igb.ko fwlist-${KVNAME} iscsi_trgt.ko ${ISCSITARGETDIR} ${BNX2DIR} bnx2.ko cnic.ko bnx2x.ko aacraid.ko ${AACRAIDDIR} megaraid_sas.ko ${MEGARAID_DIR} rr272x_1x.ko ${RR272XDIR} ${ARECADIR}.ko ${ARECADIR} ${OVSDIR} openvswitch.ko ${ZFSDIR} ${SPLDIR} ${SPL_MODULES} ${ZFS_MODULES}
+	rm -rf *~ .compile_mark ${KERNEL_CFG} ${KERNEL_SRC} tmp data proxmox-ve/data *.deb ${AOEDIR} aoe.ko ${headers_tmp} fwdata fwlist.tmp *.ko ${IXGBEDIR} ${E1000EDIR} e1000e.ko ${IGBDIR} igb.ko fwlist-${KVNAME} iscsi_trgt.ko ${ISCSITARGETDIR} ${BNX2DIR} bnx2.ko cnic.ko bnx2x.ko aacraid.ko ${AACRAIDDIR} megaraid_sas.ko ${MEGARAID_DIR} rr272x_1x.ko ${RR272XDIR} ${ARECADIR}.ko ${ARECADIR} ${OVSDIR} openvswitch.ko ${ZFSDIR} ${SPLDIR} ${SPL_MODULES} ${ZFS_MODULES} hpsa.ko ${HPSADIR}
 
 
 

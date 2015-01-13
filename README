@@ -56,6 +56,11 @@ Additional/Updated Modules:
   http://lwn.net/Articles/215085/
   http://article.gmane.org/gmane.linux.file-systems.zfs.user/18418
 
+- include latest HPSA driver (HP Smart Array)
+
+  * http://sourceforge.net/projects/cciss/
+
+
 FIRMWARE:
 =========
 
