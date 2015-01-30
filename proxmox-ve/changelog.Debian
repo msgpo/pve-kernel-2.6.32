@@ -1,3 +1,9 @@
+proxmox-ve-2.6.32 (3.3-146) unstable; urgency=low
+
+  * re-package to update kernel version number
+
+ -- Proxmox Support Team <support@proxmox.com>  Fri, 30 Jan 2015 05:55:45 +0100
+
 proxmox-ve-2.6.32 (3.3-140) unstable; urgency=low
 
   * re-package to update version number for 3.3 release
