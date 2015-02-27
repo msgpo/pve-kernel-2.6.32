@@ -1,13 +1,13 @@
-RELEASE=3.3
+RELEASE=3.4
 
 KERNEL_VER=2.6.32
-PKGREL=147
+PKGREL=148
 # also include firmware of previous versrion into 
 # the fw package:  fwlist-2.6.32-PREV-pve
 KREL=37
 
 RHKVER=504.8.1.el6
-OVZVER=042stab104.1
+OVZVER=042stab105.6
 
 KERNELSRCRPM=vzkernel-${KERNEL_VER}-${OVZVER}.src.rpm
 
@@ -37,6 +37,9 @@ IGBSRC=${IGBDIR}.tar.gz
 
 IXGBEDIR=ixgbe-3.23.2
 IXGBESRC=${IXGBEDIR}.tar.gz
+
+I40EDIR=i40e-1.2.37
+I40ESRC=${I40EDIR}.tar.gz
 
 BNX2DIR=netxtreme2-7.11.05
 BNX2SRC=${BNX2DIR}.tar.gz
@@ -124,7 +127,7 @@ fwlist-${KVNAME} fwtest: data
 	cmp fwlist.tmp fwlist-2.6.32-20-pve
 	mv fwlist.tmp $@
 
-data: .compile_mark ${KERNEL_CFG} aoe.ko e1000e.ko igb.ko ixgbe.ko bnx2.ko cnic.ko bnx2x.ko iscsi_trgt.ko aacraid.ko megaraid_sas.ko rr272x_1x.ko arcmsr.ko openvswitch.ko hpsa.ko ${SPL_MODULES} ${ZFS_MODULES}
+data: .compile_mark ${KERNEL_CFG} aoe.ko e1000e.ko igb.ko i40e.ko ixgbe.ko bnx2.ko cnic.ko bnx2x.ko iscsi_trgt.ko aacraid.ko megaraid_sas.ko rr272x_1x.ko arcmsr.ko openvswitch.ko hpsa.ko ${SPL_MODULES} ${ZFS_MODULES}
 	rm -rf data tmp; mkdir -p tmp/lib/modules/${KVNAME}
 	mkdir tmp/boot
 	install -m 644 ${KERNEL_CFG} tmp/boot/config-${KVNAME}
@@ -135,6 +138,8 @@ data: .compile_mark ${KERNEL_CFG} aoe.ko e1000e.ko igb.ko ixgbe.ko bnx2.ko cnic.
 	install -m 644 openvswitch.ko tmp/lib/modules/${KVNAME}/kernel/net/openvswitch/openvswitch.ko
 	# install latest aoe driver
 	install -m 644 aoe.ko tmp/lib/modules/${KVNAME}/kernel/drivers/block/aoe/aoe.ko
+	# install latest i40e driver
+	install -m 644 i40e.ko tmp/lib/modules/${KVNAME}/kernel/drivers/net/i40e/
 	# install latest ixgbe driver
 	install -m 644 ixgbe.ko tmp/lib/modules/${KVNAME}/kernel/drivers/net/ixgbe/
 	# install latest e1000e driver
@@ -183,7 +188,7 @@ ${KERNEL_SRC}/README: ${KERNEL_SRC}.org/README
 	rm -rf ${KERNEL_SRC}
 	cp -a ${KERNEL_SRC}.org ${KERNEL_SRC}
 	cd ${KERNEL_SRC}; patch -p1 <../bootsplash-3.1.9-2.6.31-rh.patch
-	cd ${KERNEL_SRC}; patch -p1 <../${RHKERSRCDIR}/patch-042stab104
+	cd ${KERNEL_SRC}; patch -p1 <../${RHKERSRCDIR}/patch-042stab105
 	cd ${KERNEL_SRC}; patch -p1 <../do-not-use-barrier-on-ext3.patch
 	cd ${KERNEL_SRC}; patch -p1 <../bridge-patch.diff
 	#cd ${KERNEL_SRC}; patch -p1 <../kvm-fix-invalid-secondary-exec-controls.patch
@@ -284,6 +289,14 @@ ixgbe.ko ixgbe: .compile_mark ${IXGBESRC}
 	ln -sf ${TOP}/${KERNEL_SRC} /lib/modules/${KVNAME}/build
 	cd ${IXGBEDIR}/src; make CFLAGS_EXTRA="-DIXGBE_NO_LRO" BUILD_KERNEL=${KVNAME}
 	cp ${IXGBEDIR}/src/ixgbe.ko ixgbe.ko
+
+i40e.ko i40e: .compile_mark ${I40ESRC}
+	rm -rf ${I40EDIR}
+	tar xf ${I40ESRC}
+	mkdir -p /lib/modules/${KVNAME}
+	ln -sf ${TOP}/${KERNEL_SRC} /lib/modules/${KVNAME}/build
+	cd ${I40EDIR}/src; make BUILD_KERNEL=${KVNAME}
+	cp ${I40EDIR}/src/i40e.ko i40e.ko
 
 bnx2.ko cnic.ko bnx2x.ko: ${BNX2SRC}
 	rm -rf ${BNX2DIR}
@@ -387,7 +400,7 @@ distclean: clean
 
 .PHONY: clean
 clean:
-	rm -rf *~ .compile_mark ${KERNEL_CFG} ${KERNEL_SRC} tmp data proxmox-ve/data *.deb ${AOEDIR} aoe.ko ${headers_tmp} fwdata fwlist.tmp *.ko ${IXGBEDIR} ${E1000EDIR} e1000e.ko ${IGBDIR} igb.ko fwlist-${KVNAME} iscsi_trgt.ko ${ISCSITARGETDIR} ${BNX2DIR} bnx2.ko cnic.ko bnx2x.ko aacraid.ko ${AACRAIDDIR} megaraid_sas.ko ${MEGARAID_DIR} rr272x_1x.ko ${RR272XDIR} ${ARECADIR}.ko ${ARECADIR} ${OVSDIR} openvswitch.ko ${ZFSDIR} ${SPLDIR} ${SPL_MODULES} ${ZFS_MODULES} hpsa.ko ${HPSADIR}
+	rm -rf *~ .compile_mark ${KERNEL_CFG} ${KERNEL_SRC} tmp data proxmox-ve/data *.deb ${AOEDIR} aoe.ko ${headers_tmp} fwdata fwlist.tmp *.ko ${I40EDIR} ${IXGBEDIR} ${E1000EDIR} e1000e.ko ${IGBDIR} igb.ko fwlist-${KVNAME} iscsi_trgt.ko ${ISCSITARGETDIR} ${BNX2DIR} bnx2.ko cnic.ko bnx2x.ko aacraid.ko ${AACRAIDDIR} megaraid_sas.ko ${MEGARAID_DIR} rr272x_1x.ko ${RR272XDIR} ${ARECADIR}.ko ${ARECADIR} ${OVSDIR} openvswitch.ko ${ZFSDIR} ${SPLDIR} ${SPL_MODULES} ${ZFS_MODULES} hpsa.ko ${HPSADIR}
 
 
 

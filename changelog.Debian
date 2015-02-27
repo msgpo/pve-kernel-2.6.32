@@ -1,3 +1,11 @@
+pve-kernel-2.6.32 (2.6.32-148) unstable; urgency=low
+
+  * update to vzkernel-2.6.32-042stab105.6.src.rpm
+  
+  * add latest Intel(R) Ethernet Connection XL710 Network Driver (i40e)
+  
+ -- Proxmox Support Team <support@proxmox.com>  Fri, 27 Feb 2015 05:55:03 +0100
+
 pve-kernel-2.6.32 (2.6.32-147) unstable; urgency=low
 
   *  update to vzkernel-2.6.32-042stab104.1.src.rpm
