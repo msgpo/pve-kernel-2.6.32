@@ -1,3 +1,9 @@
+pve-kernel-2.6.32 (2.6.32-150) unstable; urgency=low
+
+  * update to vzkernel-2.6.32-042stab105.14.src.rpm
+
+ -- Proxmox Support Team <support@proxmox.com>  Wed, 18 Mar 2015 06:34:27 +0100
+
 pve-kernel-2.6.32 (2.6.32-149) unstable; urgency=low
 
   * IPv6: forwaring ICMP6 neighbor solicitation on bridge
