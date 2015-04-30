@@ -1,3 +1,9 @@
+pve-kernel-2.6.32 (2.6.32-154) unstable; urgency=low
+
+  * update zfs modules to 0.6.4.1
+
+ -- Proxmox Support Team <support@proxmox.com>  Thu, 30 Apr 2015 07:55:34 +0200
+
 pve-kernel-2.6.32 (2.6.32-153) unstable; urgency=low
 
   * update to vzkernel-2.6.32-042stab106.6.src.rpm
