@@ -1,3 +1,15 @@
+pve-kernel-2.6.32 (2.6.32-156) unstable; urgency=low
+
+  * update igb driver to 5.2.18
+  
+  * update ixgbe driver to 4.0.3
+  
+  * update i40e driver to 1.2.38
+  
+  * bump kernel API to 39-pve
+
+ -- Proxmox Support Team <support@proxmox.com>  Fri, 08 May 2015 11:07:08 +0200
+
 pve-kernel-2.6.32 (2.6.32-155) unstable; urgency=low
 
   * update to vzkernel-2.6.32-042stab108.1.src.rpm
