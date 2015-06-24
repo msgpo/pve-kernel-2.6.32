@@ -1,3 +1,11 @@
+pve-kernel-2.6.32 (2.6.32-157) unstable; urgency=low
+
+  * update to vzkernel-2.6.32-042stab108.5.src.rpm (fix for
+  CVE-2015-2925, CVE-2015-1805, CVE-2014-9419, CVE-2015-3331,
+  CVE-2014-9585, CVE-2014-9420).
+
+ -- Proxmox Support Team <support@proxmox.com>  Wed, 24 Jun 2015 06:16:49 +0200
+
 pve-kernel-2.6.32 (2.6.32-156) unstable; urgency=low
 
   * update igb driver to 5.2.18
