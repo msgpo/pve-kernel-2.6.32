@@ -1,8 +1,8 @@
-Index: newovs/acinclude.m4
+Index: novs/acinclude.m4
 ===================================================================
---- newovs.orig/acinclude.m4	2014-08-14 22:34:33.000000000 +0200
-+++ newovs/acinclude.m4	2014-09-18 06:50:07.000000000 +0200
-@@ -257,6 +257,7 @@
+--- novs.orig/acinclude.m4	2015-06-18 21:32:47.000000000 +0200
++++ novs/acinclude.m4	2015-07-20 14:06:41.000000000 +0200
+@@ -291,6 +291,7 @@
    OVS_GREP_IFELSE([$KSRC/include/linux/netdevice.h], [can_checksum_protocol])
    OVS_GREP_IFELSE([$KSRC/include/linux/netdevice.h], [netdev_features_t])
    OVS_GREP_IFELSE([$KSRC/include/linux/netdevice.h], [pcpu_sw_netstats])
@@ -10,10 +10,19 @@ Index: newovs/acinclude.m4
  
    OVS_GREP_IFELSE([$KSRC/include/linux/random.h], [prandom_u32])
  
-Index: newovs/datapath/linux/compat/net_namespace.c
+@@ -333,7 +334,7 @@
+   OVS_GREP_IFELSE([$KSRC/include/linux/skbuff.h], [skb_clear_hash])
+   OVS_GREP_IFELSE([$KSRC/include/linux/skbuff.h], [int.skb_zerocopy(],
+                   [OVS_DEFINE([HAVE_SKB_ZEROCOPY])])
+-  OVS_GREP_IFELSE([$KSRC/include/linux/skbuff.h], [l4_rxhash])
++  #OVS_GREP_IFELSE([$KSRC/include/linux/skbuff.h], [l4_rxhash])
+ 
+   OVS_GREP_IFELSE([$KSRC/include/linux/types.h], [bool],
+                   [OVS_DEFINE([HAVE_BOOL_TYPE])])
+Index: novs/datapath/linux/compat/net_namespace.c
 ===================================================================
---- newovs.orig/datapath/linux/compat/net_namespace.c	2014-07-14 12:28:51.000000000 +0200
-+++ newovs/datapath/linux/compat/net_namespace.c	2014-09-18 06:52:24.000000000 +0200
+--- novs.orig/datapath/linux/compat/net_namespace.c	2015-06-18 21:32:47.000000000 +0200
++++ novs/datapath/linux/compat/net_namespace.c	2015-07-20 13:20:34.000000000 +0200
 @@ -3,7 +3,7 @@
  #include <net/net_namespace.h>
  #include <net/netns/generic.h>
@@ -23,10 +32,10 @@ Index: newovs/datapath/linux/compat/net_namespace.c
  
  int compat_init_net(struct net *net, struct rpl_pernet_operations *pnet)
  {
-Index: newovs/datapath/linux/compat/include/net/net_namespace.h
+Index: novs/datapath/linux/compat/include/net/net_namespace.h
 ===================================================================
---- newovs.orig/datapath/linux/compat/include/net/net_namespace.h	2014-07-14 12:28:51.000000000 +0200
-+++ newovs/datapath/linux/compat/include/net/net_namespace.h	2014-09-18 06:55:31.000000000 +0200
+--- novs.orig/datapath/linux/compat/include/net/net_namespace.h	2015-06-18 21:32:47.000000000 +0200
++++ novs/datapath/linux/compat/include/net/net_namespace.h	2015-07-20 13:20:34.000000000 +0200
 @@ -3,7 +3,7 @@
  
  #include_next <net/net_namespace.h>
@@ -36,3 +45,45 @@ Index: newovs/datapath/linux/compat/include/net/net_namespace.h
  /* for 2.6.32* */
  struct rpl_pernet_operations {
  	int (*init)(struct net *net);
+Index: novs/datapath/linux/compat/dev-openvswitch.c
+===================================================================
+--- novs.orig/datapath/linux/compat/dev-openvswitch.c	2015-06-18 21:32:47.000000000 +0200
++++ novs/datapath/linux/compat/dev-openvswitch.c	2015-07-20 13:53:38.000000000 +0200
+@@ -33,8 +33,7 @@
+ 
+ #endif /* HAVE_DEV_DISABLE_LRO */
+ 
+-#if LINUX_VERSION_CODE < KERNEL_VERSION(2,6,36) || \
+-    defined HAVE_RHEL_OVS_HOOK
++#if 0
+ 
+ static int nr_bridges;
+ 
+Index: novs/datapath/linux/compat/include/linux/netdevice.h
+===================================================================
+--- novs.orig/datapath/linux/compat/include/linux/netdevice.h	2015-06-18 21:32:47.000000000 +0200
++++ novs/datapath/linux/compat/include/linux/netdevice.h	2015-07-20 13:53:46.000000000 +0200
+@@ -22,9 +22,7 @@
+ extern void dev_disable_lro(struct net_device *dev);
+ #endif
+ 
+-#if LINUX_VERSION_CODE < KERNEL_VERSION(2,6,36) || \
+-    defined HAVE_RHEL_OVS_HOOK
+-
++#if 0
+ #ifdef HAVE_RHEL_OVS_HOOK
+ typedef struct sk_buff *(openvswitch_handle_frame_hook_t)(struct sk_buff *skb);
+ extern openvswitch_handle_frame_hook_t *openvswitch_handle_frame_hook;
+Index: novs/datapath/vport-netdev.c
+===================================================================
+--- novs.orig/datapath/vport-netdev.c	2015-06-18 21:32:47.000000000 +0200
++++ novs/datapath/vport-netdev.c	2015-07-20 14:02:25.000000000 +0200
+@@ -36,7 +36,7 @@
+ 
+ static void netdev_port_receive(struct vport *vport, struct sk_buff *skb);
+ 
+-#if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,39)
++#if 1
+ /* Called with rcu_read_lock and bottom-halves disabled. */
+ static rx_handler_result_t netdev_frame_hook(struct sk_buff **pskb)
+ {
