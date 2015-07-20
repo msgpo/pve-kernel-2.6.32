@@ -64,7 +64,7 @@ RR272XDIR=rr272x_1x-linux-src-v1.5
 ISCSITARGETDIR=iscsitarget-1.4.20.2
 ISCSITARGETSRC=${ISCSITARGETDIR}.tar.gz
 
-OVSDIR=openvswitch-2.3.1
+OVSDIR=openvswitch-2.3.2
 OVSSRC=${OVSDIR}.tar.gz
 
 ZFSVER=0.6.4.1
