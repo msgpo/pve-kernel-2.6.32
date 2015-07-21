@@ -1,7 +1,7 @@
-Index: novs/acinclude.m4
+Index: openvswitch-2.3.2/acinclude.m4
 ===================================================================
---- novs.orig/acinclude.m4	2015-06-18 21:32:47.000000000 +0200
-+++ novs/acinclude.m4	2015-07-20 14:06:41.000000000 +0200
+--- openvswitch-2.3.2.orig/acinclude.m4	2015-06-18 21:32:47.000000000 +0200
++++ openvswitch-2.3.2/acinclude.m4	2015-07-21 10:06:17.000000000 +0200
 @@ -291,6 +291,7 @@
    OVS_GREP_IFELSE([$KSRC/include/linux/netdevice.h], [can_checksum_protocol])
    OVS_GREP_IFELSE([$KSRC/include/linux/netdevice.h], [netdev_features_t])
@@ -19,10 +19,10 @@ Index: novs/acinclude.m4
  
    OVS_GREP_IFELSE([$KSRC/include/linux/types.h], [bool],
                    [OVS_DEFINE([HAVE_BOOL_TYPE])])
-Index: novs/datapath/linux/compat/net_namespace.c
+Index: openvswitch-2.3.2/datapath/linux/compat/net_namespace.c
 ===================================================================
---- novs.orig/datapath/linux/compat/net_namespace.c	2015-06-18 21:32:47.000000000 +0200
-+++ novs/datapath/linux/compat/net_namespace.c	2015-07-20 13:20:34.000000000 +0200
+--- openvswitch-2.3.2.orig/datapath/linux/compat/net_namespace.c	2015-06-18 21:32:47.000000000 +0200
++++ openvswitch-2.3.2/datapath/linux/compat/net_namespace.c	2015-07-21 10:06:17.000000000 +0200
 @@ -3,7 +3,7 @@
  #include <net/net_namespace.h>
  #include <net/netns/generic.h>
@@ -32,10 +32,10 @@ Index: novs/datapath/linux/compat/net_namespace.c
  
  int compat_init_net(struct net *net, struct rpl_pernet_operations *pnet)
  {
-Index: novs/datapath/linux/compat/include/net/net_namespace.h
+Index: openvswitch-2.3.2/datapath/linux/compat/include/net/net_namespace.h
 ===================================================================
---- novs.orig/datapath/linux/compat/include/net/net_namespace.h	2015-06-18 21:32:47.000000000 +0200
-+++ novs/datapath/linux/compat/include/net/net_namespace.h	2015-07-20 13:20:34.000000000 +0200
+--- openvswitch-2.3.2.orig/datapath/linux/compat/include/net/net_namespace.h	2015-06-18 21:32:47.000000000 +0200
++++ openvswitch-2.3.2/datapath/linux/compat/include/net/net_namespace.h	2015-07-21 10:06:17.000000000 +0200
 @@ -3,7 +3,7 @@
  
  #include_next <net/net_namespace.h>
@@ -45,10 +45,10 @@ Index: novs/datapath/linux/compat/include/net/net_namespace.h
  /* for 2.6.32* */
  struct rpl_pernet_operations {
  	int (*init)(struct net *net);
-Index: novs/datapath/linux/compat/dev-openvswitch.c
+Index: openvswitch-2.3.2/datapath/linux/compat/dev-openvswitch.c
 ===================================================================
---- novs.orig/datapath/linux/compat/dev-openvswitch.c	2015-06-18 21:32:47.000000000 +0200
-+++ novs/datapath/linux/compat/dev-openvswitch.c	2015-07-20 13:53:38.000000000 +0200
+--- openvswitch-2.3.2.orig/datapath/linux/compat/dev-openvswitch.c	2015-06-18 21:32:47.000000000 +0200
++++ openvswitch-2.3.2/datapath/linux/compat/dev-openvswitch.c	2015-07-21 10:06:17.000000000 +0200
 @@ -33,8 +33,7 @@
  
  #endif /* HAVE_DEV_DISABLE_LRO */
@@ -59,10 +59,10 @@ Index: novs/datapath/linux/compat/dev-openvswitch.c
  
  static int nr_bridges;
  
-Index: novs/datapath/linux/compat/include/linux/netdevice.h
+Index: openvswitch-2.3.2/datapath/linux/compat/include/linux/netdevice.h
 ===================================================================
---- novs.orig/datapath/linux/compat/include/linux/netdevice.h	2015-06-18 21:32:47.000000000 +0200
-+++ novs/datapath/linux/compat/include/linux/netdevice.h	2015-07-20 13:53:46.000000000 +0200
+--- openvswitch-2.3.2.orig/datapath/linux/compat/include/linux/netdevice.h	2015-06-18 21:32:47.000000000 +0200
++++ openvswitch-2.3.2/datapath/linux/compat/include/linux/netdevice.h	2015-07-21 10:06:17.000000000 +0200
 @@ -22,9 +22,7 @@
  extern void dev_disable_lro(struct net_device *dev);
  #endif
@@ -74,10 +74,10 @@ Index: novs/datapath/linux/compat/include/linux/netdevice.h
  #ifdef HAVE_RHEL_OVS_HOOK
  typedef struct sk_buff *(openvswitch_handle_frame_hook_t)(struct sk_buff *skb);
  extern openvswitch_handle_frame_hook_t *openvswitch_handle_frame_hook;
-Index: novs/datapath/vport-netdev.c
+Index: openvswitch-2.3.2/datapath/vport-netdev.c
 ===================================================================
---- novs.orig/datapath/vport-netdev.c	2015-06-18 21:32:47.000000000 +0200
-+++ novs/datapath/vport-netdev.c	2015-07-20 14:02:25.000000000 +0200
+--- openvswitch-2.3.2.orig/datapath/vport-netdev.c	2015-06-18 21:32:47.000000000 +0200
++++ openvswitch-2.3.2/datapath/vport-netdev.c	2015-07-21 10:32:15.000000000 +0200
 @@ -36,7 +36,7 @@
  
  static void netdev_port_receive(struct vport *vport, struct sk_buff *skb);
@@ -87,3 +87,13 @@ Index: novs/datapath/vport-netdev.c
  /* Called with rcu_read_lock and bottom-halves disabled. */
  static rx_handler_result_t netdev_frame_hook(struct sk_buff **pskb)
  {
+@@ -280,8 +280,7 @@
+ 	.send		= netdev_send,
+ };
+ 
+-#if LINUX_VERSION_CODE < KERNEL_VERSION(2,6,36) && \
+-    !defined HAVE_RHEL_OVS_HOOK
++#if 0
+ /*
+  * Enforces, mutual exclusion with the Linux bridge module, by declaring and
+  * exporting br_should_route_hook.  Because the bridge module also exports the
