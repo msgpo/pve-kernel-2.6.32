@@ -207,6 +207,7 @@ ${KERNEL_SRC}/README: ${KERNEL_SRC}.org/README
 	#cd ${KERNEL_SRC}; patch -p1 <../fix-nfs-block-count.patch
 	cd ${KERNEL_SRC}; patch -p1 <../fix-idr-header-for-drbd-compilation.patch
 	cd ${KERNEL_SRC}; patch -p1 <../kvm-x86-ignore-ioapic-polarity.patch
+	cd ${KERNEL_SRC}; patch -p1 <../fix-jfs-compile-error.patch
 	sed -i ${KERNEL_SRC}/Makefile -e 's/^EXTRAVERSION.*$$/EXTRAVERSION=${EXTRAVERSION}/'
 	touch $@
 

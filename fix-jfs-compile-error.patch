@@ -1,0 +1,11 @@
+--- linux-2.6-2.6.32/fs/jfs/inode.c.org	2015-07-21 05:57:13.000000000 +0200
++++ linux-2.6-2.6.32/fs/jfs/inode.c	2015-07-21 05:57:20.000000000 +0200
+@@ -169,7 +169,7 @@
+ 	clear_inode(inode);
+ }
+ 
+-void jfs_dirty_inode(struct inode *inode, int flags)
++void jfs_dirty_inode(struct inode *inode)
+ {
+ 	static int noisy = 5;
+ 
