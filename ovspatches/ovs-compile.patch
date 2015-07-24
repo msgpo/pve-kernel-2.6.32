@@ -10,15 +10,6 @@ Index: openvswitch-2.3.2/acinclude.m4
  
    OVS_GREP_IFELSE([$KSRC/include/linux/random.h], [prandom_u32])
  
-@@ -333,7 +334,7 @@
-   OVS_GREP_IFELSE([$KSRC/include/linux/skbuff.h], [skb_clear_hash])
-   OVS_GREP_IFELSE([$KSRC/include/linux/skbuff.h], [int.skb_zerocopy(],
-                   [OVS_DEFINE([HAVE_SKB_ZEROCOPY])])
--  OVS_GREP_IFELSE([$KSRC/include/linux/skbuff.h], [l4_rxhash])
-+  #OVS_GREP_IFELSE([$KSRC/include/linux/skbuff.h], [l4_rxhash])
- 
-   OVS_GREP_IFELSE([$KSRC/include/linux/types.h], [bool],
-                   [OVS_DEFINE([HAVE_BOOL_TYPE])])
 Index: openvswitch-2.3.2/datapath/linux/compat/net_namespace.c
 ===================================================================
 --- openvswitch-2.3.2.orig/datapath/linux/compat/net_namespace.c	2015-06-18 21:32:47.000000000 +0200
@@ -45,55 +36,3 @@ Index: openvswitch-2.3.2/datapath/linux/compat/include/net/net_namespace.h
  /* for 2.6.32* */
  struct rpl_pernet_operations {
  	int (*init)(struct net *net);
-Index: openvswitch-2.3.2/datapath/linux/compat/dev-openvswitch.c
-===================================================================
---- openvswitch-2.3.2.orig/datapath/linux/compat/dev-openvswitch.c	2015-06-18 21:32:47.000000000 +0200
-+++ openvswitch-2.3.2/datapath/linux/compat/dev-openvswitch.c	2015-07-21 10:06:17.000000000 +0200
-@@ -33,8 +33,7 @@
- 
- #endif /* HAVE_DEV_DISABLE_LRO */
- 
--#if LINUX_VERSION_CODE < KERNEL_VERSION(2,6,36) || \
--    defined HAVE_RHEL_OVS_HOOK
-+#if 0
- 
- static int nr_bridges;
- 
-Index: openvswitch-2.3.2/datapath/linux/compat/include/linux/netdevice.h
-===================================================================
---- openvswitch-2.3.2.orig/datapath/linux/compat/include/linux/netdevice.h	2015-06-18 21:32:47.000000000 +0200
-+++ openvswitch-2.3.2/datapath/linux/compat/include/linux/netdevice.h	2015-07-21 10:06:17.000000000 +0200
-@@ -22,9 +22,7 @@
- extern void dev_disable_lro(struct net_device *dev);
- #endif
- 
--#if LINUX_VERSION_CODE < KERNEL_VERSION(2,6,36) || \
--    defined HAVE_RHEL_OVS_HOOK
--
-+#if 0
- #ifdef HAVE_RHEL_OVS_HOOK
- typedef struct sk_buff *(openvswitch_handle_frame_hook_t)(struct sk_buff *skb);
- extern openvswitch_handle_frame_hook_t *openvswitch_handle_frame_hook;
-Index: openvswitch-2.3.2/datapath/vport-netdev.c
-===================================================================
---- openvswitch-2.3.2.orig/datapath/vport-netdev.c	2015-06-18 21:32:47.000000000 +0200
-+++ openvswitch-2.3.2/datapath/vport-netdev.c	2015-07-21 10:32:15.000000000 +0200
-@@ -36,7 +36,7 @@
- 
- static void netdev_port_receive(struct vport *vport, struct sk_buff *skb);
- 
--#if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,39)
-+#if 1
- /* Called with rcu_read_lock and bottom-halves disabled. */
- static rx_handler_result_t netdev_frame_hook(struct sk_buff **pskb)
- {
-@@ -280,8 +280,7 @@
- 	.send		= netdev_send,
- };
- 
--#if LINUX_VERSION_CODE < KERNEL_VERSION(2,6,36) && \
--    !defined HAVE_RHEL_OVS_HOOK
-+#if 0
- /*
-  * Enforces, mutual exclusion with the Linux bridge module, by declaring and
-  * exporting br_should_route_hook.  Because the bridge module also exports the
