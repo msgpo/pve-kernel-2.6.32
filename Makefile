@@ -1,7 +1,7 @@
 RELEASE=3.4
 
 KERNEL_VER=2.6.32
-PKGREL=159
+PKGREL=160
 # also include firmware of previous versrion into 
 # the fw package:  fwlist-2.6.32-PREV-pve
 KREL=40
@@ -67,11 +67,10 @@ ISCSITARGETSRC=${ISCSITARGETDIR}.tar.gz
 OVSDIR=openvswitch-2.3.2
 OVSSRC=${OVSDIR}.tar.gz
 
-ZFSVER=0.6.4.2
-SPLDIR=spl-${ZFSVER}
-SPLSRC=spl-${ZFSVER}.tar.gz
-ZFSDIR=zfs-${ZFSVER}
-ZFSSRC=zfs-${ZFSVER}.tar.gz
+SPLDIR=pkg-spl
+SPLSRC=pkg-spl.tar.gz
+ZFSDIR=pkg-zfs
+ZFSSRC=pkg-zfs.tar.gz
 ZFS_MODULES=zfs.ko zavl.ko znvpair.ko zunicode.ko zcommon.ko zpios.ko
 SPL_MODULES=spl.ko splat.ko
 
