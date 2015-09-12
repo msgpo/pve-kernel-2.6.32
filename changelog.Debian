@@ -1,3 +1,9 @@
+pve-kernel-2.6.32 (2.6.32-161) unstable; urgency=low
+
+  * update to latest stable vzkernel-2.6.32-042stab111.11.src.rpm
+
+ -- Proxmox Support Team <support@proxmox.com>  Sat, 12 Sep 2015 12:47:14 +0200
+
 pve-kernel-2.6.32 (2.6.32-160) unstable; urgency=low
 
   * use zfs/spl sources from our zfs userspace tool (to avoid 
