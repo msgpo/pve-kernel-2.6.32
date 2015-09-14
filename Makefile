@@ -1,7 +1,7 @@
 RELEASE=3.4
 
 KERNEL_VER=2.6.32
-PKGREL=161
+PKGREL=162
 # also include firmware of previous versrion into 
 # the fw package:  fwlist-2.6.32-PREV-pve
 KREL=41

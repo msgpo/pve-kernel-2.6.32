@@ -1,3 +1,9 @@
+pve-kernel-2.6.32 (2.6.32-162) unstable; urgency=low
+
+  *  openvswitch: do not export br_should_route_hook
+
+ -- Proxmox Support Team <support@proxmox.com>  Mon, 14 Sep 2015 11:04:21 +0200
+
 pve-kernel-2.6.32 (2.6.32-161) unstable; urgency=low
 
   * update to latest stable vzkernel-2.6.32-042stab111.11.src.rpm
