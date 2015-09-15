@@ -1,3 +1,9 @@
+pve-kernel-2.6.32 (2.6.32-163) unstable; urgency=low
+
+  * openvswitch: fix ovs_netdev_get_vport
+
+ -- Proxmox Support Team <support@proxmox.com>  Tue, 15 Sep 2015 13:55:41 +0200
+
 pve-kernel-2.6.32 (2.6.32-162) unstable; urgency=low
 
   *  openvswitch: do not export br_should_route_hook
